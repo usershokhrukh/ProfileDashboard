@@ -75,12 +75,81 @@
 
     @keyframes showForm {
       0%{
-        transform: translateY(-10px);
+        transform: translateY(-30px);
       }100% {
         transform: translateY(0px);
+        visibility: visible;
       }
-      
     }
+
+    @keyframes inputText {
+      0% {
+        top: 0px;
+      }100% {
+        top: 0px;
+        transform: translateX(-4px);
+      }
+    }
+
+    @keyframes warning {
+      0%{
+        transform: translateY(-24px) translateX(-4px);
+      }25% {
+        transform: translateX(5px) translateY(-24px);
+      }50% {
+        transform: translateX(-5px) translateY(-24px);
+      }75% {
+        transform: translateX(5px) translateY(-24px);
+      }100% {
+        transform: translateX(-4px) translateY(-24px);
+      }
+    }
+
+    @keyframes accepted {
+      0%{
+        border: 1px solid var(--colorUserGreen);
+      }100% {
+        border: 1px solid var(--colorUserGreen);
+      }
+    }
+
+    @keyframes acceptedText {
+      0% {
+        top: 0px;
+        transform: translateX(0px);
+      }100%{
+        top: 0px;
+        color: var(--colorUserGreen);
+      }
+    }
+
+    @keyframes block {
+      0% {
+        opacity: 0.5;
+      }100% {
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes close {
+      0%{
+        visibility: visible;
+      }100% {
+        visibility: hidden;
+      }
+    }
+
+    @keyframes closeForm {
+      0%  {
+        visibility: visible;
+        transform: translateY(0px);
+      }100% {
+        transform: translateY(-30px);
+        visibility: hidden;
+      }
+    }
+
+
   </style>
   <body>
     <header class="wrapper navbar__header">
@@ -291,7 +360,7 @@
             <p class="profileform__text">
               Email (required)
             </p>
-            <input class="profileform__input" type="email">
+            <input required class="profileform__input" type="email">
           </div>
           <div class="profileform__boxes profileform__textarea-box">
             <p class="profileform__text">
