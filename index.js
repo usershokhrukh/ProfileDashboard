@@ -1,5 +1,3 @@
-
-
 const elBurger = document.querySelector(".navbar__burger");
 const elHeaderBoxBurger = document.querySelector(".navbar__box-phone");
 const elHeaderClose = document.querySelector(".navbar__close");
@@ -13,123 +11,100 @@ const elLeftIcons = document.querySelectorAll(".navbar__left-icons");
 const elProfileFormButton = document.querySelector(".profileform__button");
 const elProfileInputs = document.querySelectorAll(".profileform__input");
 const elProfileText = document.querySelectorAll(".profileform__text");
-const elProfileForm = document.querySelector(".profileform__form")
-const elProfileTextSpan = document.querySelectorAll(".navbar__profile-sub")
+const elProfileForm = document.querySelector(".profileform__form");
+const elProfileTextSpan = document.querySelectorAll(".navbar__profile-sub");
 let showHideReport = false;
 let showHideIconSet = false;
 let nightLight = false;
-let userEntered = false
+let userEntered = false;
 
 function start() {
   if (userEntered) {
-      elLeftIcons[0].addEventListener("click", ()=>{
-          elLeftIcons[0].style.cssText = `
+    elLeftIcons[0].addEventListener("click", () => {
+      elLeftIcons[0].style.cssText = `
             visibility: hidden;
 
           `;
-          elLeftIcons[1].style.cssText = `
+      elLeftIcons[1].style.cssText = `
             visibility: visible;
-          `; 
+          `;
+    });
 
-        
-      });
-
-      elLeftIcons[1].addEventListener("click", ()=>{
-          elLeftIcons[1].style.cssText = `
+    elLeftIcons[1].addEventListener("click", () => {
+      elLeftIcons[1].style.cssText = `
             visibility: hidden;
           `;
-          elLeftIcons[0].style.cssText = `
+      elLeftIcons[0].style.cssText = `
             visibility: visible;
           `;
-      });
+    });
 
+    elProfileClose.addEventListener("click", () => {
+      elIconSet.style.cssText = `
+              animation: none;
+              visibility: hidden;
+            `;
+      showHideIconSet = false;
+    });
 
+    elNavbarIcon[0].addEventListener("click", () => {
+      if (!showHideIconSet) {
+        elIconSet.style.cssText = `
+              animation-name: showIconSetPhone;
+              animation-duration: 0.3s;
+              animation-fill-mode: forwards;
 
-      elProfileClose.addEventListener("click", ()=>{
+            `;
+        showHideIconSet = true;
+      } else {
         elIconSet.style.cssText = `
               animation: none;
               visibility: hidden;
             `;
-          showHideIconSet = false;
+        showHideIconSet = false;
+      }
+    });
 
-      });
-
-
-
-      elNavbarIcon[0].addEventListener("click", () => {
-        if(!showHideIconSet) {
-          elIconSet.style.cssText = `
+    elNavbarIcon[1].addEventListener("click", () => {
+      if (!showHideIconSet) {
+        elIconSet.style.cssText = `
               animation-name: showIconSetPhone;
               animation-duration: 0.3s;
               animation-fill-mode: forwards;
 
             `;
-          showHideIconSet = true;
-        }else {
-          elIconSet.style.cssText = `
+        showHideIconSet = true;
+      } else {
+        elIconSet.style.cssText = `
               animation: none;
               visibility: hidden;
             `;
-          showHideIconSet = false;
-        }
-      });
+        showHideIconSet = false;
+      }
+    });
 
-      elNavbarIcon[1].addEventListener("click", () => {
-        if(!showHideIconSet) {
-          elIconSet.style.cssText = `
-              animation-name: showIconSetPhone;
-              animation-duration: 0.3s;
-              animation-fill-mode: forwards;
-
-            `;
-          showHideIconSet = true;
-        }else {
-          elIconSet.style.cssText = `
-              animation: none;
-              visibility: hidden;
-            `;
-          showHideIconSet = false;
-        }
-      });
-
-      elNavbarButton.addEventListener("click", (e) => {    
-        if (!elTextArea.value.trim()) {
-          elTextArea.style.cssText = `
+    elNavbarButton.addEventListener("click", (e) => {
+      if (!elTextArea.value.trim()) {
+        elTextArea.style.cssText = `
           border: 1px solid red;
           `;
-        }else {
-          elNavbarIcon[0].innerHTML = `
+      } else {
+        elNavbarIcon[0].innerHTML = `
             ${elTextArea.value.trim()}
           `;
-          elNavbarIcon[1].innerHTML = `
+        elNavbarIcon[1].innerHTML = `
             ${elTextArea.value.trim()}
           `;
-          elNavbarIcon[2].innerHTML = `
+        elNavbarIcon[2].innerHTML = `
             ${elTextArea.value.trim()}
           `;
-
-        }
-        elNavbarButton.disabled = true;
-        elNavbarButton.style.cssText = `
+      }
+      elNavbarButton.disabled = true;
+      elNavbarButton.style.cssText = `
           opacity: 0.7;
 
         `;
-      });
-      
-      window.addEventListener("keydown", () => {
-        if (elTextArea.value.trim()) {
-          elTextArea.style.cssText = `
-            border: none;
-          `;
-          elNavbarButton.style.cssText = `
-            opacity: 1;
-          `;
-          elNavbarButton.disabled = false;
-        }
-      });
-
-
-
+    });
 
     function headerBurgerWork() {
       if (window.innerWidth >= 650) {
@@ -169,7 +144,6 @@ function start() {
             elBurger.style.cssText = `
                 display: none;
               `;
-
           }
         });
 
@@ -195,17 +169,16 @@ function start() {
     }
     headerBurgerWork();
     window.addEventListener("resize", headerBurgerWork);
-
   }
 }
 
 start();
 
-
 let elProfileINputCheck = false;
+let elEmailChecked = false;
 
 function elProfileInputsWork(index) {
-  elProfileInputs[index].addEventListener('click', ()=>{
+  elProfileInputs[index].addEventListener("click", () => {
     elProfileInputs[index].style.cssText = `
       border: 1px solid var(--colorUser);
     `;
@@ -216,38 +189,63 @@ function elProfileInputsWork(index) {
       animation-fill-mode: forwards;
       color: var(--colorUser)
     `;
-  });
-} 
-  elProfileInputsWork(0);
-  elProfileInputsWork(1);
-  elProfileInputsWork(2);
-  elProfileInputsWork(3);
-  elProfileInputsWork(4);
-  elProfileInputsWork(5);
 
-
-
-
-elProfileFormButton.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let accept = 0;
-  for (var i = 0; i <= 5; i++) {
-    if(!elProfileInputs[i].value.trim()) {
-      elProfileInputs[i].style.cssText = `
-        border: 1px solid red;
-      `;
-      elProfileText[i].style.cssText = `
-        color: red ;
-        animation-name: warning;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-      `;
-    }else {
-      accept++;
+    if (index == 3) {
+      elEmailChecked = true;
     }
+  });
+}
+elProfileInputsWork(0);
+elProfileInputsWork(1);
+elProfileInputsWork(2);
+elProfileInputsWork(3);
+elProfileInputsWork(4);
+elProfileInputsWork(5);
+
+var includesEmailGlobal = false;
+
+window.addEventListener("keydown", () => {
+  if (elTextArea.value.trim()) {
+    elTextArea.style.cssText = `
+            border: none;
+          `;
+    elNavbarButton.style.cssText = `
+            opacity: 1;
+          `;
+    elNavbarButton.disabled = false;
+  }  
+  if (Number(elProfileInputs[2].value.trim()) < 120 && elProfileInputs[2].value.trim().length > 0) {
+    elProfileText[2].textContent = "Correct";
+    elProfileInputs[2].style.cssText = `
+      border: 1px solid var(--colorUser);
+    `;
+
+    elProfileText[2].style.cssText = `
+      animation-name: inputText;
+      animation-duration: 0.2s;
+      animation-fill-mode: forwards;
+      color: var(--colorUser)
+    `;
+  }else if (Number(elProfileInputs[2].value.trim()) >= 120) {
+    elProfileText[2].textContent = "Should be less than 120";
+    elProfileInputs[2].style.cssText = `
+                border: 1px solid red;
+              `;
+    elProfileText[2].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+          `;
   }
 
-  if (!elProfileInputs[3].value.trim()) {
+  if (
+    elProfileInputs[3].value.trim()[
+      elProfileInputs[3].value.trim().length - 1
+    ] != "@" &&
+    includesEmailGlobal
+  ) {
+    elProfileText[3].textContent = "Correct";
     elProfileInputs[3].style.cssText = `
       border: 1px solid var(--colorUser);
     `;
@@ -260,7 +258,103 @@ elProfileFormButton.addEventListener("submit", (e) => {
     `;
   }
 
-  if (accept == 6) {  
+  if (elEmailChecked) {
+    var includesInEmail = elProfileInputs[3].value.trim().includes("@");
+    includesEmailGlobal = includesInEmail;
+    if (!includesInEmail) {
+      elProfileText[3].textContent = "There must be '@'";
+      elProfileInputs[3].style.cssText = `
+                border: 1px solid red;
+              `;
+      elProfileText[3].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+    } else if (includesInEmail) {
+      for (var i = 0; i < elProfileInputs[3].value.trim().length; i++) {
+        if (elProfileInputs[3].value.trim()[i] == "@") {
+          if (
+            elProfileInputs[3].value.trim()[
+              elProfileInputs[3].value.trim().length - 1
+            ] == "@"
+          ) {
+            elProfileText[3].textContent = "Please write text after '@'";
+            elProfileInputs[3].style.cssText = `
+                border: 1px solid red;
+              `;
+            elProfileText[3].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+          }
+        }
+      }
+    }
+  }
+});
+
+elProfileFormButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let accept = 0;
+
+  for (var i = 0; i <= 5; i++) {
+    if (!elProfileInputs[i].value.trim()) {
+      elProfileInputs[i].style.cssText = `
+                border: 1px solid red;
+              `;
+      elProfileText[i].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+    }
+  }
+
+  if (
+    elProfileInputs[3].value.trim()[
+      elProfileInputs[3].value.trim().length - 1
+    ] != "@" &&
+    includesEmailGlobal
+  ) {
+    elProfileText[3].textContent = "Correct";
+
+    if (Number(elProfileInputs[2].value.trim()) < 120) {
+      for (var i = 0; i <= 5; i++) {
+        if (!elProfileInputs[i].value.trim()) {
+          elProfileInputs[i].style.cssText = `
+                border: 1px solid red;
+              `;
+          elProfileText[i].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+        } else {
+          accept++;
+        }
+      }
+    } else {
+      elProfileText[2].textContent = "Should be less than 120";
+
+      elProfileInputs[2].style.cssText = `
+                border: 1px solid red;
+              `;
+      elProfileText[2].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+          `;
+    }
+  }
+
+  if (accept == 6) {
     elProfileFormButton.style.cssText = `
       animation-name: block;
       animation-duration: 1.5s;
@@ -269,18 +363,18 @@ elProfileFormButton.addEventListener("submit", (e) => {
 
     elProfileFormButton.disabled = true;
     console.log(elProfileFormButton);
-    
-    for(var i = 0; i <= 5; i++) {
+
+    for (var i = 0; i <= 5; i++) {
       elProfileInputs[i].style.cssText = `
         animation-name: accepted;
         animation-duration: 0.1s;
-        animation-delay: ${i/4}s;
+        animation-delay: ${i / 4}s;
         animation-fill-mode: forwards;
       `;
       elProfileText[i].style.cssText = `
         animation-name: acceptedText;
         animation-duration: 0.1s;
-        animation-delay: ${i/4}s;
+        animation-delay: ${i / 4}s;
         animation-fill-mode: backwards;
         top: 0px;
         transform: translateX(-4px);
@@ -294,12 +388,14 @@ elProfileFormButton.addEventListener("submit", (e) => {
       animation-fill-mode: backwards;
     `;
 
-    userEntered = true;    
+    userEntered = true;
     start();
 
     function userNames(inputs) {
-      const userInputFirst = (inputs.value.trim()).toLowerCase()
-      const userNameFinal = (userInputFirst[0].toUpperCase()).concat(userInputFirst.slice(1));
+      const userInputFirst = inputs.value.trim().toLowerCase();
+      const userNameFinal = userInputFirst[0]
+        .toUpperCase()
+        .concat(userInputFirst.slice(1));
 
       return userNameFinal;
     }
@@ -307,26 +403,8 @@ elProfileFormButton.addEventListener("submit", (e) => {
     elProfileTextSpan[0].textContent = userNames(elProfileInputs[0]);
     elProfileTextSpan[1].textContent = userNames(elProfileInputs[1]);
 
-
-    for(var i = 2; i <= 5; i++) {
+    for (var i = 2; i <= 5; i++) {
       elProfileTextSpan[i].textContent = elProfileInputs[i].value.trim();
     }
   }
-});
-
-
-window.addEventListener("keydown", ()=> {
-  if (!elProfileInputs[3].value.trim()) {
-    elProfileInputs[3].style.cssText = `
-      border: 1px solid var(--colorUser);
-    `;
-
-    elProfileText[3].style.cssText = `
-      animation-name: inputText;
-      animation-duration: 0.2s;
-      animation-fill-mode: forwards;
-      color: var(--colorUser)
-    `;
-  }
-
 });

@@ -2,7 +2,7 @@
 
   @include display();
   justify-content: center;
-  // height: 80vh;
+  // height: 87.5vh;
   &__form {
     @include display();
     position: relative;
@@ -85,6 +85,13 @@
 
     &__form {
       width: 100%;
+    }
+
+    &__textarea {
+      width: 90%;
+      max-width: 130px !important;
+      max-width: none;
+      min-width: 50px;
     }
   }
 }

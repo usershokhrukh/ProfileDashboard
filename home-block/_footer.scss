@@ -1,0 +1,20 @@
+.footer {
+  @include display();
+  position: relative;
+  bottom: -100px;
+  height: 100vh;
+  // bottom: 0px;
+  background-color: $colorUserBlack;
+
+  &__box {
+    @include display();
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__text {
+    font-family: "Open Sans";
+    color: $colorGray
+  }
+}

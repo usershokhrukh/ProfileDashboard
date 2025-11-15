@@ -453,4 +453,31 @@ body {
   .profileform__form {
     width: 100%;
   }
+  .profileform__textarea {
+    width: 90%;
+    max-width: 130px !important;
+    max-width: none;
+    min-width: 50px;
+  }
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  bottom: -100px;
+  height: 100vh;
+  background-color: #131A22;
+}
+.footer__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+.footer__text {
+  font-family: "Open Sans";
+  color: rgb(236, 236, 236);
 }/*# sourceMappingURL=style.css.map */
