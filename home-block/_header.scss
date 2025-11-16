@@ -6,9 +6,16 @@
   padding: 15px 40px;
 
   &__title {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     font-size: 20px;
     color: var(--colorBlack);
+  }
+
+  &__header {
+    @include display();
+    flex-direction: column;
+    align-items: end;
+    justify-content: start
   }
 
   &__right-box {
@@ -18,9 +25,7 @@
     justify-content: end;
     gap: 10px;
     max-width: 400px;
-  
   }
-
 
   &__day-box {
     @include display();
@@ -28,29 +33,32 @@
 
     &:active svg {
       animation-name: sit;
-      animation-duration: 0.3s; 
+      animation-duration: 0.3s;
       animation-fill-mode: forwards;
     }
   }
 
   &__night {
-    color: var(--colorBlack);
+    color: var(--white);
     position: relative;
     left: 10px;
+    visibility: hidden;
   }
   
   &__day {
     position: relative;
     color: var(--colorBlack);
-    visibility: hidden;
   }
 
-  &__night, &__day {
+  &__night,
+  &__day {
     position: relative;
     right: 8px;
   }
 
   &__profile {
+    @include display();
+    justify-content: center;
     @include hoverOn();
     width: 30px;
     height: 30px;
@@ -76,7 +84,7 @@
     width: 22px;
     height: 2px;
     background-color: var(--colorBlack);
-    border-radius: 2px
+    border-radius: 2px;
   }
 
   &__list {
@@ -86,19 +94,22 @@
 
   &__link {
     @include hoverOn();
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     color: var(--colorBlack);
   }
 
   &__box-phone {
-    position: absolute;
+    position: relative;
     right: 0px;
     width: 60%;
     max-width: 250px;
-    height: 70vh;
+    height: 80vh;
+    display: none;
     background-color: var(--colorGray);
     border-radius: 3px;
-    visibility: hidden ;
+    visibility: hidden;
+    border: 1px solid var(--colorUser);
+    max-height: 200px;
   }
 
   &__box-phone-main {
@@ -115,8 +126,8 @@
     @include display();
     justify-content: start;
     align-items: center;
-    position: absolute;
-    right: 40px; 
+    position: relative;
+    right: 0px;
     width: 100%;
     max-width: 250px;
     flex-direction: column;
@@ -125,14 +136,13 @@
     background-color: var(--colorGray);
     border: 1px solid var(--colorUser);
     border-radius: 5px;
-    visibility: hidden;
-
+    display: none;
   }
 
   &__profile-top {
     @include display();
     width: 100%;
-    align-items: start
+    align-items: start;
   }
 
   &__profile-bottom {
@@ -149,16 +159,10 @@
       max-height: 400px;
       outline: none;
       padding: 2px 5px;
-      font-family: 'Open Sans';
-      font-size :14px;
+      font-family: "Open Sans";
+      font-size: 14px;
       border: none;
     }
-  }
-
-  &__text {
-    font-family: 'Open Sans';
-    font-size: 10px;
-    color: var(--colorOpacityBlack);
   }
 
   &__profile-button {
@@ -211,7 +215,6 @@
   &__profile-colors:nth-child(5) {
     background-color: var(--colorUserBlack);
   }
-
 
   &__profile-secondary-colors:nth-child(1) {
     background-color: var(--colorUserOpacity);
@@ -266,7 +269,7 @@
     width: 100%;
     font-family: "Open Sans";
     font-size: 12px;
-    color: $colorOpacityBlack
+    color: $colorOpacityBlack;
   }
 
   &__profile-sub {
@@ -276,11 +279,8 @@
     line-height: normal;
     height: auto;
   }
-
-
-
-
 }
+
 
 @media (max-width: 650px) {
   .navbar {
@@ -311,24 +311,15 @@
       position: static !important;
     }
 
-    &__profile-user{
+    &__profile-user {
       position: static !important;
     }
 
-    &__box-phone {
-      border: 1px solid var(--colorUser);
-      height: 90vh;
-      max-height: 200px;
-    }
+
 
     &__profile-choose {
-      top: 100px;
       width: 90%;
       max-height: none;
     }
-
-
-
-
   }
 }

@@ -12,9 +12,10 @@
   <style>
     :root {
       --colorBlack: #1c1b1b;
-      --colorGray: #ececec;
+      --colorGray: #d2d2d2;
       --colorOpacityBlack: #7f7f7f;
       --white: #ffffff;
+      --colorDarkGray: rgb(67, 65, 65); 
 
       --colorUser: #0192ef;
       --colorUserOpacity: #d6e3f7;
@@ -43,18 +44,16 @@
         right: 0px;
       }
       100% {
-        right: 40px;
-        visibility: visible;
+        right: 30px;
       }
     }
 
     @keyframes showIconSetPhone {
       0% {
-        right: 20px;
+        right: 60px;
       }
       100% {
-        right: 5px;
-        visibility: visible;
+        right: 10px;
       }
     }
 
@@ -74,41 +73,47 @@
     }
 
     @keyframes showForm {
-      0%{
+      0% {
         transform: translateY(-30px);
-      }100% {
+      }
+      100% {
         transform: translateY(0px);
-        visibility: visible;
       }
     }
 
     @keyframes inputText {
       0% {
         top: 0px;
-      }100% {
+      }
+      100% {
         top: 0px;
         transform: translateX(-4px);
       }
     }
 
     @keyframes warning {
-      0%{
+      0% {
         transform: translateY(-24px) translateX(-4px);
-      }25% {
+      }
+      25% {
         transform: translateX(5px) translateY(-24px);
-      }50% {
+      }
+      50% {
         transform: translateX(-5px) translateY(-24px);
-      }75% {
+      }
+      75% {
         transform: translateX(5px) translateY(-24px);
-      }100% {
+      }
+      100% {
         transform: translateX(-4px) translateY(-24px);
       }
     }
 
     @keyframes accepted {
-      0%{
+      0% {
         border: 1px solid var(--colorUserGreen);
-      }100% {
+      }
+      100% {
         border: 1px solid var(--colorUserGreen);
       }
     }
@@ -117,7 +122,8 @@
       0% {
         top: 0px;
         transform: translateX(0px);
-      }100%{
+      }
+      100% {
         top: 0px;
         color: var(--colorUserGreen);
       }
@@ -126,32 +132,49 @@
     @keyframes block {
       0% {
         opacity: 0.5;
-      }100% {
+      }
+      100% {
         opacity: 0.5;
       }
     }
 
     @keyframes close {
-      0%{
+      0% {
         visibility: visible;
-      }100% {
+      }
+      100% {
         visibility: hidden;
       }
     }
 
     @keyframes closeForm {
-      0%  {
-        visibility: visible;
+      0% {
         transform: translateY(0px);
-      }100% {
+      }
+      100% {
         transform: translateY(-30px);
+        display: none;
+      }
+    }
+
+    @keyframes burger-first {
+      0% {
         visibility: hidden;
       }
     }
 
-
+    @keyframes burger-second {
+      100% {
+        transform: rotate(45deg);
+      }
+    }
+    @keyframes burger-third {
+      100% {
+        transform: rotate(-45deg);
+      }
+    }
   </style>
-  <body>
+  <body class="body">
     <header class="wrapper navbar__header">
       <nav class="navbar contain">
         <h2 class="navbar__title">Profile Dashboard</h2>
@@ -191,7 +214,6 @@
               ></path>
             </svg>
           </div>
-
           <div class="navbar__profile navbar__profile-first">
             <svg
               class="navbar__icon-user"
@@ -213,20 +235,8 @@
           <div class="navbar__burger-items"></div>
           <div class="navbar__burger-items"></div>
         </div>
-        <svg
-          class="navbar__close"
-          width="25px"
-          height="18px"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path
-            d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"
-          ></path>
-        </svg>
       </nav>
-      <div class="navbar__box-phone contain">
+      <div class="navbar__box-phone">
         <div class="navbar__box-phone-main">
           <ul class="navbar__list">
             <li class="navbar__list-items">
@@ -241,6 +251,7 @@
           </ul>
           <div class="navbar__profile">
             <svg
+              class="navbar__icon-user"
               width="auto"
               height="auto"
               xmlns="http://www.w3.org/2000/svg"
@@ -256,29 +267,41 @@
       </div>
       <div class="navbar__profile-choose">
         <div class="navbar__profile navbar__profile-user">
-            <svg
-              class="navbar__icon-user"
-              width="auto"
-              height="auto"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path
-                class="navbar__icons-path"
-                d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM18 17V14H20V17H23V19H20V22H18V19H15V17H18Z"
-              ></path>
-            </svg>
+          <svg
+            class="navbar__icon-user"
+            width="auto"
+            height="auto"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              class="navbar__icons-path"
+              d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM18 17V14H20V17H23V19H20V22H18V19H15V17H18Z"
+            ></path>
+          </svg>
         </div>
         <div class="navbar__profile-box">
           <div class="navbar__profile-box-top">
-            <p class="navbar__title"><span class="navbar__profile-sub"></span></p> 
-            <p class="navbar__title"><span class="navbar__profile-sub"></span></p> 
+            <p class="navbar__title">
+              <span class="navbar__profile-sub"></span>
+            </p>
+            <p class="navbar__title">
+              <span class="navbar__profile-sub"></span>
+            </p>
           </div>
-          <p class="navbar__text-info">Age: <span class="navbar__profile-sub"></span></p> 
-          <p class="navbar__text-info">Email: <span class="navbar__profile-sub"></span></p> 
-          <p class="navbar__text-info">Hobby: <span class="navbar__profile-sub"></span></p> 
-          <p class="navbar__text-info">Born: <span class="navbar__profile-sub"></span></p> 
+          <p class="navbar__text-info">
+            Age: <span class="navbar__profile-sub"></span>
+          </p>
+          <p class="navbar__text-info">
+            Email: <span class="navbar__profile-sub"></span>
+          </p>
+          <p class="navbar__text-info">
+            Hobby: <span class="navbar__profile-sub"></span>
+          </p>
+          <p class="navbar__text-info">
+            Born: <span class="navbar__profile-sub"></span>
+          </p>
         </div>
         <div class="navbar__profile-choose-wrapper">
           <div class="navbar__profile-top">
@@ -306,7 +329,7 @@
           </div>
         </div>
         <div class="navbar__profile-choose-color">
-          <p class="navbar__text">Choose your main color</p>
+          <p class="navbar__text-info">Choose your main color</p>
           <div class="navbar__profile-color-box">
             <div class="navbar__profile-colors"></div>
             <div class="navbar__profile-colors"></div>
@@ -314,7 +337,7 @@
             <div class="navbar__profile-colors"></div>
             <div class="navbar__profile-colors"></div>
           </div>
-          <p class="navbar__text">Secondary colors</p>
+          <p class="navbar__text-info">Secondary colors</p>
           <div class="navbar__profile-color-box">
             <div
               class="navbar__profile-secondary-colors navbar__profile-colors"
@@ -335,59 +358,46 @@
         </div>
       </div>
     </header>
-    <main class="wrapper">
+    <main class="wrapper main">
       <section class="contain profileform">
         <form class="profileform__form">
           <div class="profileform__boxes">
-            <p class="profileform__text">
-              Name
-            </p>
-            <input class="profileform__input" type="text">
+            <label for="profile__input" class="profileform__text">Name</label>
+            <input id="profile__input" class="profileform__input" type="text" />
           </div>
           <div class="profileform__boxes">
-            <p class="profileform__text">
-              Second name
-            </p>
-            <input class="profileform__input" type="text">
+            <label for="profile__input-second"  class="profileform__text">Second name</label>
+            <input id="profile__input-second" class="profileform__input" type="text" />
           </div>
           <div class="profileform__boxes">
-            <p class="profileform__text">
-              Age
-            </p>
-            <input min="1" max="120" class="profileform__input" type="number">
+            <label for="profile__input-third" class="profileform__text">Age</label>
+            <input id="profile__input-third" min="1" max="120" class="profileform__input" type="number" />
           </div>
           <div class="profileform__boxes">
-            <p class="profileform__text">
-              Email (required)
-            </p>
-            <input required class="profileform__input" type="email">
+            <label for="profile__input-fourth" class="profileform__text">Email (required)</label>
+            <input id="profile__input-fourth" required class="profileform__input" type="email" />
           </div>
           <div class="profileform__boxes profileform__textarea-box">
-            <p class="profileform__text">
-              Hobby
-            </p>
-            <textarea class="profileform__input profileform__textarea" name="" id=""></textarea>
+            <label for="profile__input-fiveth"  class="profileform__text">Hobby</label>
+            <textarea
+              id="profile__input-fiveth"
+              class="profileform__input profileform__textarea"
+              name=""
+              id=""
+            ></textarea>
           </div>
           <div class="profileform__boxes">
-            <p class="profileform__text">
-              Birthday
-            </p>
-            <input class="profileform__input profileform__birth"  type="text">
+            <label for="profile__input-sixth" class="profileform__text">Birthday</label>
+            <input id="profile__input-sixth" class="profileform__input profileform__birth" type="text" />
           </div>
-          <button class="profileform__button">
-            Save Profile
-          </button>
+          <button class="profileform__button">Save Profile</button>
         </form>
       </section>
     </main>
     <footer class="wrapper footer">
       <div class="footer__box">
-        <p class="footer__text">
-          © 2025
-        </p>
-        <p class="footer__text">
-          Profile Dashboard
-        </p>
+        <p class="footer__text">© 2025</p>
+        <p class="footer__text">Profile Dashboard</p>
         <p class="footer__date"></p>
       </div>
     </footer>

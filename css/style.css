@@ -20,8 +20,12 @@ li {
   list-style: none;
 }
 
-body {
+.body {
   background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }
 
 .navbar {
@@ -37,6 +41,14 @@ body {
   font-family: "Open Sans";
   font-size: 20px;
   color: var(--colorBlack);
+}
+.navbar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: end;
+  justify-content: start;
 }
 .navbar__right-box {
   display: flex;
@@ -60,20 +72,24 @@ body {
   animation-fill-mode: forwards;
 }
 .navbar__night {
-  color: var(--colorBlack);
+  color: var(--white);
   position: relative;
   left: 10px;
+  visibility: hidden;
 }
 .navbar__day {
   position: relative;
   color: var(--colorBlack);
-  visibility: hidden;
 }
 .navbar__night, .navbar__day {
   position: relative;
   right: 8px;
 }
 .navbar__profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: center;
   width: 30px;
   height: 30px;
   background-color: var(--colorUserOpacity);
@@ -127,14 +143,17 @@ body {
   opacity: 1;
 }
 .navbar__box-phone {
-  position: absolute;
+  position: relative;
   right: 0px;
   width: 60%;
   max-width: 250px;
-  height: 70vh;
+  height: 80vh;
+  display: none;
   background-color: var(--colorGray);
   border-radius: 3px;
   visibility: hidden;
+  border: 1px solid var(--colorUser);
+  max-height: 200px;
 }
 .navbar__box-phone-main {
   position: relative;
@@ -150,8 +169,8 @@ body {
   justify-content: space-between;
   justify-content: start;
   align-items: center;
-  position: absolute;
-  right: 40px;
+  position: relative;
+  right: 0px;
   width: 100%;
   max-width: 250px;
   flex-direction: column;
@@ -160,7 +179,7 @@ body {
   background-color: var(--colorGray);
   border: 1px solid var(--colorUser);
   border-radius: 5px;
-  visibility: hidden;
+  display: none;
 }
 .navbar__profile-top {
   display: flex;
@@ -188,11 +207,6 @@ body {
   font-family: "Open Sans";
   font-size: 14px;
   border: none;
-}
-.navbar__text {
-  font-family: "Open Sans";
-  font-size: 10px;
-  color: var(--colorOpacityBlack);
 }
 .navbar__profile-button {
   background-color: rgb(28, 168, 28);
@@ -353,29 +367,28 @@ body {
   .navbar__profile-user {
     position: static !important;
   }
-  .navbar__box-phone {
-    border: 1px solid var(--colorUser);
-    height: 90vh;
-    max-height: 200px;
-  }
   .navbar__profile-choose {
-    top: 100px;
     width: 90%;
     max-height: none;
   }
 }
+.main {
+  flex-grow: 1;
+}
+
 .profileform {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
   justify-content: center;
+  padding: 0px 0px 30px 0px;
 }
 .profileform__form {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
-  top: 60px;
   width: 50%;
   justify-content: start;
   gap: 13px;
@@ -383,13 +396,9 @@ body {
   align-items: start;
   padding: 25px 100px 65px 5px;
   border-radius: 5px;
-  background-color: rgb(236, 236, 236);
-  border: 1px solid #0192ef;
-  animation-name: showForm;
-  animation-duration: 1s;
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-  visibility: hidden;
+  background-color: var(--colorGray);
+  border: 1px solid var(--colorUser);
+  display: none;
 }
 .profileform__boxes {
   display: flex;
@@ -464,10 +473,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  bottom: -100px;
-  height: 100vh;
-  background-color: #131A22;
+  background-color: var(--colorBlack);
 }
 .footer__box {
   display: flex;
@@ -476,8 +482,17 @@ body {
   justify-content: center;
   gap: 10px;
   width: 100%;
+  padding: 30px;
 }
 .footer__text {
   font-family: "Open Sans";
   color: rgb(236, 236, 236);
+}
+
+@media (max-width: 650px) {
+  .footer__box {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
 }/*# sourceMappingURL=style.css.map */

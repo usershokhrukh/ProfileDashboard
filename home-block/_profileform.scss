@@ -1,28 +1,26 @@
-.profileform {
+.main {
+  flex-grow: 1;
+}
 
+
+.profileform {
   @include display();
+  flex-direction: column;
   justify-content: center;
-  // height: 87.5vh;
+  padding: 0px 0px 30px 0px;
   &__form {
     @include display();
     position: relative;
-    top: 60px;
     width: 50%;
-    // height: 70%;
     justify-content: start;
     gap: 13px;
     flex-direction: column;
     align-items: start;
     padding: 25px 100px 65px 5px;
     border-radius: 5px;
-    background-color: $colorGray;
-    border: 1px solid $colorUser;
-
-    animation-name: showForm;
-    animation-duration: 1s;
-    animation-delay: 0.5s;
-    animation-fill-mode: forwards;
-    visibility: hidden;
+    background-color: var(--colorGray);
+    border: 1px solid var(--colorUser);
+    display: none;
   }
 
   &__boxes {
@@ -82,6 +80,7 @@
   .profileform {
     justify-content: start;
     padding: 15px 10px;
+    // height: 100vh;
 
     &__form {
       width: 100%;
