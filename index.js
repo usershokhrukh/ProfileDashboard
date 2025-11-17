@@ -22,7 +22,12 @@ const elProfileForm = document.querySelector(".profileform__form");
 const elProfileText = document.querySelectorAll(".profileform__text");
 const elProfileInputs = document.querySelectorAll(".profileform__input");
 const elProfileColors = document.querySelectorAll(".navbar__profile-colors");
+const elProfileId = document.querySelectorAll(".profileform__id");
 let windowSize = window.innerWidth;
+
+elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
+elProfileId[1].textContent = elProfileId[0].textContent;
+
 window.addEventListener("resize", () => {
   windowSize = window.innerWidth;
 });
@@ -85,7 +90,7 @@ function profileColors(proColor) {
                 
               `;
     }
-  } else {    
+  } else {
     if (color == "black") {
       elIconSet.style.cssText = `
                 display: flex;
@@ -304,6 +309,12 @@ function blackToWhite() {
   elTitle.style.cssText = `
     color: var(--colorBlack);
   `;
+  elProfileId[0].style.cssText = `
+    color: var(--colorBlack);
+  `;
+  elProfileId[1].style.cssText = `
+    color: var(--colorBlack);
+  `;
 
   for (var i = 0; i <= 5; i++) {
     elLink[i].style.cssText = `
@@ -419,6 +430,9 @@ function whiteToBlack() {
   `;
   elTitle.style.cssText = `
     color: var(--white)
+  `;
+  elProfileId[0].style.cssText = `
+    color: var(--white);
   `;
 
   for (var i = 0; i <= 5; i++) {

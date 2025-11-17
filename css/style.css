@@ -421,6 +421,26 @@ li {
   font-size: 12px;
   color: #131A22;
 }
+.profileform__textid {
+  position: relative;
+  font-family: "Open Sans";
+  font-size: 12px;
+  color: #131A22;
+}
+.profileform__textid-second {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+.profileform__textidlink {
+  position: absolute;
+  bottom: 20px;
+  right: 150px;
+  color: var(--colorUser);
+}
+.profileform__textidlink:hover {
+  text-decoration: underline;
+}
 .profileform__input {
   width: 100%;
   height: 30px;
@@ -471,6 +491,11 @@ li {
     max-width: 130px !important;
     max-width: none;
     min-width: 50px;
+  }
+  .profileform__textidlink {
+    position: absolute;
+    bottom: 45px;
+    left: 5px;
   }
 }
 .footer {

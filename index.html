@@ -60,7 +60,8 @@
     @keyframes showIconSetPhone2 {
       0% {
         right: 60px;
-      }100% {
+      }
+      100% {
         right: 30px;
       }
     }
@@ -182,7 +183,7 @@
       }
     }
   </style>
-  <body class="body">
+  <body class="body forindex userBody">
     <header class="wrapper navbar__header">
       <nav class="navbar contain">
         <h2 class="navbar__title">Profile Dashboard</h2>
@@ -298,6 +299,9 @@
         </div>
       </div>
       <div class="navbar__profile-choose">
+        <p class="profileform__textid profileform__textid-second">
+          ID: <span class="profileform__id profileform__id-second"></span>
+        </p>
         <div class="navbar__profile navbar__profile-user">
           <svg
             class="navbar__icon-user"
@@ -451,6 +455,12 @@
               type="text"
             />
           </div>
+          <p class="profileform__textid">
+            Your ID: <span class="profileform__id profileform__id-second"></span>
+          </p>
+          <p class="profileform__textidlink profileform__textid">
+            I already have account
+          </p>
           <button class="profileform__button">Save Profile</button>
         </form>
       </section>
