@@ -38,6 +38,11 @@
     }
   }
 
+  &__day-box-second {
+    position: absolute;
+    top: -35px;
+  }
+
   &__night {
     color: var(--white);
     position: relative;

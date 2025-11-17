@@ -71,6 +71,10 @@ li {
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
+.navbar__day-box-second {
+  position: absolute;
+  top: -35px;
+}
 .navbar__night {
   color: var(--white);
   position: relative;
