@@ -2,7 +2,7 @@ const elBurger = document.querySelector(".navbar__burger");
 const elTextArea = document.querySelector(".navbar__textarea");
 const elIconPath = document.querySelector(".navbar__icons-path");
 const elProfileFormButton = document.querySelector(".profileform__button");
-
+const elMainLoader = document.querySelector(".main__loader");
 const elBody = document.querySelector("body");
 const elTitle = document.querySelector(".navbar__title");
 const elLink = document.querySelectorAll(".navbar__link");
@@ -74,7 +74,6 @@ function profileColors(proColor) {
                 animation-fill-mode: forwards;
                 border: 1px solid ${proColor};
                 background-color: var(--colorGray);
-                
               `;
     } else {
       elIconSet.style.cssText = `
@@ -1151,10 +1150,10 @@ elProfileFormButton.addEventListener("click", (e) => {
       animation-delay: 2s;
       animation-fill-mode: forwards;
     `;
-
-    userEntered = true;
-    start();
-
+    elProfileFormButton.textContent = "";
+    elMainLoader.style.cssText = `
+      visibility: visible;      
+    `;
     function userNames(inputs) {
       const userInputFirst = inputs.value.trim().toLowerCase();
       const userNameFinal = userInputFirst[0]
@@ -1170,5 +1169,9 @@ elProfileFormButton.addEventListener("click", (e) => {
     for (var i = 2; i <= 5; i++) {
       elProfileTextSpan[i].textContent = elProfileInputs[i].value.trim();
     }
+
+    userEntered = true;
+    start();
+
   }
 });

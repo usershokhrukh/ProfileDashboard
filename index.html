@@ -29,6 +29,23 @@
       --colorUserBlackOpacity: #67708f;
     }
 
+    @keyframes load {
+      0% {
+        visibility: visible;
+      }
+      100% {
+        visibility: hidden;
+      }
+    }
+
+    @keyframes loader {
+      0% {
+        transform: rotate(360deg);
+      }
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
     @keyframes showHeaderBox {
       0% {
         right: 45px;
@@ -456,11 +473,22 @@
             />
           </div>
           <p class="profileform__textid">
-            Your ID: <span class="profileform__id profileform__id-second"></span>
+            Your ID:
+            <span class="profileform__id profileform__id-second"></span>
           </p>
           <p class="profileform__textidlink profileform__textid">
             I already have account
           </p>
+          <svg
+            class="main__loader"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 3C16.9706 3 21 7.02944 21 12H19C19 8.13401 15.866 5 12 5V3Z"
+            ></path>
+          </svg>  
           <button class="profileform__button">Save Profile</button>
         </form>
       </section>
