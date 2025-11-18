@@ -1172,6 +1172,5 @@ elProfileFormButton.addEventListener("click", (e) => {
 
     userEntered = true;
     start();
-
   }
 });
