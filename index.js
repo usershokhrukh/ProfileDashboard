@@ -24,16 +24,9 @@ const elProfileInputs = document.querySelectorAll(".profileform__input");
 const elProfileColors = document.querySelectorAll(".navbar__profile-colors");
 const elProfileId = document.querySelectorAll(".profileform__id");
 const elProfileTextId = document.querySelectorAll(".profileform__textid");
-
+const elAbout = document.querySelector(".about");
+const elAboutText = document.querySelectorAll(".about__text");
 let windowSize = window.innerWidth;
-
-elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
-elProfileId[1].textContent = elProfileId[0].textContent;
-
-window.addEventListener("resize", () => {
-  windowSize = window.innerWidth;
-});
-
 let showHideReport = false;
 let showHideIconSet = false;
 let nightLight = false;
@@ -50,6 +43,33 @@ let hasText = false;
 let profileColorsIndex = 0;
 let profileColorsBg = "var(--colorUserOpacity)";
 let profileColor = "var(--colorUser)";
+let showNavbarSections = false;
+
+elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
+elProfileId[1].textContent = elProfileId[0].textContent;
+
+window.addEventListener("resize", () => {
+  windowSize = window.innerWidth;
+  if (windowSize < 650) {
+    if (color == "white") {
+      showNavbarSections = false;
+      elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+    } else {
+      showNavbarSections = false;
+      elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
+    }
+  }
+});
 
 function profileColors(proColor) {
   elNavbarIcon[0].style.cssText = `
@@ -64,6 +84,100 @@ function profileColors(proColor) {
       border: 1px solid ${proColor};
       background-color: ${profileColorsBg};
     `;
+  if (windowSize < 650) {
+    if (color == "white") {
+      if (showNavbarSections) {
+        elAbout.style.cssText = `
+              animation-name: showNavbarSectionsPhone;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${proColor};
+            `;
+      } else {
+        elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${proColor};
+              `;
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
+      }
+    } else {
+      if (showNavbarSections) {
+        elAbout.style.cssText = `
+              animation-name: showNavbarSectionsPhone;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorGray);
+              border: 1px solid ${proColor};
+            `;
+      } else {
+        elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${proColor};
+              `;
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
+            color: var(--colorBlack);
+          `;
+      }
+    }
+  } else {
+    if (color == "white") {
+      if (showNavbarSections) {
+        elAbout.style.cssText = `
+              animation-name: showNavbarSections;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${proColor};
+            `;
+      } else {
+        elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${proColor};
+              `;
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
+      }
+    } else {
+      if (showNavbarSections) {
+        elAbout.style.cssText = `
+              animation-name: showNavbarSections;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorGray);
+              border: 1px solid ${proColor};
+            `;
+      } else {
+        elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${proColor};
+              `;
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
+            color: var(--colorBlack);
+          `;
+      }
+    }
+  }
+
   if (windowSize < 650) {
     if (color == "black") {
       elIconSet.style.cssText = `
@@ -356,6 +470,51 @@ function blackToWhite() {
       }
     }
   }
+  if (windowSize < 650) {
+    if (showNavbarSections) {
+      elAbout.style.cssText = `
+                animation-name: showNavbarSectionsPhone;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+    } else {
+      elAbout.style.cssText = `
+                  visibility: hidden;
+                  animation: none;
+                  background-color: var(--colorGray);
+                  border: 1px solid ${profileColor};
+                `;
+    }
+    for (var i = 0; i < 3; i++) {
+      elAboutText[i].style.cssText = `
+              color: var(--colorBlack);
+            `;
+    }
+  } else {
+    if (showNavbarSections) {
+      elAbout.style.cssText = `
+                animation-name: showNavbarSections;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+    } else {
+      elAbout.style.cssText = `
+                  visibility: hidden;
+                  animation: none;
+                  background-color: var(--colorGray);
+                  border: 1px solid ${profileColor};
+                `;
+    }
+    for (var i = 0; i < 3; i++) {
+      elAboutText[i].style.cssText = `
+              color: var(--colorBlack);
+            `;
+    }
+  }
 
   elTextArea.style.cssText = `
     background-color: var(--white)
@@ -475,6 +634,51 @@ function whiteToBlack() {
         elNavbarBurgerItems[i].style.cssText = `background-color: var(--white)`;
         break;
       }
+    }
+  }
+  if (windowSize < 650) {
+    if (showNavbarSections) {
+      elAbout.style.cssText = `
+              animation-name: showNavbarSectionsPhone;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${profileColor};
+            `;
+    } else {
+      elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
+    }
+    for (var i = 0; i < 3; i++) {
+      elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
+    }
+  } else {
+    if (showNavbarSections) {
+      elAbout.style.cssText = `
+              animation-name: showNavbarSections;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${profileColor};
+            `;
+    } else {
+      elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
+    }
+    for (var i = 0; i < 3; i++) {
+      elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
     }
   }
 
@@ -695,6 +899,111 @@ elDayBox[1].addEventListener("click", () => {
 
 function start() {
   if (userEntered) {
+    elLink[1].addEventListener("click", () => {
+      if (color == "white") {
+        if (!showNavbarSections) {
+          showNavbarSections = true;
+          elAbout.style.cssText = `
+              animation-name: showNavbarSections;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${profileColor};
+            `;
+        } else {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
+        }
+        for (var i = 0; i < 3; i++) {
+          elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
+        }
+      } else {
+        if (!showNavbarSections) {
+          showNavbarSections = true;
+          elAbout.style.cssText = `
+              animation-name: showNavbarSections;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorGray);
+              border: 1px solid ${profileColor};
+            `;
+        } else {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+        }
+        for (var i = 0; i < 3; i++) {
+          elAboutText[i].style.cssText = `
+            color: var(--colorBlack);
+          `;
+        }
+      }
+    });
+
+    elLink[4].addEventListener("click", () => {
+      if (color == "white") {
+        if (!showNavbarSections) {
+          showNavbarSections = true;
+          elAbout.style.cssText = `
+
+              animation-name: showNavbarSectionsPhone;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${profileColor};
+            `;
+        } else {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
+        }
+        for (var i = 0; i < 3; i++) {
+          elAboutText[i].style.cssText = `
+            color: var(--colorOpacityBlack);
+          `;
+        }
+      } else {
+        if (!showNavbarSections) {
+          showNavbarSections = true;
+          elAbout.style.cssText = `
+              animation-name: showNavbarSectionsPhone;
+              animation-duration: 0.4s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorGray);
+              border: 1px solid ${profileColor};
+            `;
+        } else {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+        }
+        for (var i = 0; i < 3; i++) {
+          elAboutText[i].style.cssText = `
+            color: var(--colorBlack);
+          `;
+        }
+      }
+    });
+
     elProfileClose.addEventListener("click", () => {
       showChoose = false;
       elIconSet.style.cssText = `
@@ -809,6 +1118,15 @@ function start() {
     });
 
     elBurger.addEventListener("click", () => {
+      if (showNavbarSections) {
+        showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+      }
       if (!showHideReport) {
         showHideReport = true;
         if (!colorChange) {

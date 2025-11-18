@@ -183,6 +183,7 @@ li {
   background-color: var(--colorGray);
   border: 1px solid var(--colorUser);
   border-radius: 5px;
+  z-index: 4;
   display: none;
 }
 .navbar__profile-top {
@@ -541,4 +542,33 @@ li {
     justify-content: center;
     text-align: center;
   }
+}
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 60px;
+  right: 150px;
+  align-items: start;
+  flex-direction: column;
+  justify-content: start !important;
+  background-color: var(--colorDarkGray);
+  padding: 10px;
+  z-index: 3;
+  border-radius: 5px;
+  visibility: hidden;
+}
+.about__box {
+  padding: 5px 0px;
+}
+.about__box svg {
+  width: 30px;
+  height: 30px;
+}
+.about__text {
+  position: relative;
+  bottom: 3px;
+  font-family: "Open Sans";
+  font-size: 14px;
 }/*# sourceMappingURL=style.css.map */
