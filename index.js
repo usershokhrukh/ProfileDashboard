@@ -23,6 +23,8 @@ const elProfileText = document.querySelectorAll(".profileform__text");
 const elProfileInputs = document.querySelectorAll(".profileform__input");
 const elProfileColors = document.querySelectorAll(".navbar__profile-colors");
 const elProfileId = document.querySelectorAll(".profileform__id");
+const elProfileTextId = document.querySelectorAll(".profileform__textid");
+
 let windowSize = window.innerWidth;
 
 elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
@@ -302,6 +304,9 @@ function burgerAnimateF(color) {
 function blackToWhite() {
   colorChange = false;
   color = "black";
+  elProfileTextId[0].style.cssText = `
+    color: var(--colorBlack);
+  `;
   elBody.style.cssText = `
     background-color: var(--white);
   `;
@@ -424,6 +429,10 @@ function blackToWhite() {
 function whiteToBlack() {
   colorChange = true;
   color = "white";
+
+  elProfileTextId[0].style.cssText = `
+    color: var(--white);
+  `;
   elBody.style.cssText = `
     background-color: var(--colorBlack)
   `;
