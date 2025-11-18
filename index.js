@@ -1120,7 +1120,7 @@ function start() {
     elBurger.addEventListener("click", () => {
       if (showNavbarSections) {
         showNavbarSections = false;
-          elAbout.style.cssText = `
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorGray);
