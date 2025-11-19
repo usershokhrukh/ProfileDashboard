@@ -183,7 +183,7 @@ li {
   background-color: var(--colorGray);
   border: 1px solid var(--colorUser);
   border-radius: 5px;
-  z-index: 4;
+  z-index: 3;
   display: none;
 }
 .navbar__profile-top {
@@ -555,7 +555,7 @@ li {
   justify-content: start !important;
   background-color: var(--colorDarkGray);
   padding: 10px;
-  z-index: 3;
+  z-index: 2;
   border-radius: 5px;
   visibility: hidden;
 }

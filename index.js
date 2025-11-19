@@ -44,6 +44,9 @@ let profileColorsIndex = 0;
 let profileColorsBg = "var(--colorUserOpacity)";
 let profileColor = "var(--colorUser)";
 let showNavbarSections = false;
+let innerStatus = false;
+
+let zIndex = 3;
 
 elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
 elProfileId[1].textContent = elProfileId[0].textContent;
@@ -416,6 +419,7 @@ function burgerAnimateF(color) {
 }
 
 function blackToWhite() {
+  // zIndex++;
   colorChange = false;
   color = "black";
   elProfileTextId[0].style.cssText = `
@@ -478,6 +482,8 @@ function blackToWhite() {
                 animation-fill-mode: forwards;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
+                // z-index: ${zIndex - 1};
+
               `;
     } else {
       elAbout.style.cssText = `
@@ -485,6 +491,8 @@ function blackToWhite() {
                   animation: none;
                   background-color: var(--colorGray);
                   border: 1px solid ${profileColor};
+                  // z-index: ${zIndex};
+
                 `;
     }
     for (var i = 0; i < 3; i++) {
@@ -500,6 +508,8 @@ function blackToWhite() {
                 animation-fill-mode: forwards;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
+                // z-index: ${zIndex - 1};
+
               `;
     } else {
       elAbout.style.cssText = `
@@ -507,6 +517,8 @@ function blackToWhite() {
                   animation: none;
                   background-color: var(--colorGray);
                   border: 1px solid ${profileColor};
+                  // z-index: ${zIndex};
+
                 `;
     }
     for (var i = 0; i < 3; i++) {
@@ -543,7 +555,9 @@ function blackToWhite() {
       top: -150px;
       margin-bottom: -130px;
       background-color: var(--colorGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     } else {
       showChoose = true;
@@ -553,7 +567,9 @@ function blackToWhite() {
       top: -150px;
       margin-bottom: -130px;
       background-color: var(--colorGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     }
   } else {
@@ -565,7 +581,9 @@ function blackToWhite() {
       // top: -150px;
       // margin-bottom: -130px;
       background-color: var(--colorGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     } else {
       showChoose = true;
@@ -575,7 +593,9 @@ function blackToWhite() {
       // top: -150px;
       // margin-bottom: -130px;
       background-color: var(--colorGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     }
   }
@@ -588,6 +608,7 @@ function blackToWhite() {
 function whiteToBlack() {
   colorChange = true;
   color = "white";
+  // zIndex++;
 
   elProfileTextId[0].style.cssText = `
     color: var(--white);
@@ -644,6 +665,8 @@ function whiteToBlack() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
             `;
     } else {
       elAbout.style.cssText = `
@@ -651,6 +674,8 @@ function whiteToBlack() {
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
+                // z-index: ${zIndex};
+
               `;
     }
     for (var i = 0; i < 3; i++) {
@@ -666,6 +691,8 @@ function whiteToBlack() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
             `;
     } else {
       elAbout.style.cssText = `
@@ -673,6 +700,8 @@ function whiteToBlack() {
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
               `;
     }
     for (var i = 0; i < 3; i++) {
@@ -710,7 +739,9 @@ function whiteToBlack() {
       top: -150px;
       margin-bottom: -130px;
       background-color: var(--colorDarkGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     } else {
       showChoose = true;
@@ -721,6 +752,8 @@ function whiteToBlack() {
       margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     }
   } else {
@@ -732,7 +765,9 @@ function whiteToBlack() {
       // top: -150px;
       // margin-bottom: -130px;
       background-color: var(--colorDarkGray);
-      border: 1px solid ${profileColor}
+      border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     } else {
       showChoose = true;
@@ -743,6 +778,8 @@ function whiteToBlack() {
       // margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
+              // z-index: ${zIndex};
+
     `;
     }
   }
@@ -750,6 +787,7 @@ function whiteToBlack() {
   elProfileClose.style.cssText = `
   color: var(--white);
 `;
+  // zIndex++;
 }
 
 function formShow() {
@@ -775,6 +813,7 @@ elDayBox[0].addEventListener("click", () => {
                 animation-fill-mode: forwards;
                 border: 1px solid ${profileColor};
                 background-color: var(--colorDarkGray);
+
                 
               `;
   } else {
@@ -787,6 +826,7 @@ elDayBox[0].addEventListener("click", () => {
                 animation-fill-mode: forwards;
                 border: 1px solid ${profileColor};
                 background-color: var(--colorGray);
+
                 
               `;
   }
@@ -837,7 +877,8 @@ elDayBox[1].addEventListener("click", () => {
                 animation-name: showHeaderBox;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
-                border: 1px solid ${profileColor}
+                border: 1px solid ${profileColor};
+
                 `;
     } else {
       elHeaderBoxBurger.style.cssText = `
@@ -846,7 +887,8 @@ elDayBox[1].addEventListener("click", () => {
                 animation-name: showHeaderBox;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
-                border: 1px solid ${profileColor}
+                border: 1px solid ${profileColor};
+
               `;
     }
   } else {
@@ -909,6 +951,7 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
             `;
         } else {
           showNavbarSections = false;
@@ -933,6 +976,7 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorGray);
               border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
             `;
         } else {
           showNavbarSections = false;
@@ -949,6 +993,8 @@ function start() {
           `;
         }
       }
+
+      zIndex++;
     });
 
     elLink[4].addEventListener("click", () => {
@@ -962,6 +1008,8 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
+
             `;
         } else {
           showNavbarSections = false;
@@ -986,6 +1034,8 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorGray);
               border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
+
             `;
         } else {
           showNavbarSections = false;
@@ -1002,6 +1052,7 @@ function start() {
           `;
         }
       }
+      zIndex++;
     });
 
     elProfileClose.addEventListener("click", () => {
@@ -1022,7 +1073,8 @@ function start() {
               animation-name: showIconSet;
               animation-duration: 0.3s;
               animation-fill-mode: forwards;
-              border: 1px solid ${profileColor}
+              border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
 
             `;
         } else {
@@ -1032,8 +1084,8 @@ function start() {
               animation-duration: 0.3s;
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
-              border: 1px solid ${profileColor}
-
+              border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
             `;
         }
 
@@ -1046,6 +1098,7 @@ function start() {
             `;
         showHideIconSet = false;
       }
+      zIndex++;
     });
 
     elNavbarIcon[1].addEventListener("click", () => {
@@ -1059,7 +1112,8 @@ function start() {
                 animation-name: showIconSetPhone;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
-                border: 1px solid ${profileColor}
+                border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
 
               `;
         } else {
@@ -1071,7 +1125,8 @@ function start() {
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
-              border: 1px solid ${profileColor}
+              border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
                 
               `;
         }
@@ -1085,6 +1140,7 @@ function start() {
             `;
         showHideIconSet = false;
       }
+      zIndex++;
     });
 
     elNavbarButton.addEventListener("click", (e) => {
@@ -1125,6 +1181,7 @@ function start() {
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
+                z-index: ${zIndex + 1};
               `;
       }
       if (!showHideReport) {
@@ -1135,7 +1192,9 @@ function start() {
                 animation-name: showHeaderBox;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
-                border: 1px solid ${profileColor}
+                border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
+
                 `;
         } else {
           elHeaderBoxBurger.style.cssText = `
@@ -1144,7 +1203,9 @@ function start() {
                 animation-name: showHeaderBox;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
-                border: 1px solid ${profileColor}
+                border: 1px solid ${profileColor};
+              z-index: ${zIndex + 1};
+
               `;
         }
       } else {
@@ -1168,9 +1229,31 @@ function start() {
           elBurger.style.cssText = `
             display: flex;
           `;
-          elIconSet.style.cssText = `
+        }
+
+        elIconSet.style.cssText = `
             display: none;
+            `;
+        elAbout.style.cssText = `
+            visibility: hidden;
           `;
+        showNavbarSections = false;
+        if (color == "white") {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorGray);
+                border: 1px solid ${profileColor};
+              `;
+        } else {
+          showNavbarSections = false;
+          elAbout.style.cssText = `
+                visibility: hidden;
+                animation: none;
+                background-color: var(--colorDarkGray);
+                border: 1px solid ${profileColor};
+              `;
         }
       } else {
         if (burgerAnimate) {
@@ -1181,12 +1264,16 @@ function start() {
         elBurger.style.cssText = `
           display: none;
         `;
-        elIconSet.style.cssText = `
-            display: none;
-          `;
         elHeaderBoxBurger.style.cssText = `
           visibility: hidden;
         `;
+        elIconSet.style.cssText = `
+          display: none;
+        `;
+        elAbout.style.cssText = `
+          visibility: hidden;
+        `;
+        showNavbarSections = false;
         showHideReport = false;
       }
       return 0;
