@@ -2,6 +2,7 @@
   flex-grow: 1;
   z-index: 1;
 
+  padding: 40px;
   &__loader {
     position: absolute;
     bottom: 17px;
@@ -26,7 +27,8 @@
   &__form {
     @include display();
     position: relative;
-    width: 50%;
+    width: 100%;
+    max-width: 3000px;
     justify-content: start;
     gap: 13px;
     flex-direction: column;
@@ -113,9 +115,13 @@
 }
 
 @media (max-width: 650px) {
+  .main {
+    width: 100%;
+    padding: 10px;
+  }
   .profileform {
     justify-content: start;
-    padding: 15px 10px;
+    padding: 15px 0px;
     // height: 100vh;
 
     &__form {

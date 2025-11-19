@@ -45,11 +45,208 @@ let profileColorsBg = "var(--colorUserOpacity)";
 let profileColor = "var(--colorUser)";
 let showNavbarSections = false;
 let innerStatus = false;
-
-let zIndex = 3;
-
 elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
 elProfileId[1].textContent = elProfileId[0].textContent;
+
+//-----------------------------------------------------------------
+// task profile
+const elTask = document.querySelector(".task");
+const elTaskLeft = document.querySelector(".task__left");
+const elTaskTitle = document.querySelectorAll(".task__title");
+const elTaskInputs = document.querySelectorAll(".task__inputs");
+const elTaskText = document.querySelectorAll(".task__text");
+const elTaskButton = document.querySelector(".task__button");
+const elTaskRight = document.querySelector(".task__right");
+const elTaskRightIcons = document.querySelector(".task__right-icons");
+const elTaskRightTextSpan = document.querySelector(".task__right-text-span");
+const elTaskRightInput = document.querySelector(".task__right-input");
+const elTaskRightInputLabel = document.querySelector(
+  ".task__right-input-label"
+);
+const elTaskRightTitle = document.querySelector(".task__right-title");
+const elTaskRightTopTitle = document.querySelectorAll(".task__right-top-title");
+const elTaskRightCheckbox = document.querySelectorAll(".task__right-checkbox");
+const elTaskItems = document.querySelector(".task__items");
+const elTaskRightText = document.querySelector(".task__right-text");
+const elTaskRightCheckboxSecond = document.querySelectorAll(
+  ".task__right-checkbox-second"
+);
+const elTaskRightMain = document.querySelector(".task__right-main");
+let showTaskForm = false;
+let taskItems = 1;
+
+let checkBox = false;
+let checkBoxes = 2;
+
+// functions
+function showTask() {
+  if (!colorChange) {
+    elTaskLeft.style.cssText = `
+    animation-name: showForm;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 3.5s;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-name: showForm;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 3.5s;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+  } else {
+    elTaskLeft.style.cssText = `
+    animation-name: showForm;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 3.5s;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-name: showForm;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-delay: 3.5s;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+  }
+}
+// showTask();
+
+// function checkboxes(checks) {
+//   elTaskRightCheckboxSecond[checks].addEventListener("click", ()=>{
+//     if (!checkBox) {
+//       elTaskRightCheckbox[checks].style.cssText = `
+//         display: inline-block;
+//       `;
+//       elTaskRightCheckboxSecond[checks].style.cssText = `
+//         display: none;
+//       `;
+//       checkBox = true;
+//     checkboxes(checks);
+
+//     }else {
+//       elTaskRightCheckboxSecond[checks].style.cssText = `
+//         display: inline-block;
+//       `;
+//       elTaskRightCheckbox[checks].style.cssText = `
+//         display: none;
+//       `;
+//       checkBox = false;
+//       checkboxes(checks);
+//     }
+//   });
+// }
+// checkboxes(0);
+// checkboxes(0);
+
+//code
+
+elTaskButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  let enterStart = false;
+
+  if (showTaskForm) {
+    for (var i = 0; i < 2; i++) {
+      if (!elTaskInputs[i].value.trim()) {
+        if (!colorChange) {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+        } else {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+        }
+
+        elTaskText[i].style.cssText = `
+        animation-name: warningTask;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        color: red;
+      `;
+      } else {
+        if (!colorChange) {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+        } else {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+        }
+
+        elTaskText[i].style.cssText = `
+        animation: none;
+        color: var(--colorUser);
+      `;
+        enterStart = true;
+      }
+    }
+    if (enterStart) {
+      let userNames = [];
+      let userNameRepeat = false;
+      console.log(elTaskInputs[0].value.trim());
+      for (var i = 0; i < userNames.length; i++) {
+        if (userNames[i] == elTaskInputs[0].value.trim()) {
+          elTaskText[0].textContent = `Name is repeating`;
+          elTaskInputs[0].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+          `;
+
+          elTaskText[0].style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
+          userNameRepeat = true;
+        }
+      }
+
+      if (!userNameRepeat) {
+        userNames.push(elTaskInputs[0].value.trim());
+        console.log(userNames);
+        
+        const element = document.createElement("div");
+        element.setAttribute("class", "task__items-contain");
+        element.innerHTML = `
+        <div class="task__items">
+        <div class="task__items-box">
+        <svg  class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+        <svg  class="task__right-checkbox" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+        <span class="task__items-text">${elTaskInputs[0].value.trim()}</span>
+        </div>
+        <p class="task__items-text">${elTaskInputs[0].value
+          .trim()
+          .toLowerCase()
+          .replace(" ", "-")}</p>
+        <p class="task__items-text">0</p>
+        <p class="task__items-text">${elTaskInputs[1].value.trim()}</p>
+        </div>
+        `;
+        elTaskRightMain.appendChild(element);
+      }
+    }
+  }
+});
+
+//-------------------------------------------------------------------
 
 window.addEventListener("resize", () => {
   windowSize = window.innerWidth;
@@ -181,11 +378,47 @@ function profileColors(proColor) {
     }
   }
 
+  elTaskRightText.style.cssText = `
+    background-color: ${proColor};
+  `;
+
+  if (!colorChange) {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${proColor};
+    background-color: var(--colorGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${proColor};
+    background-color: var(--colorGray);
+  `;
+  } else {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${proColor};
+    background-color: var(--colorDarkGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${proColor};
+    background-color: var(--colorDarkGray);
+  `;
+  }
+
+  elTaskButton.style.cssText = `
+    background-color: ${proColor};
+  `;
+
   if (windowSize < 650) {
     if (color == "black") {
       elIconSet.style.cssText = `
                 display: flex;
-                top: -150px;
+                top: 90px;
                 right: 10px;
                 margin-bottom: -130px;
                 animation-name: showIconSetPhone;
@@ -198,7 +431,7 @@ function profileColors(proColor) {
       elIconSet.style.cssText = `
                 display: flex;
                 right: 10px;
-                top: -150px;
+                top: 90px;
                 margin-bottom: -130px;
                 animation-name: showIconSetPhone;
                 animation-duration: 0.3s;
@@ -419,10 +652,12 @@ function burgerAnimateF(color) {
 }
 
 function blackToWhite() {
-  // zIndex++;
   colorChange = false;
   color = "black";
   elProfileTextId[0].style.cssText = `
+    color: var(--colorBlack);
+  `;
+  elProfileTextId[1].style.cssText = `
     color: var(--colorBlack);
   `;
   elBody.style.cssText = `
@@ -437,6 +672,70 @@ function blackToWhite() {
   elProfileId[1].style.cssText = `
     color: var(--colorBlack);
   `;
+
+  elTaskTitle[0].style.cssText = `
+    color: var(--colorBlack);
+  `;
+
+  elTaskTitle[1].style.cssText = `
+    color: var(--colorBlack);
+  `;
+
+  elTaskInputs[0].style.cssText = `
+    background-color: var(--white);
+    color: var(--colorBlack);
+  `;
+  elTaskInputs[1].style.cssText = `
+    background-color: var(--white);
+    color: var(--colorBlack);
+  `;
+  elTaskRightTitle.style.cssText = `
+    color: var(--colorBlack);
+  `;
+  elTaskItems.style.cssText = `
+    background-color: rgb(222, 219, 219);
+    border-top: 1px solid var(--colorOpacityBlack);
+  `;
+
+  for (var i = 0; i < 4; i++) {
+    elTaskRightTopTitle[i].style.cssText = `
+      color: var(--colorBlack);
+    `;
+  }
+
+  if (showTaskForm) {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+  } else {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: hidden;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: hidden;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorGray);
+  `;
+  }
+
+  for (var i = 0; i <= 5; i++) {
+    elProfileInputs[i].style.cssText = `
+      background-color: var(--white)
+    `;
+  }
 
   for (var i = 0; i <= 5; i++) {
     elLink[i].style.cssText = `
@@ -482,7 +781,6 @@ function blackToWhite() {
                 animation-fill-mode: forwards;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
-                // z-index: ${zIndex - 1};
 
               `;
     } else {
@@ -491,7 +789,6 @@ function blackToWhite() {
                   animation: none;
                   background-color: var(--colorGray);
                   border: 1px solid ${profileColor};
-                  // z-index: ${zIndex};
 
                 `;
     }
@@ -508,7 +805,6 @@ function blackToWhite() {
                 animation-fill-mode: forwards;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
-                // z-index: ${zIndex - 1};
 
               `;
     } else {
@@ -517,7 +813,6 @@ function blackToWhite() {
                   animation: none;
                   background-color: var(--colorGray);
                   border: 1px solid ${profileColor};
-                  // z-index: ${zIndex};
 
                 `;
     }
@@ -552,11 +847,10 @@ function blackToWhite() {
       elIconSet.style.cssText = `
       display: none;
       right: 10px;
-      top: -150px;
+      top: 90px;
       margin-bottom: -130px;
       background-color: var(--colorGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     } else {
@@ -564,11 +858,10 @@ function blackToWhite() {
       elIconSet.style.cssText = `
       display: flex;
       right: 10px;
-      top: -150px;
+      top: 90px;
       margin-bottom: -130px;
       background-color: var(--colorGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     }
@@ -582,7 +875,6 @@ function blackToWhite() {
       // margin-bottom: -130px;
       background-color: var(--colorGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     } else {
@@ -594,7 +886,6 @@ function blackToWhite() {
       // margin-bottom: -130px;
       background-color: var(--colorGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     }
@@ -608,9 +899,11 @@ function blackToWhite() {
 function whiteToBlack() {
   colorChange = true;
   color = "white";
-  // zIndex++;
 
   elProfileTextId[0].style.cssText = `
+    color: var(--white);
+  `;
+  elProfileTextId[1].style.cssText = `
     color: var(--white);
   `;
   elBody.style.cssText = `
@@ -622,6 +915,72 @@ function whiteToBlack() {
   elProfileId[0].style.cssText = `
     color: var(--white);
   `;
+  elProfileId[1].style.cssText = `
+    color: var(--white);
+  `;
+
+  elTaskTitle[0].style.cssText = `
+    color: var(--white);
+  `;
+
+  elTaskTitle[1].style.cssText = `
+    color: var(--white);
+  `;
+
+  elTaskInputs[0].style.cssText = `
+    background-color: var(--colorOpacityBlack);
+  `;
+  elTaskInputs[1].style.cssText = `
+    background-color: var(--colorOpacityBlack);
+  `;
+
+  elTaskRightTitle.style.cssText = `
+    color: var(--white);
+  `;
+  elTaskItems.style.cssText = `
+    background-color: var(--colorOpacityBlack);
+    border-top: 1px solid var(--white);
+  `;
+
+  for (var i = 0; i < 4; i++) {
+    elTaskRightTopTitle[i].style.cssText = `
+      color: var(--white);
+    `;
+  }
+
+  if (showTaskForm) {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: visible;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+  } else {
+    elTaskLeft.style.cssText = `
+    animation-none;
+    visibility: hidden;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+    elTaskRight.style.cssText = `
+    animation-none;
+    visibility: hidden;
+    border: 1px solid ${profileColor};
+    background-color: var(--colorDarkGray);
+  `;
+  }
+
+  for (var i = 0; i <= 5; i++) {
+    elProfileInputs[i].style.cssText = `
+      background-color: var(--colorOpacityBlack);
+    `;
+  }
 
   for (var i = 0; i <= 5; i++) {
     elLink[i].style.cssText = `
@@ -665,7 +1024,6 @@ function whiteToBlack() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
             `;
     } else {
@@ -674,7 +1032,6 @@ function whiteToBlack() {
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
-                // z-index: ${zIndex};
 
               `;
     }
@@ -691,7 +1048,6 @@ function whiteToBlack() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
             `;
     } else {
@@ -700,7 +1056,6 @@ function whiteToBlack() {
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
               `;
     }
@@ -721,7 +1076,7 @@ function whiteToBlack() {
   if (!userEntered) {
     elProfileForm.style.cssText = `
       display: flex;
-      background-color: var(--colorGray);
+      background-color: var(--colorSecondBlack);
       border: 1px solid ${profileColor}
     `;
   } else {
@@ -736,11 +1091,10 @@ function whiteToBlack() {
       elIconSet.style.cssText = `
       display: none;
       right: 10px;
-      top: -150px;
+      top: 90px;
       margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     } else {
@@ -748,11 +1102,10 @@ function whiteToBlack() {
       elIconSet.style.cssText = `
       display: flex;
       right: 10px;
-      top: -150px;
+      top: 90px;
       margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     }
@@ -766,7 +1119,6 @@ function whiteToBlack() {
       // margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     } else {
@@ -778,7 +1130,6 @@ function whiteToBlack() {
       // margin-bottom: -130px;
       background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor};
-              // z-index: ${zIndex};
 
     `;
     }
@@ -787,7 +1138,6 @@ function whiteToBlack() {
   elProfileClose.style.cssText = `
   color: var(--white);
 `;
-  // zIndex++;
 }
 
 function formShow() {
@@ -951,7 +1301,6 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
             `;
         } else {
           showNavbarSections = false;
@@ -976,7 +1325,6 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
             `;
         } else {
           showNavbarSections = false;
@@ -993,8 +1341,6 @@ function start() {
           `;
         }
       }
-
-      zIndex++;
     });
 
     elLink[4].addEventListener("click", () => {
@@ -1008,7 +1354,6 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
             `;
         } else {
@@ -1034,7 +1379,6 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
             `;
         } else {
@@ -1052,7 +1396,6 @@ function start() {
           `;
         }
       }
-      zIndex++;
     });
 
     elProfileClose.addEventListener("click", () => {
@@ -1074,7 +1417,6 @@ function start() {
               animation-duration: 0.3s;
               animation-fill-mode: forwards;
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
             `;
         } else {
@@ -1085,7 +1427,6 @@ function start() {
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
             `;
         }
 
@@ -1098,7 +1439,6 @@ function start() {
             `;
         showHideIconSet = false;
       }
-      zIndex++;
     });
 
     elNavbarIcon[1].addEventListener("click", () => {
@@ -1107,26 +1447,24 @@ function start() {
         if (!colorChange) {
           elIconSet.style.cssText = `
                 display: flex;
-                top: -150px;
+                top: 90px;
                 margin-bottom: -130px;
                 animation-name: showIconSetPhone;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
                 border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
               `;
         } else {
           elIconSet.style.cssText = `
                 display: flex;
-                top: -150px;
+                top: 90px;
                 margin-bottom: -130px;
                 animation-name: showIconSetPhone;
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
                 
               `;
         }
@@ -1140,7 +1478,6 @@ function start() {
             `;
         showHideIconSet = false;
       }
-      zIndex++;
     });
 
     elNavbarButton.addEventListener("click", (e) => {
@@ -1181,7 +1518,6 @@ function start() {
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
-                z-index: ${zIndex + 1};
               `;
       }
       if (!showHideReport) {
@@ -1193,7 +1529,6 @@ function start() {
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
                 border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
                 `;
         } else {
@@ -1204,7 +1539,6 @@ function start() {
                 animation-duration: 0.3s;
                 animation-fill-mode: forwards;
                 border: 1px solid ${profileColor};
-              z-index: ${zIndex + 1};
 
               `;
         }
@@ -1289,19 +1623,38 @@ start();
 
 function elProfileInputsWork(index) {
   elProfileInputs[index].addEventListener("click", () => {
-    elProfileInputs[index].style.cssText = `
+    if (!colorChange) {
+      elProfileInputs[index].style.cssText = `
       border: 1px solid var(--colorUser);
+      background-color: var(--white);
     `;
 
-    elProfileText[index].style.cssText = `
+      elProfileText[index].style.cssText = `
       animation-name: inputText;
       animation-duration: 0.2s;
       animation-fill-mode: forwards;
       color: var(--colorUser)
     `;
 
-    if (index == 3) {
-      elEmailChecked = true;
+      if (index == 3) {
+        elEmailChecked = true;
+      }
+    } else {
+      elProfileInputs[index].style.cssText = `
+      border: 1px solid var(--colorUser);
+      background-color: var(--colorOpacityBlack)
+    `;
+
+      elProfileText[index].style.cssText = `
+      animation-name: inputText;
+      animation-duration: 0.2s;
+      animation-fill-mode: forwards;
+      color: var(--colorUser)
+    `;
+
+      if (index == 3) {
+        elEmailChecked = true;
+      }
     }
   });
 }
@@ -1313,6 +1666,52 @@ elProfileInputsWork(4);
 elProfileInputsWork(5);
 
 window.addEventListener("keydown", () => {
+  if (showTaskForm) {
+    for (var i = 0; i < 2; i++) {
+      if (!elTaskInputs[i].value.trim()) {
+        if (!colorChange) {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+        } else {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+        }
+
+        elTaskText[i].style.cssText = `
+        animation-name: warningTask;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        color: red;
+      `;
+      } else {
+        if (!colorChange) {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+        } else {
+          elTaskInputs[i].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+        }
+
+        elTaskText[i].style.cssText = `
+        animation: none;
+        color: var(--colorUser);
+      `;
+      }
+    }
+  }
+
   if (elTextArea.value.trim()) {
     if (!colorChange) {
       elTextArea.style.cssText = `
@@ -1335,9 +1734,17 @@ window.addEventListener("keydown", () => {
     elProfileInputs[2].value.trim().length > 0
   ) {
     elProfileText[2].textContent = "Correct";
-    elProfileInputs[2].style.cssText = `
+    if (!colorChange) {
+      elProfileInputs[2].style.cssText = `
       border: 1px solid var(--colorUser);
+      background-color: var(--white);
     `;
+    } else {
+      elProfileInputs[2].style.cssText = `
+      border: 1px solid var(--colorUser);
+      background-color: var(--colorOpacityBlack);
+    `;
+    }
 
     elProfileText[2].style.cssText = `
       animation-name: inputText;
@@ -1347,15 +1754,29 @@ window.addEventListener("keydown", () => {
     `;
   } else if (Number(elProfileInputs[2].value.trim()) >= 120) {
     elProfileText[2].textContent = "Make sure less than 120";
-    elProfileInputs[2].style.cssText = `
+    if (!colorChange) {
+      elProfileInputs[2].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
               `;
-    elProfileText[2].style.cssText = `
+      elProfileText[2].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
           `;
+    } else {
+      elProfileInputs[2].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+              `;
+      elProfileText[2].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+          `;
+    }
   }
 
   if (
@@ -1365,9 +1786,17 @@ window.addEventListener("keydown", () => {
     includesEmailGlobal
   ) {
     elProfileText[3].textContent = "Correct";
-    elProfileInputs[3].style.cssText = `
+    if (!colorChange) {
+      elProfileInputs[3].style.cssText = `
       border: 1px solid var(--colorUser);
+      background-color: var(--white);
     `;
+    } else {
+      elProfileInputs[3].style.cssText = `
+      border: 1px solid var(--colorUser);
+      background-color: var(--colorOpacityBlack);
+    `;
+    }
 
     elProfileText[3].style.cssText = `
       animation-name: inputText;
@@ -1382,15 +1811,23 @@ window.addEventListener("keydown", () => {
     includesEmailGlobal = includesInEmail;
     if (!includesInEmail) {
       elProfileText[3].textContent = "Make sure '@'";
-      elProfileInputs[3].style.cssText = `
-                border: 1px solid red;
-              `;
       elProfileText[3].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
               `;
+      if (!colorChange) {
+        elProfileInputs[3].style.cssText = `
+      border: 1px solid red;
+      background-color: var(--white);
+    `;
+      } else {
+        elProfileInputs[3].style.cssText = `
+      border: 1px solid red;
+      background-color: var(--colorOpacityBlack);
+    `;
+      }
     } else if (includesInEmail) {
       for (var i = 0; i < elProfileInputs[3].value.trim().length; i++) {
         if (elProfileInputs[3].value.trim()[i] == "@") {
@@ -1400,9 +1837,17 @@ window.addEventListener("keydown", () => {
             ] == "@"
           ) {
             elProfileText[3].textContent = "Make sure text after '@'";
-            elProfileInputs[3].style.cssText = `
+            if (!colorChange) {
+              elProfileInputs[3].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
               `;
+            } else {
+              elProfileInputs[3].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+              `;
+            }
             elProfileText[3].style.cssText = `
                 color: red ;
                 animation-name: warning;
@@ -1422,15 +1867,31 @@ elProfileFormButton.addEventListener("click", (e) => {
 
   for (var i = 0; i <= 5; i++) {
     if (!elProfileInputs[i].value.trim()) {
-      elProfileInputs[i].style.cssText = `
+      if (!colorChange) {
+        elProfileInputs[i].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
+                
               `;
-      elProfileText[i].style.cssText = `
+        elProfileText[i].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
               `;
+      } else {
+        elProfileInputs[i].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+                
+              `;
+        elProfileText[i].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+      }
     }
   }
 
@@ -1445,29 +1906,60 @@ elProfileFormButton.addEventListener("click", (e) => {
       includesEmailGlobal
     ) {
       elProfileText[3].textContent = "Correct";
-      elProfileInputs[3].style.cssText = `
-      border: 1px solid var(--colorUser);
-    `;
-
-      elProfileText[3].style.cssText = `
-      animation-name: inputText;
-      animation-duration: 0.2s;
-      animation-fill-mode: forwards;
-      color: var(--colorUser)
-    `;
+      if (!colorChange) {
+        elProfileInputs[3].style.cssText = `
+                border: 1px solid var(--colorUser);
+                background-color: var(--white);
+                
+              `;
+        elProfileText[3].style.cssText = `
+                animation-name: inputText;
+                animation-duration: 0.2s;
+                animation-fill-mode: forwards;
+                color: var(--colorUser)
+              `;
+      } else {
+        elProfileInputs[3].style.cssText = `
+                border: 1px solid var(--colorUser);
+                background-color: var(--colorOpacityBlack);
+                
+              `;
+        elProfileText[3].style.cssText = `
+                animation-name: inputText;
+                animation-duration: 0.2s;
+                animation-fill-mode: forwards;
+                color: var(--colorUser)
+              `;
+      }
     }
 
     if (!includesInEmail) {
       elProfileText[3].textContent = "Make sure '@'";
-      elProfileInputs[3].style.cssText = `
+      if (!colorChange) {
+        elProfileInputs[3].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
+                
               `;
-      elProfileText[3].style.cssText = `
+        elProfileText[3].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
               `;
+      } else {
+        elProfileInputs[3].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+                
+              `;
+        elProfileText[3].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+      }
     } else if (includesInEmail) {
       for (var i = 0; i < elProfileInputs[3].value.trim().length; i++) {
         if (elProfileInputs[3].value.trim()[i] == "@") {
@@ -1477,15 +1969,31 @@ elProfileFormButton.addEventListener("click", (e) => {
             ] == "@"
           ) {
             elProfileText[3].textContent = "Make sure text after '@'";
-            elProfileInputs[3].style.cssText = `
+            if (!colorChange) {
+              elProfileInputs[3].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
+                
               `;
-            elProfileText[3].style.cssText = `
+              elProfileText[3].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
               `;
+            } else {
+              elProfileInputs[3].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+                
+              `;
+              elProfileText[3].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+            }
           }
         }
       }
@@ -1503,15 +2011,29 @@ elProfileFormButton.addEventListener("click", (e) => {
     if (Number(elProfileInputs[2].value.trim()) < 120) {
       for (var i = 0; i <= 5; i++) {
         if (!elProfileInputs[i].value.trim()) {
-          elProfileInputs[i].style.cssText = `
+          if (!colorChange) {
+            elProfileInputs[i].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
               `;
-          elProfileText[i].style.cssText = `
+            elProfileText[i].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
               `;
+          } else {
+            elProfileInputs[i].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+              `;
+            elProfileText[i].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+              `;
+          }
         } else {
           accept++;
         }
@@ -1519,15 +2041,29 @@ elProfileFormButton.addEventListener("click", (e) => {
     } else {
       elProfileText[2].textContent = "Make sure less than 120";
 
-      elProfileInputs[2].style.cssText = `
+      if (!colorChange) {
+        elProfileInputs[2].style.cssText = `
                 border: 1px solid red;
+                background-color: var(--white);
               `;
-      elProfileText[2].style.cssText = `
+        elProfileText[2].style.cssText = `
                 color: red ;
                 animation-name: warning;
                 animation-duration: 0.4s;
                 animation-fill-mode: forwards;
           `;
+      } else {
+        elProfileInputs[2].style.cssText = `
+                border: 1px solid red;
+                background-color: var(--colorOpacityBlack);
+              `;
+        elProfileText[2].style.cssText = `
+                color: red ;
+                animation-name: warning;
+                animation-duration: 0.4s;
+                animation-fill-mode: forwards;
+          `;
+      }
     }
   }
 
@@ -1541,29 +2077,55 @@ elProfileFormButton.addEventListener("click", (e) => {
     elProfileFormButton.disabled = true;
 
     for (var i = 0; i <= 5; i++) {
-      elProfileInputs[i].style.cssText = `
+      if (!colorChange) {
+        elProfileInputs[i].style.cssText = `
         animation-name: accepted;
         animation-duration: 0.1s;
         animation-delay: ${i / 4}s;
         animation-fill-mode: forwards;
+        background-color: var(--white);
       `;
+      } else {
+        elProfileInputs[i].style.cssText = `
+        animation-name: accepted;
+        animation-duration: 0.1s;
+        animation-delay: ${i / 4}s;
+        animation-fill-mode: forwards;
+        background-color: var(--colorOpacityBlack);
+      `;
+      }
+
       elProfileText[i].style.cssText = `
         animation-name: acceptedText;
         animation-duration: 0.1s;
         animation-delay: ${i / 4}s;
-        animation-fill-mode: backwards;
+        animation-fill-mode: forwards;
         top: 0px;
         transform: translateX(-4px);
+
       `;
     }
 
-    elProfileForm.style.cssText = `
+    if (!colorChange) {
+      elProfileForm.style.cssText = `
       display: flex;
       animation-name: closeForm;
       animation-duration: 0.5s;
       animation-delay: 2s;
       animation-fill-mode: forwards;
+      background-color: var(--colorGray);
     `;
+    } else {
+      elProfileForm.style.cssText = `
+      display: flex;
+      animation-name: closeForm;
+      animation-duration: 0.5s;
+      animation-delay: 2s;
+      animation-fill-mode: forwards;
+      background-color: var(--colorSecondBlack);
+    `;
+    }
+
     elProfileFormButton.textContent = "";
     elMainLoader.style.cssText = `
       visibility: visible;      
@@ -1586,5 +2148,10 @@ elProfileFormButton.addEventListener("click", (e) => {
 
     userEntered = true;
     start();
+    showTask();
+    elTask.style.cssText = `
+      display: flex;
+    `;
+    showTaskForm = true;
   }
 });

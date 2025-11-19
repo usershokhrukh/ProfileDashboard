@@ -12,17 +12,18 @@
   <style>
     :root {
       --colorBlack: #1c1b1b;
-      --colorGray: #d2d2d2;
+      --colorGray: #efeeee;
+      --colorSecondBlack: rgb(47, 47, 47);
       --colorOpacityBlack: #7f7f7f;
       --white: #ffffff;
       --colorDarkGray: rgb(67, 65, 65);
-
+      --colorGreen: rgb(28, 168, 28);
       --colorUser: #0192ef;
       --colorUserOpacity: #d6e3f7;
       --colorUserGreen: #1a5641;
       --colorUserGreenOpacity: #d7ffd7;
       --colorUserYellowOpacity: #ffba5a;
-      --colorUserYellow: #ffd600;
+      --colorUserYellow: #edc601;
       --colorUserPurple: #220e22;
       --colorUserPurpleOpacity: #efbbef;
       --colorUserBlack: #131a22;
@@ -126,6 +127,7 @@
       }
       100% {
         transform: translateY(0px);
+        visibility: visible;
       }
     }
 
@@ -157,12 +159,30 @@
       }
     }
 
-    @keyframes accepted {
+    @keyframes warningTask {
       0% {
-        border: 1px solid var(--colorUserGreen);
+        transform: translateX(-5px);
+      }
+      25% {
+        transform: translateX(5px)
+      }
+      50% {
+        transform: translateX(-5px);
+      }
+      75% {
+        transform: translateX(5px);
       }
       100% {
-        border: 1px solid var(--colorUserGreen);
+        transform: translateX(0px) ;
+      }
+    }
+
+    @keyframes accepted {
+      0% {
+        border: 1px solid var(--colorGreen);
+      }
+      100% {
+        border: 1px solid var(--colorGreen);
       }
     }
 
@@ -173,7 +193,7 @@
       }
       100% {
         top: 0px;
-        color: var(--colorUserGreen);
+        color: var(--colorGreen);
       }
     }
 
@@ -642,6 +662,66 @@
           </svg>
           <button class="profileform__button">Save Profile</button>
         </form>
+      </section>
+      <section class="task contain">
+        <form class="task__left">
+          <div class="task__boxes">
+            <svg class="task__icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"></path></svg>
+            <p class="task__title">Add New Group</p>
+          </div>
+          <div class="task__boxes task__sections">
+            <input placeholder="Name of group"  id="task__input" class="task__inputs" type="text">
+            <label class="task__text" for="task__input">Enter name of group</label>
+          </div>
+          <div class="task__boxes">
+            <svg class="task__icons task__icons-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V21C21 21.5523 20.5523 22 20 22ZM8 7V9H16V7H8ZM8 11V13H16V11H8ZM8 15V17H13V15H8Z"></path></svg>
+            <p class="task__title task__box-title">
+              Description
+            </p>
+          </div>
+          <div class="task__boxes task__sections">
+            <textarea placeholder="Description" class="task__textarea task__inputs" name="" id=""></textarea>
+            <p class="task__text">Description for users</p>
+          </div>
+          <button class="task__button">Create</button>
+        </form>
+        <div class="task__right">
+          <div class="task__right-top">
+            <div class="task__right-top-box">
+              <svg class="task__right-icons" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/></svg>
+              <h2 class="task__right-title">Existing Groups</h2>
+            </div>
+            <p class="task__right-text"><span class="task__right-text-span">0</span> Groups</p>
+          </div>
+          <div class="task__right-inputform">
+            <input placeholder="Search groups" id="task-right-input" class="task__right-input" type="text">
+            <label class="task__right-input-label" for="task-right-input">Search</label>
+          </div>
+          <div class="task__right-main">
+            <div class="task__right-main-top">
+              <div class="task__right-main-top-box">
+                <svg class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+                <svg class="task__right-checkbox " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+                <p class="task__right-top-title">
+                  Name
+                </p>
+              </div>
+              <p class="task__right-top-title">Key</p>
+              <p class="task__right-top-title">Users</p>
+              <p class="task__right-top-title">Description</p>
+            </div>
+            <div class="task__items">
+              <div class="task__items-box">
+                <svg  class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+                <svg  class="task__right-checkbox" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+                <span class="task__items-text">Name</span>
+              </div>
+              <p class="task__items-text">name</p>
+              <p class="task__items-text">0</p>
+              <p class="task__items-text">Description</p>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
     <footer class="wrapper footer">
