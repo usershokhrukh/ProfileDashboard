@@ -28,6 +28,7 @@ const elAbout = document.querySelector(".about");
 const elAboutText = document.querySelectorAll(".about__text");
 const elTaskContain = document.querySelectorAll(".task__items-contain");
 const elTaskRemove = document.querySelector(".task__remove");
+let userNames = [];
 let reportGroups = 0;
 let windowSize = window.innerWidth;
 let showHideReport = false;
@@ -122,8 +123,10 @@ function showTask() {
 // showTask();
 
 elTaskRemove.addEventListener("click", () => {
+  userNames = [];
   reportGroups = 0;
   elTaskRightTextSpan.textContent = `${reportGroups}`;
+
   elTaskRightMain.innerHTML = `
   <div class="task__right-main-top">
               <div class="task__right-main-top-box">
@@ -141,7 +144,6 @@ elTaskRemove.addEventListener("click", () => {
 });
 
 //code
-let userNames = [];
 elTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
   let enterStart = false;
