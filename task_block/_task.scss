@@ -110,6 +110,7 @@
     flex-direction: column;
     align-items: start;
     gap: 20px;
+    // width: 100%;
     background-color: var(--colorGray);
     flex-grow: 2;
     max-width: calc(3000px - 430px);
@@ -171,7 +172,7 @@
 
   &__right-input-label {
     @include hoverOn();
-    background-color: red;
+    // background-color: red;                                                                                                                           
     padding: 10px 12px;
     border-radius: 4px;
     font-family: "Open Sans";
@@ -192,7 +193,7 @@
     position: relative;
     width: 100%;
     justify-content: start;
-    gap: 10%;
+    gap: 10px;
     border-bottom: 1px solid var(--colorOpacityBlack);
     padding: 10px 55px 10px 5px;
   }
@@ -200,9 +201,10 @@
   &__right-main-top-box {
     @include display();
     position: relative;
-    width: 100px;
+    width: 140px;
     justify-content: center;
     gap: 2px;
+    // background-color: red;
   }
 
   &__right-checkbox {
@@ -222,7 +224,7 @@
   }
 
   &__right-top-title {
-    width: 70px;
+    width: 140px;
     flex-grow: 1;
     font-family: "Open Sans";
     font-size: 16px;
@@ -235,7 +237,17 @@
     justify-content: start;
     width: 140px;
     gap: 5px;
-    margin-right: -38px;
+    overflow-y: auto
+    // margin-right: -38px;
+  }
+
+  &__items-box::-webkit-scrollbar {
+    display: none;
+    visibility: hidden;
+  }
+
+  &__items-first {
+    display: none !important;
   }
 
 
@@ -245,19 +257,37 @@
     align-items: start;
     width: 100%;
     padding: 20px 55px 20px 5px;
-    gap: 10%;
+    gap: 10px;
     background-color: rgb(222, 219, 219);
     border-top: 1px solid var(--colorOpacityBlack);
   }
 
 
   &__items-text {
-    width: 70px;
+    // @include display();    
+    width: 140px ;
     flex-grow: 1;
     font-family: "Open Sans";
+    overflow-y: auto
+
+  }
+
+    &__items-text::-webkit-scrollbar {
+    display: none;
+    visibility: hidden;
   }
 
   &__right-checkbox-item {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__right-top-box {
+    @include display();
+  }
+
+  &__remove {
+    @include hoverOn();
     width: 20px;
     height: 20px;
   }
@@ -266,7 +296,7 @@
 }
 
 
-@media (max-width: 950px) {
+@media (max-width: 800px) {
   .task { 
     &__left {
       width: 100%;
@@ -275,6 +305,40 @@
 
     &__textarea {
       min-width: 100px;
+    }
+
+    &__right-main-top {
+      display: none;
+    }
+
+    &__items {
+      flex-wrap: wrap;
+    }
+
+    &__right-top {
+      // flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    &__right-top-box {
+      width: 100%;
+      justify-content: start;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    &__right-title {
+      width: 80%;
+    }
+
+    &__right-inputform {
+      flex-wrap: wrap;
+    }
+
+    &__right-input-label {
+      @include display();
+      width: 100%;
+      justify-content: center;
     }
   }
 }

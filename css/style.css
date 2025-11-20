@@ -759,7 +759,6 @@ li {
   box-shadow: 0px 0px 20px -10px var(--colorOpacityBlack);
 }
 .task__right-input-label {
-  background-color: red;
   padding: 10px 12px;
   border-radius: 4px;
   font-family: "Open Sans";
@@ -788,7 +787,7 @@ li {
   position: relative;
   width: 100%;
   justify-content: start;
-  gap: 10%;
+  gap: 10px;
   border-bottom: 1px solid var(--colorOpacityBlack);
   padding: 10px 55px 10px 5px;
 }
@@ -797,7 +796,7 @@ li {
   align-items: center;
   justify-content: space-between;
   position: relative;
-  width: 100px;
+  width: 140px;
   justify-content: center;
   gap: 2px;
 }
@@ -814,7 +813,7 @@ li {
   width: 100% !important;
 }
 .task__right-top-title {
-  width: 70px;
+  width: 140px;
   flex-grow: 1;
   font-family: "Open Sans";
   font-size: 16px;
@@ -827,7 +826,14 @@ li {
   justify-content: start;
   width: 140px;
   gap: 5px;
-  margin-right: -38px;
+  overflow-y: auto;
+}
+.task__items-box::-webkit-scrollbar {
+  display: none;
+  visibility: hidden;
+}
+.task__items-first {
+  display: none !important;
 }
 .task__items {
   display: flex;
@@ -837,26 +843,74 @@ li {
   align-items: start;
   width: 100%;
   padding: 20px 55px 20px 5px;
-  gap: 10%;
+  gap: 10px;
   background-color: rgb(222, 219, 219);
   border-top: 1px solid var(--colorOpacityBlack);
 }
 .task__items-text {
-  width: 70px;
+  width: 140px;
   flex-grow: 1;
   font-family: "Open Sans";
+  overflow-y: auto;
+}
+.task__items-text::-webkit-scrollbar {
+  display: none;
+  visibility: hidden;
 }
 .task__right-checkbox-item {
   width: 20px;
   height: 20px;
 }
+.task__right-top-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.task__remove {
+  width: 20px;
+  height: 20px;
+}
+.task__remove:hover {
+  opacity: 0.8;
+}
+.task__remove:active {
+  opacity: 1;
+}
 
-@media (max-width: 950px) {
+@media (max-width: 800px) {
   .task__left {
     width: 100%;
     max-width: none;
   }
   .task__textarea {
     min-width: 100px;
+  }
+  .task__right-main-top {
+    display: none;
+  }
+  .task__items {
+    flex-wrap: wrap;
+  }
+  .task__right-top {
+    gap: 3px;
+  }
+  .task__right-top-box {
+    width: 100%;
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+  .task__right-title {
+    width: 80%;
+  }
+  .task__right-inputform {
+    flex-wrap: wrap;
+  }
+  .task__right-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    justify-content: center;
   }
 }/*# sourceMappingURL=style.css.map */

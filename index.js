@@ -26,6 +26,9 @@ const elProfileId = document.querySelectorAll(".profileform__id");
 const elProfileTextId = document.querySelectorAll(".profileform__textid");
 const elAbout = document.querySelector(".about");
 const elAboutText = document.querySelectorAll(".about__text");
+const elTaskContain = document.querySelectorAll(".task__items-contain");
+const elTaskRemove = document.querySelector(".task__remove");
+let reportGroups = 0;
 let windowSize = window.innerWidth;
 let showHideReport = false;
 let showHideIconSet = false;
@@ -118,111 +121,188 @@ function showTask() {
 }
 // showTask();
 
-// function checkboxes(checks) {
-//   elTaskRightCheckboxSecond[checks].addEventListener("click", ()=>{
-//     if (!checkBox) {
-//       elTaskRightCheckbox[checks].style.cssText = `
-//         display: inline-block;
-//       `;
-//       elTaskRightCheckboxSecond[checks].style.cssText = `
-//         display: none;
-//       `;
-//       checkBox = true;
-//     checkboxes(checks);
-
-//     }else {
-//       elTaskRightCheckboxSecond[checks].style.cssText = `
-//         display: inline-block;
-//       `;
-//       elTaskRightCheckbox[checks].style.cssText = `
-//         display: none;
-//       `;
-//       checkBox = false;
-//       checkboxes(checks);
-//     }
-//   });
-// }
-// checkboxes(0);
-// checkboxes(0);
+elTaskRemove.addEventListener("click", () => {
+  reportGroups = 0;
+  elTaskRightTextSpan.textContent = `${reportGroups}`;
+  elTaskRightMain.innerHTML = `
+  <div class="task__right-main-top">
+              <div class="task__right-main-top-box">
+                <svg class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+                <svg class="task__right-checkbox " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+                <p class="task__right-top-title">
+                  Name
+                </p>
+              </div>
+              <p class="task__right-top-title">Key</p>
+              <p class="task__right-top-title">Users</p>
+              <p class="task__right-top-title">Description</p>
+            </div>
+  `;
+});
 
 //code
-
+let userNames = [];
 elTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
   let enterStart = false;
 
   if (showTaskForm) {
-    for (var i = 0; i < 2; i++) {
-      if (!elTaskInputs[i].value.trim()) {
-        if (!colorChange) {
-          elTaskInputs[i].style.cssText = `
+    if (!elTaskInputs[0].value.trim()) {
+      enterStart = false;
+      if (!colorChange) {
+        elTaskInputs[0].style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-        } else {
-          elTaskInputs[i].style.cssText = `
+      } else {
+        elTaskInputs[0].style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-        }
+      }
 
-        elTaskText[i].style.cssText = `
+      elTaskText[0].style.cssText = `
         animation-name: warningTask;
         animation-duration: 0.4s;
         animation-fill-mode: forwards;
         color: red;
       `;
-      } else {
-        if (!colorChange) {
-          elTaskInputs[i].style.cssText = `
+    } else {
+      if (!colorChange) {
+        elTaskInputs[0].style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
-        } else {
-          elTaskInputs[i].style.cssText = `
+      } else {
+        elTaskInputs[0].style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
-        }
+      }
 
-        elTaskText[i].style.cssText = `
+      elTaskText[0].style.cssText = `
         animation: none;
         color: var(--colorUser);
       `;
-        enterStart = true;
+      enterStart = true;
+    }
+    if (!elTaskInputs[1].value.trim()) {
+      enterStart = false;
+      if (!colorChange) {
+        elTaskInputs[1].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+      } else {
+        elTaskInputs[1].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
       }
+
+      elTaskText[1].style.cssText = `
+        animation-name: warningTask;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        color: red;
+      `;
+    } else {
+      if (!colorChange) {
+        elTaskInputs[1].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+      } else {
+        elTaskInputs[1].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+      }
+
+      elTaskText[1].style.cssText = `
+        animation: none;
+        color: var(--colorUser);
+      `;
+      enterStart = true;
     }
     if (enterStart) {
-      let userNames = [];
       let userNameRepeat = false;
-      console.log(elTaskInputs[0].value.trim());
       for (var i = 0; i < userNames.length; i++) {
         if (userNames[i] == elTaskInputs[0].value.trim()) {
           elTaskText[0].textContent = `Name is repeating`;
-          elTaskInputs[0].style.cssText = `
-          background-color: var(--colorOpacityBlack);
+          if (!colorChange) {
+            elTaskInputs[0].style.cssText = `
+          background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
           `;
 
-          elTaskText[0].style.cssText = `
+            elTaskText[0].style.cssText = `
           animation-name: warningTask;
           animation-duration: 0.4s;
           animation-fill-mode: forwards;
           color: red;
           `;
-          userNameRepeat = true;
+            userNameRepeat = true;
+          } else {
+            elTaskInputs[0].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+          `;
+
+            elTaskText[0].style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
+            userNameRepeat = true;
+          }
+        } else {
+          elTaskText[0].textContent = `Enter name of group`;
+          if (!colorChange) {
+            elTaskInputs[0].style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+          `;
+
+            elTaskText[0].style.cssText = `
+          animation: none;
+          color: var(--colorUser);
+          `;
+            userNameRepeat = false;
+          } else {
+            elTaskInputs[0].style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+          `;
+
+            elTaskText[0].style.cssText = `
+          animation: none;
+          color: var(--colorUser);
+          `;
+            userNameRepeat = false;
+          }
         }
       }
 
       if (!userNameRepeat) {
         userNames.push(elTaskInputs[0].value.trim());
-        console.log(userNames);
-        
+        elTaskRightTextSpan.textContent = `${
+          Number(elTaskRightTextSpan.textContent) + 1
+        }`;
+        reportGroups++;
         const element = document.createElement("div");
         element.setAttribute("class", "task__items-contain");
         element.innerHTML = `
@@ -235,7 +315,7 @@ elTaskButton.addEventListener("click", (e) => {
         <p class="task__items-text">${elTaskInputs[0].value
           .trim()
           .toLowerCase()
-          .replace(" ", "-")}</p>
+          .replaceAll(" ", "-")}</p>
         <p class="task__items-text">0</p>
         <p class="task__items-text">${elTaskInputs[1].value.trim()}</p>
         </div>
@@ -692,10 +772,6 @@ function blackToWhite() {
   elTaskRightTitle.style.cssText = `
     color: var(--colorBlack);
   `;
-  elTaskItems.style.cssText = `
-    background-color: rgb(222, 219, 219);
-    border-top: 1px solid var(--colorOpacityBlack);
-  `;
 
   for (var i = 0; i < 4; i++) {
     elTaskRightTopTitle[i].style.cssText = `
@@ -703,6 +779,12 @@ function blackToWhite() {
     `;
   }
 
+  elTaskRightCheckboxSecond[0].style.cssText = `
+    color: va(--colorBlack)
+  `;
+  elTaskRightCheckbox[0].style.cssText = `
+    color: va(--colorBlack)
+  `;
   if (showTaskForm) {
     elTaskLeft.style.cssText = `
     animation-none;
@@ -937,9 +1019,12 @@ function whiteToBlack() {
   elTaskRightTitle.style.cssText = `
     color: var(--white);
   `;
-  elTaskItems.style.cssText = `
-    background-color: var(--colorOpacityBlack);
-    border-top: 1px solid var(--white);
+
+  elTaskRightCheckboxSecond[0].style.cssText = `
+    color: va(--white)
+  `;
+  elTaskRightCheckbox[0].style.cssText = `
+    color: va(--white)
   `;
 
   for (var i = 0; i < 4; i++) {
