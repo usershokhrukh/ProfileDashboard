@@ -122,26 +122,54 @@ function showTask() {
 }
 // showTask();
 
-elTaskRemove.addEventListener("click", () => {
-  userNames = [];
-  reportGroups = 0;
-  elTaskRightTextSpan.textContent = `${reportGroups}`;
+function taskRightTitle() {
+  const elTaskRightTopTitle = document.querySelectorAll(
+    ".task__right-top-title"
+  );
+  for (var i = 0; i < 4; i++) {
+    if (!colorChange) {
+      elTaskRightTopTitle[i].style.cssText = `
+        color: var(--colorBlack);
+      `;
+    } else {
+      elTaskRightTopTitle[i].style.cssText = `
+        color: var(--white);
+      `;
+    }
+  }
+}
 
-  elTaskRightMain.innerHTML = `
-  <div class="task__right-main-top">
-              <div class="task__right-main-top-box">
-                <svg class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
-                <svg class="task__right-checkbox " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
-                <p class="task__right-top-title">
-                  Name
-                </p>
-              </div>
-              <p class="task__right-top-title">Key</p>
-              <p class="task__right-top-title">Users</p>
-              <p class="task__right-top-title">Description</p>
-            </div>
-  `;
-});
+function checkBoxF() {
+  console.log(checkBoxes);
+  const elTaskRightCheckboxSecond = document.querySelectorAll(
+    ".task__right-checkbox-second"
+  );
+  const elTaskRightCheckbox = document.querySelectorAll(
+    ".task__right-checkbox"
+  );
+
+  if (!checkBox) {
+    for (var i = 0; i < checkBoxes; i++) {
+      elTaskRightCheckboxSecond[i].style.cssText = `
+        display: none;
+      `;
+      elTaskRightCheckbox[i].style.cssText = `
+        display: block;
+      `;
+    }
+    checkBox = true;
+  } else {
+    for (var i = 0; i < checkBoxes; i++) {
+      elTaskRightCheckboxSecond[i].style.cssText = `
+        display: block;
+      `;
+      elTaskRightCheckbox[i].style.cssText = `
+        display: none;
+      `;
+    }
+    checkBox = false;
+  }
+}
 
 //code
 elTaskButton.addEventListener("click", (e) => {
@@ -310,7 +338,7 @@ elTaskButton.addEventListener("click", (e) => {
         element.innerHTML = `
         <div class="task__items">
         <div class="task__items-box">
-        <svg  class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+        <svg  class="task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
         <svg  class="task__right-checkbox" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
         <span class="task__items-text">${elTaskInputs[0].value.trim()}</span>
         </div>
@@ -323,9 +351,40 @@ elTaskButton.addEventListener("click", (e) => {
         </div>
         `;
         elTaskRightMain.appendChild(element);
+        checkBoxes++;
       }
     }
   }
+});
+
+elTaskRemove.addEventListener("click", () => {
+  userNames = [];
+  reportGroups = 0;
+  elTaskRightTextSpan.textContent = `${reportGroups}`;
+  elTaskRightMain.innerHTML = `
+  <div class="task__right-main-top">
+              <div class="task__right-main-top-box">
+                <svg class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
+                <svg class="task__right-checkbox " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
+                <p class="task__right-top-title">
+                  Name
+                </p>
+              </div>
+              <p class="task__right-top-title">Key</p>
+              <p class="task__right-top-title">Users</p>
+              <p class="task__right-top-title">Description</p>
+            </div>
+  `;
+  taskRightTitle();
+});
+
+elTaskRightCheckboxSecond[0].addEventListener("click", () => {
+  checkBoxF();
+  console.log("no");
+});
+elTaskRightCheckbox[0].addEventListener("click", () => {
+  checkBoxF();
+  console.log("yes");
 });
 
 //-------------------------------------------------------------------
@@ -775,17 +834,13 @@ function blackToWhite() {
     color: var(--colorBlack);
   `;
 
-  for (var i = 0; i < 4; i++) {
-    elTaskRightTopTitle[i].style.cssText = `
-      color: var(--colorBlack);
-    `;
-  }
+  taskRightTitle();
 
   elTaskRightCheckboxSecond[0].style.cssText = `
-    color: va(--colorBlack)
+    color: var(--colorBlack)
   `;
   elTaskRightCheckbox[0].style.cssText = `
-    color: va(--colorBlack)
+    color: var(--colorBlack)
   `;
   if (showTaskForm) {
     elTaskLeft.style.cssText = `
@@ -1023,17 +1078,13 @@ function whiteToBlack() {
   `;
 
   elTaskRightCheckboxSecond[0].style.cssText = `
-    color: va(--white)
+    color: var(--white)
   `;
   elTaskRightCheckbox[0].style.cssText = `
-    color: va(--white)
+    color: var(--white)
   `;
 
-  for (var i = 0; i < 4; i++) {
-    elTaskRightTopTitle[i].style.cssText = `
-      color: var(--white);
-    `;
-  }
+  taskRightTitle();
 
   if (showTaskForm) {
     elTaskLeft.style.cssText = `
