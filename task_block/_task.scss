@@ -4,8 +4,8 @@
   align-items: start;
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
-  display: none;
+  // flex-wrap: wrap;
+  // display: none;
   &__left {
     @include display();
     position: relative;
@@ -20,7 +20,7 @@
     border-radius: 5px;
     border: 1px solid var(--colorUser);
     // display: none;
-    visibility: hidden;
+    // visibility: hidden;
   }
 
   &__boxes {
@@ -34,10 +34,6 @@
     width: 30px;
     height: 30px;
     color: var(--colorGreen);
-  }
-
-  &__icons-second {
-    color: var(--colorUserYellow);
   }
 
   &__sections {
@@ -93,12 +89,6 @@
     color: var(--colorBlack)
   }
 
-
-  &__box-title {
-    font-weight: 500;
-    font-size: 16px;
-  }
-
   &__text {
     font-family: "Open Sans";
     font-size: 14px;
@@ -117,7 +107,8 @@
     padding: 20px 0px;
     border-radius: 5px;
     border: 1px solid var(--colorUser);
-    visibility: hidden;
+    // visibility: hidden;
+    width: 70%;
   }
 
   &__right-top {
@@ -133,17 +124,17 @@
     color: var(--colorUser);
   }
 
-  &__right-top-box {
-    @include display();
-    gap: 10px;
-  }
-
   &__right-title {
     font-family: "Open Sans";
-
   }
 
-  &__right-text {
+  &__right-top-box {
+    @include display();
+    justify-content: start;
+    gap: 5px;
+  }
+
+  &__right-text, &__trash-text {
     font-family: "Open Sans";
     font-size: 14px;
     background-color: var(--colorUser);
@@ -154,13 +145,36 @@
     opacity: 0.8;
   }
 
+  &__trash-text {
+    @include display();
+    justify-content: start;
+    align-items: center;
+    position: absolute;
+    top: -30px;
+    right: 0px;
+    min-width: 90px;
+    // background-color: transparent;
+    color: var(--colorBlack);
+    background-color: var(--colorUserOpacity)
+  }
+
+  &__items-text-span {
+    background-color: var(--colorUser);
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: white;
+    font-family: "Open Sans";
+    font-size: 14px;
+
+  }
+
   &__right-inputform {
     @include display();
     gap: 20px;
     padding: 0px 35px;
   }
 
-  &__right-input {
+  &__right-input, &__trash-input {
     font-family: "Open Sans";
     padding: 8px 4px;
     width: 100%;
@@ -168,6 +182,22 @@
     border: none;
     outline: none;
     box-shadow: 0px 0px 20px -10px var(--colorOpacityBlack);
+  }
+
+  &__trash-input {
+    position: relative;
+    width: 35px;
+    height: 23px;
+    padding: 4px 0px;
+  }
+
+  &__right-top-trash{
+    @include display();
+    justify-content: end;
+    position: relative;
+    gap: 5px;
+    // width: 70%;
+    flex-grow: 2;
   }
 
   &__right-input-label {
@@ -180,106 +210,6 @@
     background-color: var(--colorUser);
   }
 
-  &__right-main {
-    @include display();
-    width: 100%;
-    flex-direction: column;
-    align-items: start;
-    padding: 0px 30px;  
-  }
-
-  &__right-main-top {
-    @include display();
-    position: relative;
-    width: 100%;
-    justify-content: start;
-    gap: 10px;
-    border-bottom: 1px solid var(--colorOpacityBlack);
-    padding: 10px 55px 10px 5px;
-  }
-
-  &__right-main-top-box {
-    @include display();
-    position: relative;
-    width: 140px;
-    justify-content: center;
-    gap: 2px;
-    // background-color: red;
-  }
-
-  &__right-checkbox {
-    width: 20px;
-    height: 20px;
-    display: none;
-  }
-
-  &__right-checkbox-second {
-    width: 20px;
-    height: 20px;
-  }
-
-  &__items-contain {
-    width: 100% !important; 
-  }
-
-  &__right-top-title {
-    width: 140px;
-    flex-grow: 1;
-    font-family: "Open Sans";
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-
-  &__items-box {
-    @include display();
-    justify-content: start;
-    width: 140px;
-    gap: 5px;
-    overflow-y: auto
-    // margin-right: -38px;
-  }
-
-  &__items-box::-webkit-scrollbar {
-    display: none;
-    visibility: hidden;
-  }
-
-  &__items-first {
-    display: none !important;
-  }
-
-
-  &__items {
-    @include display();
-    justify-content: start;
-    align-items: start;
-    width: 100%;
-    padding: 20px 55px 20px 5px;
-    gap: 10px;
-    background-color: rgb(222, 219, 219);
-    border-top: 1px solid var(--colorOpacityBlack);
-  }
-
-
-  &__items-text {
-    // @include display();    
-    width: 140px ;
-    flex-grow: 1;
-    font-family: "Open Sans";
-    overflow-y: auto
-
-  }
-
-    &__items-text::-webkit-scrollbar {
-    display: none;
-    visibility: hidden;
-  }
-
-  &__right-checkbox-item {
-    width: 20px;
-    height: 20px;
-  }
 
   &__right-top-box {
     @include display();
@@ -288,15 +218,50 @@
   &__remove {
     @include hoverOn();
     width: 20px;
-    height: 20px;
+    height: 23px;
   }
+
+  &__main {
+    @include display();
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 35px;
+  }
+
+  &__items {
+    @include display();
+    width: 100%;
+    background-color: var(--white);
+    padding: 4px 10px;
+    min-height: 50px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 20px -14px var(--colorOpacityBlack);
+  }
+
+  &__items-text {
+    font-family: "Open Sans";
+    font-weight: 700;
+    max-width: 700px;
+    width: 70%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 5px;
+  }
+
+  // &__items:nth-child(2){
+  //   order: -1;
+  //   background-color: var(--colorUserOpacity);
+  //   transform: scale(1.01);
+  // }
 
   
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 920px) {
   .task { 
+    flex-wrap: wrap;
     &__left {
       width: 100%;
       max-width: none;
@@ -306,17 +271,10 @@
       min-width: 100px;
     }
 
-    &__right-main-top {
-      display: none;
-    }
-
-    &__items {
-      flex-wrap: wrap;
-    }
-
     &__right-top {
-      // flex-wrap: wrap;
-      gap: 3px;
+      gap: 35px;
+      justify-content: end;
+      flex-wrap: wrap;
     }
 
     &__right-top-box {

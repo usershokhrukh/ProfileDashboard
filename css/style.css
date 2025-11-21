@@ -470,6 +470,7 @@ li {
   border-radius: 3px;
   font-family: "Open Sans";
   font-size: 14px;
+  box-shadow: 0px 0px 20px -10px var(--colorOpacityBlack);
 }
 .profileform__button {
   background-color: rgb(28, 168, 28);
@@ -589,8 +590,6 @@ li {
   align-items: start;
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
-  display: none;
 }
 .task__left {
   display: flex;
@@ -607,7 +606,6 @@ li {
   max-width: 400px;
   border-radius: 5px;
   border: 1px solid var(--colorUser);
-  visibility: hidden;
 }
 .task__boxes {
   display: flex;
@@ -621,9 +619,6 @@ li {
   width: 30px;
   height: 30px;
   color: var(--colorGreen);
-}
-.task__icons-second {
-  color: var(--colorUserYellow);
 }
 .task__sections {
   display: flex;
@@ -686,10 +681,6 @@ li {
   font-weight: 100;
   color: var(--colorBlack);
 }
-.task__box-title {
-  font-weight: 500;
-  font-size: 16px;
-}
 .task__text {
   font-family: "Open Sans";
   font-size: 14px;
@@ -708,7 +699,7 @@ li {
   padding: 20px 0px;
   border-radius: 5px;
   border: 1px solid var(--colorUser);
-  visibility: hidden;
+  width: 70%;
 }
 .task__right-top {
   display: flex;
@@ -723,16 +714,17 @@ li {
   height: 50px;
   color: var(--colorUser);
 }
+.task__right-title {
+  font-family: "Open Sans";
+}
 .task__right-top-box {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  justify-content: start;
+  gap: 5px;
 }
-.task__right-title {
-  font-family: "Open Sans";
-}
-.task__right-text {
+.task__right-text, .task__trash-text {
   font-family: "Open Sans";
   font-size: 14px;
   background-color: var(--colorUser);
@@ -742,6 +734,27 @@ li {
   font-weight: 600;
   opacity: 0.8;
 }
+.task__trash-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: start;
+  align-items: center;
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  min-width: 90px;
+  color: var(--colorBlack);
+  background-color: var(--colorUserOpacity);
+}
+.task__items-text-span {
+  background-color: var(--colorUser);
+  padding: 2px 6px;
+  border-radius: 2px;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 14px;
+}
 .task__right-inputform {
   display: flex;
   align-items: center;
@@ -749,7 +762,7 @@ li {
   gap: 20px;
   padding: 0px 35px;
 }
-.task__right-input {
+.task__right-input, .task__trash-input {
   font-family: "Open Sans";
   padding: 8px 4px;
   width: 100%;
@@ -757,6 +770,21 @@ li {
   border: none;
   outline: none;
   box-shadow: 0px 0px 20px -10px var(--colorOpacityBlack);
+}
+.task__trash-input {
+  position: relative;
+  width: 35px;
+  height: 23px;
+  padding: 4px 0px;
+}
+.task__right-top-trash {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: end;
+  position: relative;
+  gap: 5px;
+  flex-grow: 2;
 }
 .task__right-input-label {
   padding: 10px 12px;
@@ -771,96 +799,6 @@ li {
 .task__right-input-label:active {
   opacity: 1;
 }
-.task__right-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  flex-direction: column;
-  align-items: start;
-  padding: 0px 30px;
-}
-.task__right-main-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 100%;
-  justify-content: start;
-  gap: 10px;
-  border-bottom: 1px solid var(--colorOpacityBlack);
-  padding: 10px 55px 10px 5px;
-}
-.task__right-main-top-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 140px;
-  justify-content: center;
-  gap: 2px;
-}
-.task__right-checkbox {
-  width: 20px;
-  height: 20px;
-  display: none;
-}
-.task__right-checkbox-second {
-  width: 20px;
-  height: 20px;
-}
-.task__items-contain {
-  width: 100% !important;
-}
-.task__right-top-title {
-  width: 140px;
-  flex-grow: 1;
-  font-family: "Open Sans";
-  font-size: 16px;
-  font-weight: 600;
-}
-.task__items-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  justify-content: start;
-  width: 140px;
-  gap: 5px;
-  overflow-y: auto;
-}
-.task__items-box::-webkit-scrollbar {
-  display: none;
-  visibility: hidden;
-}
-.task__items-first {
-  display: none !important;
-}
-.task__items {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  justify-content: start;
-  align-items: start;
-  width: 100%;
-  padding: 20px 55px 20px 5px;
-  gap: 10px;
-  background-color: rgb(222, 219, 219);
-  border-top: 1px solid var(--colorOpacityBlack);
-}
-.task__items-text {
-  width: 140px;
-  flex-grow: 1;
-  font-family: "Open Sans";
-  overflow-y: auto;
-}
-.task__items-text::-webkit-scrollbar {
-  display: none;
-  visibility: hidden;
-}
-.task__right-checkbox-item {
-  width: 20px;
-  height: 20px;
-}
 .task__right-top-box {
   display: flex;
   align-items: center;
@@ -868,7 +806,7 @@ li {
 }
 .task__remove {
   width: 20px;
-  height: 20px;
+  height: 23px;
 }
 .task__remove:hover {
   opacity: 0.8;
@@ -876,8 +814,40 @@ li {
 .task__remove:active {
   opacity: 1;
 }
+.task__main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px 35px;
+}
+.task__items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--white);
+  padding: 4px 10px;
+  min-height: 50px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 20px -14px var(--colorOpacityBlack);
+}
+.task__items-text {
+  font-family: "Open Sans";
+  font-weight: 700;
+  max-width: 700px;
+  width: 70%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px;
+}
 
-@media (max-width: 800px) {
+@media (max-width: 920px) {
+  .task {
+    flex-wrap: wrap;
+  }
   .task__left {
     width: 100%;
     max-width: none;
@@ -885,14 +855,10 @@ li {
   .task__textarea {
     min-width: 100px;
   }
-  .task__right-main-top {
-    display: none;
-  }
-  .task__items {
-    flex-wrap: wrap;
-  }
   .task__right-top {
-    gap: 3px;
+    gap: 35px;
+    justify-content: end;
+    flex-wrap: wrap;
   }
   .task__right-top-box {
     width: 100%;

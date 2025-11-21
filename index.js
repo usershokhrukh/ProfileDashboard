@@ -1,3 +1,4 @@
+//profile dashboard
 const elBurger = document.querySelector(".navbar__burger");
 const elTextArea = document.querySelector(".navbar__textarea");
 const elIconPath = document.querySelector(".navbar__icons-path");
@@ -26,9 +27,6 @@ const elProfileId = document.querySelectorAll(".profileform__id");
 const elProfileTextId = document.querySelectorAll(".profileform__textid");
 const elAbout = document.querySelector(".about");
 const elAboutText = document.querySelectorAll(".about__text");
-const elTaskContain = document.querySelectorAll(".task__items-contain");
-const elTaskRemove = document.querySelector(".task__remove");
-let userNames = [];
 let reportGroups = 0;
 let windowSize = window.innerWidth;
 let showHideReport = false;
@@ -54,11 +52,15 @@ elProfileId[1].textContent = elProfileId[0].textContent;
 
 //-----------------------------------------------------------------
 // task profile
+let userNamesList = [];
+let userNamesIndex = [];
+// let userIndexBool = false;
+const elTaskRemove = document.querySelector(".task__remove");
 const elTask = document.querySelector(".task");
 const elTaskLeft = document.querySelector(".task__left");
-const elTaskTitle = document.querySelectorAll(".task__title");
-const elTaskInputs = document.querySelectorAll(".task__inputs");
-const elTaskText = document.querySelectorAll(".task__text");
+const elTaskTitle = document.querySelector(".task__title");
+const elTaskInputs = document.querySelector(".task__inputs");
+const elTaskText = document.querySelector(".task__text");
 const elTaskButton = document.querySelector(".task__button");
 const elTaskRight = document.querySelector(".task__right");
 const elTaskRightIcons = document.querySelector(".task__right-icons");
@@ -68,19 +70,14 @@ const elTaskRightInputLabel = document.querySelector(
   ".task__right-input-label"
 );
 const elTaskRightTitle = document.querySelector(".task__right-title");
-const elTaskRightTopTitle = document.querySelectorAll(".task__right-top-title");
-const elTaskRightCheckbox = document.querySelectorAll(".task__right-checkbox");
-const elTaskItems = document.querySelector(".task__items");
 const elTaskRightText = document.querySelector(".task__right-text");
-const elTaskRightCheckboxSecond = document.querySelectorAll(
-  ".task__right-checkbox-second"
-);
-const elTaskRightMain = document.querySelector(".task__right-main");
+const elTaskMain = document.querySelector(".task__main");
+const elTaskTrashInput = document.querySelector(".task__trash-input");
+const elTaskTrashSpan = document.querySelector(".task__trash-span");
+const elTaskTrashText = document.querySelector(".task__trash-text");
+let elTaskItem = document.querySelectorAll(".task__items");
 let showTaskForm = false;
-let taskItems = 1;
-
-let checkBox = false;
-let checkBoxes = 2;
+let userNameRepeat = false;
 
 // functions
 function showTask() {
@@ -120,80 +117,83 @@ function showTask() {
   `;
   }
 }
-// showTask();
 
-function taskRightTitle() {
-  const elTaskRightTopTitle = document.querySelectorAll(
-    ".task__right-top-title"
-  );
-  for (var i = 0; i < 4; i++) {
-    if (!colorChange) {
-      elTaskRightTopTitle[i].style.cssText = `
-        color: var(--colorBlack);
-      `;
-    } else {
-      elTaskRightTopTitle[i].style.cssText = `
-        color: var(--white);
-      `;
-    }
-  }
-}
-
-function checkBoxF() {
-  console.log(checkBoxes);
-  const elTaskRightCheckboxSecond = document.querySelectorAll(
-    ".task__right-checkbox-second"
-  );
-  const elTaskRightCheckbox = document.querySelectorAll(
-    ".task__right-checkbox"
-  );
-
-  if (!checkBox) {
-    for (var i = 0; i < checkBoxes; i++) {
-      elTaskRightCheckboxSecond[i].style.cssText = `
-        display: none;
-      `;
-      elTaskRightCheckbox[i].style.cssText = `
-        display: block;
-      `;
-    }
-    checkBox = true;
+function clearMain() {
+  // userIndexBool = false;
+  elTaskTrashSpan.textContent = `${elTaskTrashInput.value.trim()}`;
+  elTaskTrashInput.value = ``;
+  if (!elTaskTrashSpan.textContent) {
+    elTaskTrashText.style.cssText = `
+      color: red;
+    `;
   } else {
-    for (var i = 0; i < checkBoxes; i++) {
-      elTaskRightCheckboxSecond[i].style.cssText = `
-        display: block;
-      `;
-      elTaskRightCheckbox[i].style.cssText = `
-        display: none;
-      `;
+    elTaskTrashText.style.cssText = `
+      color: var(--colorBlack);
+    `;
+  }
+
+  if (elTaskTrashSpan.textContent) {
+    if (elTaskTrashSpan.textContent == "-1") {
+      elTaskMain.innerHTML = ``;
+      reportGroups = 0;
+      elTaskRightTextSpan.textContent = `${reportGroups}`;
+    } else if (Number(elTaskTrashSpan.textContent) > 0) {
+      elTaskItem[Number(elTaskTrashSpan.textContent) - 1].remove();
+      reportGroups--;
+      elTaskRightTextSpan.textContent = `${reportGroups}`;
+    } else {
+      elTaskTrashText.style.cssText = `
+      color: red;
+    `;
     }
-    checkBox = false;
   }
 }
+
+elTaskRemove.addEventListener("click", () => {
+  clearMain();
+  if (elTaskTrashSpan.textContent) {
+    elTaskTrashText.style.cssText = `
+      color: var(--colorBlack);
+    `;
+  }
+});
 
 //code
 elTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
   let enterStart = false;
+  userNameRepeat = false;
+  if (elTaskInputs.value.trim()) {
+    for (var i = 0; i < userNamesList.length; i++) {
+      if (userNamesList[i] == elTaskInputs.value.trim()) {
+        userNameRepeat = true;
+      }
+    }
+  }
+
+  if (!userNameRepeat) {
+    userNamesList.push(`${elTaskInputs.value.trim()}`);
+  }
 
   if (showTaskForm) {
-    if (!elTaskInputs[0].value.trim()) {
+    if (!elTaskInputs.value.trim()) {
       enterStart = false;
+      elTaskText.textContent = `Enter name of task`;
       if (!colorChange) {
-        elTaskInputs[0].style.cssText = `
+        elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
       } else {
-        elTaskInputs[0].style.cssText = `
+        elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
       }
 
-      elTaskText[0].style.cssText = `
+      elTaskText.style.cssText = `
         animation-name: warningTask;
         animation-duration: 0.4s;
         animation-fill-mode: forwards;
@@ -201,190 +201,81 @@ elTaskButton.addEventListener("click", (e) => {
       `;
     } else {
       if (!colorChange) {
-        elTaskInputs[0].style.cssText = `
+        elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
       } else {
-        elTaskInputs[0].style.cssText = `
+        elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
       }
 
-      elTaskText[0].style.cssText = `
-        animation: none;
-        color: var(--colorUser);
-      `;
-      enterStart = true;
-    }
-    if (!elTaskInputs[1].value.trim()) {
-      enterStart = false;
-      if (!colorChange) {
-        elTaskInputs[1].style.cssText = `
-          background-color: var(--white);
-          color: var(--colorBlack);
-          border: 1px solid red;
-        `;
-      } else {
-        elTaskInputs[1].style.cssText = `
-          background-color: var(--colorOpacityBlack);
-          color: var(--colorBlack);
-          border: 1px solid red;
-        `;
-      }
-
-      elTaskText[1].style.cssText = `
-        animation-name: warningTask;
-        animation-duration: 0.4s;
-        animation-fill-mode: forwards;
-        color: red;
-      `;
-    } else {
-      if (!colorChange) {
-        elTaskInputs[1].style.cssText = `
-          background-color: var(--white);
-          color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
-        `;
-      } else {
-        elTaskInputs[1].style.cssText = `
-          background-color: var(--colorOpacityBlack);
-          color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
-        `;
-      }
-
-      elTaskText[1].style.cssText = `
+      elTaskText.style.cssText = `
         animation: none;
         color: var(--colorUser);
       `;
       enterStart = true;
     }
     if (enterStart) {
-      let userNameRepeat = false;
-      for (var i = 0; i < userNames.length; i++) {
-        if (userNames[i] == elTaskInputs[0].value.trim()) {
-          elTaskText[0].textContent = `Name is repeating`;
-          if (!colorChange) {
-            elTaskInputs[0].style.cssText = `
+      if (userNameRepeat) {
+        elTaskText.textContent = `Name is repeating`;
+        if (!colorChange) {
+          elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
           `;
 
-            elTaskText[0].style.cssText = `
+          elTaskText.style.cssText = `
           animation-name: warningTask;
           animation-duration: 0.4s;
           animation-fill-mode: forwards;
           color: red;
           `;
-            userNameRepeat = true;
-          } else {
-            elTaskInputs[0].style.cssText = `
-          background-color: var(--colorOpacityBlack);
-          color: var(--colorBlack);
-          border: 1px solid red;
-          `;
-
-            elTaskText[0].style.cssText = `
-          animation-name: warningTask;
-          animation-duration: 0.4s;
-          animation-fill-mode: forwards;
-          color: red;
-          `;
-            userNameRepeat = true;
-          }
         } else {
-          elTaskText[0].textContent = `Enter name of group`;
-          if (!colorChange) {
-            elTaskInputs[0].style.cssText = `
-          background-color: var(--white);
-          color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
-          `;
-
-            elTaskText[0].style.cssText = `
-          animation: none;
-          color: var(--colorUser);
-          `;
-            userNameRepeat = false;
-          } else {
-            elTaskInputs[0].style.cssText = `
+          elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
+          border: 1px solid red;
           `;
 
-            elTaskText[0].style.cssText = `
-          animation: none;
-          color: var(--colorUser);
+          elTaskText.style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
           `;
-            userNameRepeat = false;
-          }
         }
       }
 
       if (!userNameRepeat) {
-        userNames.push(elTaskInputs[0].value.trim());
-        elTaskRightTextSpan.textContent = `${
-          Number(elTaskRightTextSpan.textContent) + 1
-        }`;
         reportGroups++;
-        const element = document.createElement("div");
-        element.setAttribute("class", "task__items-contain");
-        element.innerHTML = `
-        <div class="task__items">
-        <div class="task__items-box">
-        <svg  class="task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
-        <svg  class="task__right-checkbox" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
-        <span class="task__items-text">${elTaskInputs[0].value.trim()}</span>
-        </div>
-        <p class="task__items-text">${elTaskInputs[0].value
-          .trim()
-          .toLowerCase()
-          .replaceAll(" ", "-")}</p>
-        <p class="task__items-text">0</p>
-        <p class="task__items-text">${elTaskInputs[1].value.trim()}</p>
-        </div>
+        elTaskMain.innerHTML += `
+          <div class="task__items">
+              <p class="task__items-text"><span class="task__items-text-span">${reportGroups}</span>  ${elTaskInputs.value.trim()}</p>
+            </div>
         `;
-        elTaskRightMain.appendChild(element);
-        checkBoxes++;
+        elTaskRightTextSpan.textContent = `${reportGroups}`;
+        elTaskItem = document.querySelectorAll(".task__items");
+        elTaskInputs.value = ``;
+        for (var i = 0; i < elTaskItem.length; i++) {
+          if (!colorChange) {
+            elTaskItem[i].style.cssText = `
+              background-color: var(--white)
+            `;
+          } else {
+            elTaskItem[i].style.cssText = `
+              background-color: var(--colorOpacityBlack);
+            `;
+          }
+        }
       }
     }
   }
-});
-
-elTaskRemove.addEventListener("click", () => {
-  userNames = [];
-  reportGroups = 0;
-  elTaskRightTextSpan.textContent = `${reportGroups}`;
-  elTaskRightMain.innerHTML = `
-  <div class="task__right-main-top">
-              <div class="task__right-main-top-box">
-                <svg class=" task__right-checkbox-second" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5Z"></path></svg>
-                <svg class="task__right-checkbox " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11.0026 16L18.0737 8.92893L16.6595 7.51472L11.0026 13.1716L8.17421 10.3431L6.75999 11.7574L11.0026 16Z"></path></svg>
-                <p class="task__right-top-title">
-                  Name
-                </p>
-              </div>
-              <p class="task__right-top-title">Key</p>
-              <p class="task__right-top-title">Users</p>
-              <p class="task__right-top-title">Description</p>
-            </div>
-  `;
-  taskRightTitle();
-});
-
-elTaskRightCheckboxSecond[0].addEventListener("click", () => {
-  checkBoxF();
-  console.log("no");
-});
-elTaskRightCheckbox[0].addEventListener("click", () => {
-  checkBoxF();
-  console.log("yes");
 });
 
 //-------------------------------------------------------------------
@@ -814,34 +705,27 @@ function blackToWhite() {
     color: var(--colorBlack);
   `;
 
-  elTaskTitle[0].style.cssText = `
+  elTaskTitle.style.cssText = `
     color: var(--colorBlack);
   `;
 
-  elTaskTitle[1].style.cssText = `
+  elTaskInputs.style.cssText = `
+    background-color: var(--white);
     color: var(--colorBlack);
   `;
 
-  elTaskInputs[0].style.cssText = `
-    background-color: var(--white);
-    color: var(--colorBlack);
-  `;
-  elTaskInputs[1].style.cssText = `
-    background-color: var(--white);
-    color: var(--colorBlack);
-  `;
   elTaskRightTitle.style.cssText = `
     color: var(--colorBlack);
   `;
 
-  taskRightTitle();
+  if (elTaskItem) {
+    for (var i = 0; i < elTaskItem.length; i++) {
+      elTaskItem[i].style.cssText = `
+        background-color: var(--white);
+      `;
+    }
+  }
 
-  elTaskRightCheckboxSecond[0].style.cssText = `
-    color: var(--colorBlack)
-  `;
-  elTaskRightCheckbox[0].style.cssText = `
-    color: var(--colorBlack)
-  `;
   if (showTaskForm) {
     elTaskLeft.style.cssText = `
     animation-none;
@@ -1058,18 +942,11 @@ function whiteToBlack() {
     color: var(--white);
   `;
 
-  elTaskTitle[0].style.cssText = `
+  elTaskTitle.style.cssText = `
     color: var(--white);
   `;
 
-  elTaskTitle[1].style.cssText = `
-    color: var(--white);
-  `;
-
-  elTaskInputs[0].style.cssText = `
-    background-color: var(--colorOpacityBlack);
-  `;
-  elTaskInputs[1].style.cssText = `
+  elTaskInputs.style.cssText = `
     background-color: var(--colorOpacityBlack);
   `;
 
@@ -1077,14 +954,13 @@ function whiteToBlack() {
     color: var(--white);
   `;
 
-  elTaskRightCheckboxSecond[0].style.cssText = `
-    color: var(--white)
-  `;
-  elTaskRightCheckbox[0].style.cssText = `
-    color: var(--white)
-  `;
-
-  taskRightTitle();
+  if (elTaskItem) {
+    for (var i = 0; i < elTaskItem.length; i++) {
+      elTaskItem[i].style.cssText = `
+        background-color: var(--colorOpacityBlack);
+      `;
+    }
+  }
 
   if (showTaskForm) {
     elTaskLeft.style.cssText = `
@@ -1794,6 +1670,8 @@ function elProfileInputsWork(index) {
         elEmailChecked = true;
       }
     }
+
+    keyDown();
   });
 }
 elProfileInputsWork(0);
@@ -1803,50 +1681,50 @@ elProfileInputsWork(3);
 elProfileInputsWork(4);
 elProfileInputsWork(5);
 
-window.addEventListener("keydown", () => {
+function keyDown() {
   if (showTaskForm) {
-    for (var i = 0; i < 2; i++) {
-      if (!elTaskInputs[i].value.trim()) {
-        if (!colorChange) {
-          elTaskInputs[i].style.cssText = `
+    if (!elTaskInputs.value.trim()) {
+      elTaskText.textContent = `Enter name of task`;
+      if (!colorChange) {
+        elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-        } else {
-          elTaskInputs[i].style.cssText = `
+      } else {
+        elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-        }
+      }
 
-        elTaskText[i].style.cssText = `
+      elTaskText.style.cssText = `
         animation-name: warningTask;
         animation-duration: 0.4s;
         animation-fill-mode: forwards;
         color: red;
       `;
-      } else {
-        if (!colorChange) {
-          elTaskInputs[i].style.cssText = `
+    } else {
+      elTaskText.textContent = `Enter name of task`;
+      if (!colorChange) {
+        elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
-        } else {
-          elTaskInputs[i].style.cssText = `
+      } else {
+        elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid var(--colorUser);
         `;
-        }
+      }
 
-        elTaskText[i].style.cssText = `
+      elTaskText.style.cssText = `
         animation: none;
         color: var(--colorUser);
       `;
-      }
     }
   }
 
@@ -1997,6 +1875,10 @@ window.addEventListener("keydown", () => {
       }
     }
   }
+}
+
+window.addEventListener("keydown", () => {
+  keyDown();
 });
 
 elProfileFormButton.addEventListener("click", (e) => {
