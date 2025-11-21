@@ -5,7 +5,7 @@
   justify-content: center;
   gap: 30px;
   // flex-wrap: wrap;
-  // display: none;
+  display: none;
   &__left {
     @include display();
     position: relative;
@@ -20,7 +20,7 @@
     border-radius: 5px;
     border: 1px solid var(--colorUser);
     // display: none;
-    // visibility: hidden;
+    visibility: hidden;
   }
 
   &__boxes {
@@ -107,7 +107,7 @@
     padding: 20px 0px;
     border-radius: 5px;
     border: 1px solid var(--colorUser);
-    // visibility: hidden;
+    visibility: hidden;
     width: 70%;
   }
 

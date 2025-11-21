@@ -590,6 +590,7 @@ li {
   align-items: start;
   justify-content: center;
   gap: 30px;
+  display: none;
 }
 .task__left {
   display: flex;
@@ -606,6 +607,7 @@ li {
   max-width: 400px;
   border-radius: 5px;
   border: 1px solid var(--colorUser);
+  visibility: hidden;
 }
 .task__boxes {
   display: flex;
@@ -699,6 +701,7 @@ li {
   padding: 20px 0px;
   border-radius: 5px;
   border: 1px solid var(--colorUser);
+  visibility: hidden;
   width: 70%;
 }
 .task__right-top {
