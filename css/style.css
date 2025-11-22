@@ -737,6 +737,9 @@ li {
   font-weight: 600;
   opacity: 0.8;
 }
+.task__right-text-second {
+  background-color: var(--colorGreen);
+}
 .task__trash-text {
   display: flex;
   align-items: center;
@@ -847,7 +850,7 @@ li {
   padding: 5px;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 990px) {
   .task {
     flex-wrap: wrap;
   }

@@ -145,6 +145,10 @@
     opacity: 0.8;
   }
 
+  &__right-text-second {
+    background-color: var(--colorGreen);
+  }
+
   &__trash-text {
     @include display();
     justify-content: start;
@@ -259,7 +263,7 @@
 }
 
 
-@media (max-width: 920px) {
+@media (max-width: 990px) {
   .task { 
     flex-wrap: wrap;
     &__left {

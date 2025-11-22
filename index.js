@@ -28,6 +28,8 @@ const elProfileTextId = document.querySelectorAll(".profileform__textid");
 const elAbout = document.querySelector(".about");
 const elAboutText = document.querySelectorAll(".about__text");
 let reportGroups = 0;
+let reportGroupsSecond = 0;
+let reportDone = 0;
 let windowSize = window.innerWidth;
 let showHideReport = false;
 let showHideIconSet = false;
@@ -64,7 +66,7 @@ const elTaskText = document.querySelector(".task__text");
 const elTaskButton = document.querySelector(".task__button");
 const elTaskRight = document.querySelector(".task__right");
 const elTaskRightIcons = document.querySelector(".task__right-icons");
-const elTaskRightTextSpan = document.querySelector(".task__right-text-span");
+const elTaskRightTextSpan = document.querySelectorAll(".task__right-text-span");
 const elTaskRightInput = document.querySelector(".task__right-input");
 const elTaskRightInputLabel = document.querySelector(
   ".task__right-input-label"
@@ -78,7 +80,6 @@ const elTaskTrashText = document.querySelector(".task__trash-text");
 let elTaskItem = document.querySelectorAll(".task__items");
 let showTaskForm = false;
 let userNameRepeat = false;
-
 // functions
 function showTask() {
   if (!colorChange) {
@@ -133,14 +134,45 @@ function clearMain() {
   }
 
   if (elTaskTrashSpan.textContent) {
+    const elTaskItemText = document.querySelectorAll(".task__items-text");
     if (elTaskTrashSpan.textContent == "-1") {
-      elTaskMain.innerHTML = ``;
+      const elTaskItemText = document.querySelectorAll(".task__items-text");
       reportGroups = 0;
-      elTaskRightTextSpan.textContent = `${reportGroups}`;
-    } else if (Number(elTaskTrashSpan.textContent) > 0) {
-      elTaskItem[Number(elTaskTrashSpan.textContent) - 1].remove();
-      reportGroups--;
-      elTaskRightTextSpan.textContent = `${reportGroups}`;
+      for (var i = 0; i < elTaskItemText.length; i++) {
+        elTaskItemText[i].style.cssText = `
+          text-decoration-line: line-through;
+          text-decoration-thickness: 2px;
+      `;
+      }
+      reportDone = reportGroupsSecond;
+      elTaskRightTextSpan[1].textContent = reportDone;
+
+      elTaskRightTextSpan[0].textContent = `${reportGroups}`;
+    } else if (
+      Number(elTaskTrashSpan.textContent) > 0 &&
+      Number(elTaskTrashSpan.textContent) <= elTaskItemText.length
+    ) {
+      let itemsRepeatCheck = false;
+      for (var i = 0; i < userNamesIndex.length; i++) {
+        if (elTaskTrashSpan.textContent == userNamesIndex[i]) {
+          itemsRepeatCheck = true;
+        }
+      }
+      if (!itemsRepeatCheck) {
+        reportGroups--;
+        reportDone++;
+      }
+
+      userNamesIndex.push(elTaskTrashSpan.textContent);
+      console.log(userNamesIndex);
+
+      const elTaskItemText = document.querySelectorAll(".task__items-text");
+      elTaskItemText[Number(elTaskTrashSpan.textContent) - 1].style.cssText = `
+          text-decoration-line: line-through;
+          text-decoration-thickness: 2px;
+      `;
+      elTaskRightTextSpan[1].textContent = reportDone;
+      elTaskRightTextSpan[0].textContent = `${reportGroups}`;
     } else {
       elTaskTrashText.style.cssText = `
       color: red;
@@ -254,12 +286,13 @@ elTaskButton.addEventListener("click", (e) => {
 
       if (!userNameRepeat) {
         reportGroups++;
+        reportGroupsSecond++;
         elTaskMain.innerHTML += `
           <div class="task__items">
-              <p class="task__items-text"><span class="task__items-text-span">${reportGroups}</span>  ${elTaskInputs.value.trim()}</p>
+              <p class="task__items-text"><span class="task__items-text-span">${reportGroupsSecond}</span>  ${elTaskInputs.value.trim()}</p>
             </div>
         `;
-        elTaskRightTextSpan.textContent = `${reportGroups}`;
+        elTaskRightTextSpan[0].textContent = `${reportGroups}`;
         elTaskItem = document.querySelectorAll(".task__items");
         elTaskInputs.value = ``;
         for (var i = 0; i < elTaskItem.length; i++) {
