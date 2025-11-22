@@ -80,6 +80,7 @@ const elTaskTrashText = document.querySelector(".task__trash-text");
 let elTaskItem = document.querySelectorAll(".task__items");
 let showTaskForm = false;
 let userNameRepeat = false;
+let userStart = false;
 // functions
 function showTask() {
   if (!colorChange) {
@@ -143,10 +144,10 @@ function clearMain() {
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
       `;
-      userNamesIndex.push(i+1);
+        userNamesIndex.push(i + 1);
       }
       console.log(userNamesIndex);
-      
+
       reportDone = reportGroupsSecond;
       elTaskRightTextSpan[1].textContent = reportDone;
 
@@ -184,6 +185,25 @@ function clearMain() {
   }
 }
 
+//code
+elTaskRightInputLabel.addEventListener("click", ()=> {
+  console.log("1");
+  
+      const elTaskItemText = document.querySelectorAll(".task__items-text");
+  for(var i = 0; i < elTaskItemText.length; i++) {
+    console.log("2");
+    
+    if(elTaskItemText[i].textContent == elTaskRightInput.value.trim()) {
+      console.log("3");
+      
+      elTaskItemText[i].style.cssText = `
+        background-color: var(--colorUserYellowOpacity);
+      `;
+    }
+  }   
+});
+
+
 elTaskRemove.addEventListener("click", () => {
   clearMain();
   if (elTaskTrashSpan.textContent) {
@@ -193,7 +213,33 @@ elTaskRemove.addEventListener("click", () => {
   }
 });
 
-//code
+elTaskRightInput.addEventListener("input", (e) => {
+  let real = e.target.value.trim();
+  if (userStart && real) {
+    const elTaskItemText = document.querySelectorAll(".task__items-text");
+    for (var i = 0; i < elTaskItemText.length; i++) {
+      if ((elTaskItemText[i].textContent).toLowerCase().includes(real.toLowerCase())) {
+        elTaskItemText[i].style.cssText = `
+          color: var(--colorUserYellowOpacity);
+        `;
+      } else {
+        elTaskItemText[i].style.cssText = `
+          color: var(--colorBlack);
+        `;
+      }
+    }
+  }else {
+    const elTaskItemText = document.querySelectorAll(".task__items-text");
+    for(var i = 0; i< elTaskItemText.length; i++) {
+      elTaskItemText[i].style.cssText = `
+          color: var(--colorBlack);
+        `;
+    }
+  }
+});
+
+
+
 elTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
   let enterStart = false;
@@ -295,6 +341,7 @@ elTaskButton.addEventListener("click", (e) => {
               <p class="task__items-text"><span class="task__items-text-span">${reportGroupsSecond}</span>  ${elTaskInputs.value.trim()}</p>
             </div>
         `;
+        userStart = true;
         elTaskRightTextSpan[0].textContent = `${reportGroups}`;
         elTaskItem = document.querySelectorAll(".task__items");
         elTaskInputs.value = ``;

@@ -849,6 +849,9 @@ li {
   overflow-y: hidden;
   padding: 5px;
 }
+.task__high-text {
+  color: var(--colorUserYellowOpacity);
+}
 
 @media (max-width: 990px) {
   .task {
