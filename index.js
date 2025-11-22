@@ -143,7 +143,10 @@ function clearMain() {
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
       `;
+      userNamesIndex.push(i+1);
       }
+      console.log(userNamesIndex);
+      
       reportDone = reportGroupsSecond;
       elTaskRightTextSpan[1].textContent = reportDone;
 
