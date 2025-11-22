@@ -56,6 +56,7 @@ elProfileId[1].textContent = elProfileId[0].textContent;
 // task profile
 let userNamesList = [];
 let userNamesIndex = [];
+let userOriginNamesIndex = [];
 // let userIndexBool = false;
 const elTaskRemove = document.querySelector(".task__remove");
 const elTask = document.querySelector(".task");
@@ -78,47 +79,47 @@ const elTaskTrashInput = document.querySelector(".task__trash-input");
 const elTaskTrashSpan = document.querySelector(".task__trash-span");
 const elTaskTrashText = document.querySelector(".task__trash-text");
 let elTaskItem = document.querySelectorAll(".task__items");
-let showTaskForm = false;
+// let showTaskForm = false;
 let userNameRepeat = false;
 let userStart = false;
-// functions
-function showTask() {
-  if (!colorChange) {
-    elTaskLeft.style.cssText = `
-    animation-name: showForm;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-delay: 3.5s;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorGray);
-  `;
-    elTaskRight.style.cssText = `
-    animation-name: showForm;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-delay: 3.5s;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorGray);
-  `;
-  } else {
-    elTaskLeft.style.cssText = `
-    animation-name: showForm;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-delay: 3.5s;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorDarkGray);
-  `;
-    elTaskRight.style.cssText = `
-    animation-name: showForm;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-delay: 3.5s;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorDarkGray);
-  `;
-  }
-}
+// // functions
+// function showTask() {
+//   if (!colorChange) {
+//     elTaskLeft.style.cssText = `
+//     animation-name: showForm;
+//     animation-duration: 1s;
+//     animation-fill-mode: forwards;
+//     animation-delay: 3.5s;
+//     border: 1px solid ${profileColor};
+//     background-color: var(--colorGray);
+//   `;
+//     elTaskRight.style.cssText = `
+//     animation-name: showForm;
+//     animation-duration: 1s;
+//     animation-fill-mode: forwards;
+//     animation-delay: 3.5s;
+//     border: 1px solid ${profileColor};
+//     background-color: var(--colorGray);
+//   `;
+//   } else {
+//     elTaskLeft.style.cssText = `
+//     animation-name: showForm;
+//     animation-duration: 1s;
+//     animation-fill-mode: forwards;
+//     animation-delay: 3.5s;
+//     border: 1px solid ${profileColor};
+//     background-color: var(--colorDarkGray);
+//   `;
+//     elTaskRight.style.cssText = `
+//     animation-name: showForm;
+//     animation-duration: 1s;
+//     animation-fill-mode: forwards;
+//     animation-delay: 3.5s;
+//     border: 1px solid ${profileColor};
+//     background-color: var(--colorDarkGray);
+//   `;
+//   }
+// }
 
 function clearMain() {
   // userIndexBool = false;
@@ -145,6 +146,17 @@ function clearMain() {
           text-decoration-thickness: 2px;
       `;
         userNamesIndex.push(i + 1);
+        const userOriginNamesCheck = false;
+        for (var i = 0; i < userOriginNamesIndex.length; i++) {
+          if (userOriginNamesIndex[i] == i + 1) {
+            userOriginNamesCheck = true;
+          }
+        }
+        if (userOriginNamesCheck) {
+          userOriginNamesIndex.push(i + 1);
+          console.log(userOriginNamesIndex);
+        }
+        inputRealIndex = true;
       }
       console.log(userNamesIndex);
 
@@ -168,6 +180,16 @@ function clearMain() {
       }
 
       userNamesIndex.push(elTaskTrashSpan.textContent);
+      const userOriginNamesCheck = false;
+      for (var i = 0; i < userOriginNamesIndex.length; i++) {
+        if (userOriginNamesIndex[i] == elTaskTrashSpan.textContent) {
+          userOriginNamesCheck = true;
+        }
+      }
+      if (userOriginNamesCheck) {
+        userOriginNamesIndex.push(i + 1);
+        console.log(userOriginNamesIndex);
+      }
       console.log(userNamesIndex);
 
       const elTaskItemText = document.querySelectorAll(".task__items-text");
@@ -186,23 +208,22 @@ function clearMain() {
 }
 
 //code
-elTaskRightInputLabel.addEventListener("click", ()=> {
+elTaskRightInputLabel.addEventListener("click", () => {
   console.log("1");
-  
-      const elTaskItemText = document.querySelectorAll(".task__items-text");
-  for(var i = 0; i < elTaskItemText.length; i++) {
+
+  const elTaskItemText = document.querySelectorAll(".task__items-text");
+  for (var i = 0; i < elTaskItemText.length; i++) {
     console.log("2");
-    
-    if(elTaskItemText[i].textContent == elTaskRightInput.value.trim()) {
+
+    if (elTaskItemText[i].textContent == elTaskRightInput.value.trim()) {
       console.log("3");
-      
+
       elTaskItemText[i].style.cssText = `
         background-color: var(--colorUserYellowOpacity);
       `;
     }
-  }   
+  }
 });
-
 
 elTaskRemove.addEventListener("click", () => {
   clearMain();
@@ -212,33 +233,55 @@ elTaskRemove.addEventListener("click", () => {
     `;
   }
 });
-
+let inputRealIndex = false;
 elTaskRightInput.addEventListener("input", (e) => {
+  console.log(userNamesIndex);
+
   let real = e.target.value.trim();
   if (userStart && real) {
     const elTaskItemText = document.querySelectorAll(".task__items-text");
+    const indexesCheckTrash = false;
     for (var i = 0; i < elTaskItemText.length; i++) {
-      if ((elTaskItemText[i].textContent).toLowerCase().includes(real.toLowerCase())) {
-        elTaskItemText[i].style.cssText = `
-          color: var(--colorUserYellowOpacity);
-        `;
-      } else {
-        elTaskItemText[i].style.cssText = `
-          color: var(--colorBlack);
-        `;
+      for (var a = 0; a < userOriginNamesIndex.length; a++) {
+        inputRealIndex = true;
+        if (userOriginNamesIndex[a] != i + 1) {
+          console.log(a);
+
+          if (
+            elTaskItemText[i].textContent
+              .toLowerCase()
+              .includes(real.toLowerCase())
+          ) {
+            elTaskItemText[i].style.cssText = `
+            color: var(--colorUserYellowOpacity);
+         `;
+          } else {
+            elTaskItemText[i].style.cssText = `
+              color: var(--colorBlack);
+            `;
+          }
+        }
       }
     }
-  }else {
+  } else {
     const elTaskItemText = document.querySelectorAll(".task__items-text");
-    for(var i = 0; i< elTaskItemText.length; i++) {
-      elTaskItemText[i].style.cssText = `
+    for (var i = 0; i < elTaskItemText.length; i++) {
+      for (var a = 0; a < userOriginNamesIndex.length; a++) {
+        if (userOriginNamesIndex[a] == i + 1) {
+          elTaskItemText[i].style.cssText = `
+          color: var(--colorBlack);
+          text-decoration-line: line-through;
+          text-decoration-thickness: 2px;
+        `;
+        } else {
+          elTaskItemText[i].style.cssText = `
           color: var(--colorBlack);
         `;
+        }
+      }
     }
   }
 });
-
-
 
 elTaskButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -256,7 +299,6 @@ elTaskButton.addEventListener("click", (e) => {
     userNamesList.push(`${elTaskInputs.value.trim()}`);
   }
 
-  if (showTaskForm) {
     if (!elTaskInputs.value.trim()) {
       enterStart = false;
       elTaskText.textContent = `Enter name of task`;
@@ -358,7 +400,7 @@ elTaskButton.addEventListener("click", (e) => {
         }
       }
     }
-  }
+
 });
 
 //-------------------------------------------------------------------
@@ -615,10 +657,19 @@ function profileColors(proColor) {
     }
   }
   if (!userEntered) {
-    elProfileForm.style.cssText = `
+    if (!colorChange) {
+      elProfileForm.style.cssText = `
         display: flex;
         border: 1px solid ${proColor};
+        background-color: var(--colorGray)
       `;
+    } else {
+      elProfileForm.style.cssText = `
+        display: flex;
+        border: 1px solid ${proColor};
+        background-color: var(--colorDarkGray)
+      `;
+    }
   }
 }
 
@@ -809,7 +860,6 @@ function blackToWhite() {
     }
   }
 
-  if (showTaskForm) {
     elTaskLeft.style.cssText = `
     animation-none;
     visibility: visible;
@@ -822,20 +872,7 @@ function blackToWhite() {
     border: 1px solid ${profileColor};
     background-color: var(--colorGray);
   `;
-  } else {
-    elTaskLeft.style.cssText = `
-    animation-none;
-    visibility: hidden;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorGray);
-  `;
-    elTaskRight.style.cssText = `
-    animation-none;
-    visibility: hidden;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorGray);
-  `;
-  }
+
 
   for (var i = 0; i <= 5; i++) {
     elProfileInputs[i].style.cssText = `
@@ -1045,7 +1082,6 @@ function whiteToBlack() {
     }
   }
 
-  if (showTaskForm) {
     elTaskLeft.style.cssText = `
     animation-none;
     visibility: visible;
@@ -1058,20 +1094,6 @@ function whiteToBlack() {
     border: 1px solid ${profileColor};
     background-color: var(--colorDarkGray);
   `;
-  } else {
-    elTaskLeft.style.cssText = `
-    animation-none;
-    visibility: hidden;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorDarkGray);
-  `;
-    elTaskRight.style.cssText = `
-    animation-none;
-    visibility: hidden;
-    border: 1px solid ${profileColor};
-    background-color: var(--colorDarkGray);
-  `;
-  }
 
   for (var i = 0; i <= 5; i++) {
     elProfileInputs[i].style.cssText = `
@@ -1387,64 +1409,63 @@ elDayBox[1].addEventListener("click", () => {
 });
 
 function start() {
-  if (userEntered) {
-    elLink[1].addEventListener("click", () => {
-      if (color == "white") {
-        if (!showNavbarSections) {
-          showNavbarSections = true;
-          elAbout.style.cssText = `
+  elLink[1].addEventListener("click", () => {
+    if (color == "white") {
+      if (!showNavbarSections) {
+        showNavbarSections = true;
+        elAbout.style.cssText = `
               animation-name: showNavbarSections;
               animation-duration: 0.4s;
               animation-fill-mode: forwards;
               background-color: var(--colorDarkGray);
               border: 1px solid ${profileColor};
             `;
-        } else {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+      } else {
+        showNavbarSections = false;
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
               `;
-        }
-        for (var i = 0; i < 3; i++) {
-          elAboutText[i].style.cssText = `
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
             color: var(--colorOpacityBlack);
           `;
-        }
-      } else {
-        if (!showNavbarSections) {
-          showNavbarSections = true;
-          elAbout.style.cssText = `
+      }
+    } else {
+      if (!showNavbarSections) {
+        showNavbarSections = true;
+        elAbout.style.cssText = `
               animation-name: showNavbarSections;
               animation-duration: 0.4s;
               animation-fill-mode: forwards;
               background-color: var(--colorGray);
               border: 1px solid ${profileColor};
             `;
-        } else {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+      } else {
+        showNavbarSections = false;
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
               `;
-        }
-        for (var i = 0; i < 3; i++) {
-          elAboutText[i].style.cssText = `
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
             color: var(--colorBlack);
           `;
-        }
       }
-    });
+    }
+  });
 
-    elLink[4].addEventListener("click", () => {
-      if (color == "white") {
-        if (!showNavbarSections) {
-          showNavbarSections = true;
-          elAbout.style.cssText = `
+  elLink[4].addEventListener("click", () => {
+    if (color == "white") {
+      if (!showNavbarSections) {
+        showNavbarSections = true;
+        elAbout.style.cssText = `
 
               animation-name: showNavbarSectionsPhone;
               animation-duration: 0.4s;
@@ -1453,24 +1474,24 @@ function start() {
               border: 1px solid ${profileColor};
 
             `;
-        } else {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+      } else {
+        showNavbarSections = false;
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
               `;
-        }
-        for (var i = 0; i < 3; i++) {
-          elAboutText[i].style.cssText = `
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
             color: var(--colorOpacityBlack);
           `;
-        }
-      } else {
-        if (!showNavbarSections) {
-          showNavbarSections = true;
-          elAbout.style.cssText = `
+      }
+    } else {
+      if (!showNavbarSections) {
+        showNavbarSections = true;
+        elAbout.style.cssText = `
               animation-name: showNavbarSectionsPhone;
               animation-duration: 0.4s;
               animation-fill-mode: forwards;
@@ -1478,71 +1499,71 @@ function start() {
               border: 1px solid ${profileColor};
 
             `;
-        } else {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+      } else {
+        showNavbarSections = false;
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
               `;
-        }
-        for (var i = 0; i < 3; i++) {
-          elAboutText[i].style.cssText = `
+      }
+      for (var i = 0; i < 3; i++) {
+        elAboutText[i].style.cssText = `
             color: var(--colorBlack);
           `;
-        }
       }
-    });
+    }
+  });
 
-    elProfileClose.addEventListener("click", () => {
+  elProfileClose.addEventListener("click", () => {
+    showChoose = false;
+    elIconSet.style.cssText = `
+              animation: none;
+              display: none;
+            `;
+    showHideIconSet = false;
+  });
+
+  elNavbarIcon[0].addEventListener("click", () => {
+    if (!showHideIconSet) {
+      showChoose = true;
+      if (!colorChange) {
+        elIconSet.style.cssText = `
+              display: flex;
+              animation-name: showIconSet;
+              animation-duration: 0.3s;
+              animation-fill-mode: forwards;
+              border: 1px solid ${profileColor};
+
+            `;
+      } else {
+        elIconSet.style.cssText = `
+              display: flex;
+              animation-name: showIconSet;
+              animation-duration: 0.3s;
+              animation-fill-mode: forwards;
+              background-color: var(--colorDarkGray);
+              border: 1px solid ${profileColor};
+            `;
+      }
+
+      showHideIconSet = true;
+    } else {
       showChoose = false;
       elIconSet.style.cssText = `
               animation: none;
               display: none;
             `;
       showHideIconSet = false;
-    });
+    }
+  });
 
-    elNavbarIcon[0].addEventListener("click", () => {
-      if (!showHideIconSet) {
-        showChoose = true;
-        if (!colorChange) {
-          elIconSet.style.cssText = `
-              display: flex;
-              animation-name: showIconSet;
-              animation-duration: 0.3s;
-              animation-fill-mode: forwards;
-              border: 1px solid ${profileColor};
-
-            `;
-        } else {
-          elIconSet.style.cssText = `
-              display: flex;
-              animation-name: showIconSet;
-              animation-duration: 0.3s;
-              animation-fill-mode: forwards;
-              background-color: var(--colorDarkGray);
-              border: 1px solid ${profileColor};
-            `;
-        }
-
-        showHideIconSet = true;
-      } else {
-        showChoose = false;
+  elNavbarIcon[1].addEventListener("click", () => {
+    if (!showHideIconSet) {
+      showChoose = true;
+      if (!colorChange) {
         elIconSet.style.cssText = `
-              animation: none;
-              display: none;
-            `;
-        showHideIconSet = false;
-      }
-    });
-
-    elNavbarIcon[1].addEventListener("click", () => {
-      if (!showHideIconSet) {
-        showChoose = true;
-        if (!colorChange) {
-          elIconSet.style.cssText = `
                 display: flex;
                 top: 90px;
                 margin-bottom: -130px;
@@ -1552,8 +1573,8 @@ function start() {
                 border: 1px solid ${profileColor};
 
               `;
-        } else {
-          elIconSet.style.cssText = `
+      } else {
+        elIconSet.style.cssText = `
                 display: flex;
                 top: 90px;
                 margin-bottom: -130px;
@@ -1564,63 +1585,63 @@ function start() {
               border: 1px solid ${profileColor};
                 
               `;
-        }
+      }
 
-        showHideIconSet = true;
-      } else {
-        showChoose = false;
-        elIconSet.style.cssText = `
+      showHideIconSet = true;
+    } else {
+      showChoose = false;
+      elIconSet.style.cssText = `
               animation: none;
               display: none;
             `;
-        showHideIconSet = false;
-      }
-    });
+      showHideIconSet = false;
+    }
+  });
 
-    elNavbarButton.addEventListener("click", (e) => {
-      if (!elTextArea.value.trim()) {
-        if (!colorChange) {
-          elTextArea.style.cssText = `
+  elNavbarButton.addEventListener("click", (e) => {
+    if (!elTextArea.value.trim()) {
+      if (!colorChange) {
+        elTextArea.style.cssText = `
             border: 1px solid red;
           `;
-        } else {
-          elTextArea.style.cssText = `
+      } else {
+        elTextArea.style.cssText = `
             border: 1px solid red;
             background-color: var(--colorGray);
           `;
-        }
-      } else {
-        elNavbarIcon[0].innerHTML = `
-            ${elTextArea.value.trim()}
-          `;
-        elNavbarIcon[1].innerHTML = `
-            ${elTextArea.value.trim()}
-          `;
-        elNavbarIcon[2].innerHTML = `
-            ${elTextArea.value.trim()}
-          `;
       }
-      elNavbarButton.disabled = true;
-      elNavbarButton.style.cssText = `
+    } else {
+      elNavbarIcon[0].innerHTML = `
+            ${elTextArea.value.trim()}
+          `;
+      elNavbarIcon[1].innerHTML = `
+            ${elTextArea.value.trim()}
+          `;
+      elNavbarIcon[2].innerHTML = `
+            ${elTextArea.value.trim()}
+          `;
+    }
+    elNavbarButton.disabled = true;
+    elNavbarButton.style.cssText = `
           opacity: 0.7;
 
         `;
-    });
+  });
 
-    elBurger.addEventListener("click", () => {
-      if (showNavbarSections) {
-        showNavbarSections = false;
-        elAbout.style.cssText = `
+  elBurger.addEventListener("click", () => {
+    if (showNavbarSections) {
+      showNavbarSections = false;
+      elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
               `;
-      }
-      if (!showHideReport) {
-        showHideReport = true;
-        if (!colorChange) {
-          elHeaderBoxBurger.style.cssText = `
+    }
+    if (!showHideReport) {
+      showHideReport = true;
+      if (!colorChange) {
+        elHeaderBoxBurger.style.cssText = `
                 display: block;
                 animation-name: showHeaderBox;
                 animation-duration: 0.3s;
@@ -1628,8 +1649,8 @@ function start() {
                 border: 1px solid ${profileColor};
 
                 `;
-        } else {
-          elHeaderBoxBurger.style.cssText = `
+      } else {
+        elHeaderBoxBurger.style.cssText = `
                 display: block;
                 background-color: var(--colorDarkGray);
                 animation-name: showHeaderBox;
@@ -1638,82 +1659,81 @@ function start() {
                 border: 1px solid ${profileColor};
 
               `;
-        }
-      } else {
-        showHideReport = false;
-        showChoose = false;
-        elIconSet.style.cssText = `
+      }
+    } else {
+      showHideReport = false;
+      showChoose = false;
+      elIconSet.style.cssText = `
           display: none;
         `;
-        elHeaderBoxBurger.style.cssText = `
+      elHeaderBoxBurger.style.cssText = `
                 display: none;
                 animation: none;
                 border: 1px solid ${profileColor}
             `;
-      }
-      burgerAnimateF(color);
-    });
+    }
+    burgerAnimateF(color);
+  });
 
-    function headerBurgerWork() {
-      if (window.innerWidth < 650) {
-        if (!showHideReport) {
-          elBurger.style.cssText = `
+  function headerBurgerWork() {
+    if (window.innerWidth < 650) {
+      if (!showHideReport) {
+        elBurger.style.cssText = `
             display: flex;
           `;
-        }
+      }
 
-        elIconSet.style.cssText = `
+      elIconSet.style.cssText = `
             display: none;
             `;
-        elAbout.style.cssText = `
+      elAbout.style.cssText = `
             visibility: hidden;
           `;
+      showNavbarSections = false;
+      if (color == "white") {
         showNavbarSections = false;
-        if (color == "white") {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorGray);
                 border: 1px solid ${profileColor};
               `;
-        } else {
-          showNavbarSections = false;
-          elAbout.style.cssText = `
+      } else {
+        showNavbarSections = false;
+        elAbout.style.cssText = `
                 visibility: hidden;
                 animation: none;
                 background-color: var(--colorDarkGray);
                 border: 1px solid ${profileColor};
               `;
-        }
-      } else {
-        if (burgerAnimate) {
-          burgerAnimate = true;
-          burgerAnimateF(color);
-        }
-
-        elBurger.style.cssText = `
-          display: none;
-        `;
-        elHeaderBoxBurger.style.cssText = `
-          visibility: hidden;
-        `;
-        elIconSet.style.cssText = `
-          display: none;
-        `;
-        elAbout.style.cssText = `
-          visibility: hidden;
-        `;
-        showNavbarSections = false;
-        showHideReport = false;
       }
-      return 0;
+    } else {
+      if (burgerAnimate) {
+        burgerAnimate = true;
+        burgerAnimateF(color);
+      }
+
+      elBurger.style.cssText = `
+          display: none;
+        `;
+      elHeaderBoxBurger.style.cssText = `
+          visibility: hidden;
+        `;
+      elIconSet.style.cssText = `
+          display: none;
+        `;
+      elAbout.style.cssText = `
+          visibility: hidden;
+        `;
+      showNavbarSections = false;
+      showHideReport = false;
     }
-    headerBurgerWork();
-    window.addEventListener("resize", () => {
-      headerBurgerWork();
-    });
+    return 0;
   }
+  headerBurgerWork();
+  window.addEventListener("resize", () => {
+    headerBurgerWork();
+  });
 }
 
 start();
@@ -1765,7 +1785,6 @@ elProfileInputsWork(4);
 elProfileInputsWork(5);
 
 function keyDown() {
-  if (showTaskForm) {
     if (!elTaskInputs.value.trim()) {
       elTaskText.textContent = `Enter name of task`;
       if (!colorChange) {
@@ -1809,7 +1828,7 @@ function keyDown() {
         color: var(--colorUser);
       `;
     }
-  }
+
 
   if (elTextArea.value.trim()) {
     if (!colorChange) {
@@ -2251,10 +2270,10 @@ elProfileFormButton.addEventListener("click", (e) => {
 
     userEntered = true;
     start();
-    showTask();
+    // showTask();
     elTask.style.cssText = `
       display: flex;
     `;
-    showTaskForm = true;
+    // showTaskForm = true;
   }
 });
