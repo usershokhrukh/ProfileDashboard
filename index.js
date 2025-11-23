@@ -24,6 +24,10 @@ const elProfileId = document.querySelectorAll(".profileform__id"); // profile ra
 const elProfileTextId = document.querySelectorAll(".profileform__textid"); // profile random text id
 const elAbout = document.querySelector(".about"); // navbar about box
 const elAboutText = document.querySelectorAll(".about__text"); // about box texts
+const elTaskLevelsText = document.querySelectorAll(".task__levels-text"); // low medium high text
+const elTaskLevelWarning = document.querySelector(".task__level-warning"); // default low
+const elTaskRightSpan = document.querySelector(".task__right-span"); // task => tasks
+let allTasks = 0;
 let reportGroups = 0; // report main todo
 let reportGroupsSecond = 0; // report for done
 let reportDone = 0; // report done show
@@ -48,6 +52,10 @@ elProfileId[1].textContent = elProfileId[0].textContent;
 let userNamesList = []; // check for repeated items task text
 let userNamesIndex = []; // check for entered indexes foe trash -1 | > 0 | <= 0
 let userOriginNamesIndex = []; // for not repeated userNamesIndex
+let tasksLevel = "low";
+let reportLow = 0;
+let reportMedium = 0;
+let reportHigh = 0;
 const elTaskRemove = document.querySelector(".task__remove"); // for remove tasks with indexes
 const elTask = document.querySelector(".task"); // task
 const elTaskLeft = document.querySelector(".task__left"); // task left for night day color
@@ -58,9 +66,6 @@ const elTaskButton = document.querySelector(".task__button"); // push items & ta
 const elTaskRight = document.querySelector(".task__right"); // task right night day
 const elTaskRightTextSpan = document.querySelectorAll(".task__right-text-span"); // for todo & done
 const elTaskRightInput = document.querySelector(".task__right-input"); // for search input right form
-const elTaskRightInputLabel = document.querySelector(
-  ".task__right-input-label"
-); // label for search input right form
 const elTaskRightTitle = document.querySelector(".task__right-title"); // for night day color existing tasks
 const elTaskRightText = document.querySelector(".task__right-text"); // for todo report bg color
 const elTaskMain = document.querySelector(".task__main"); // push entered items
@@ -73,7 +78,13 @@ let userStart = false; // can user start do something with items
 // // functions
 
 function clearMain() {
-  elTaskTrashSpan.textContent = `${elTaskTrashInput.value.trim()}`;
+  if (((elTaskTrashInput.value.trim() > 0) || (elTaskTrashInput.value.trim() == -1)) ) {
+    if (elTaskTrashInput.value.trim()) {
+      elTaskTrashSpan.textContent = `${elTaskTrashInput.value.trim()}`;
+      console.log("1");
+      
+    }
+  }
   elTaskTrashInput.value = ``;
   if (!elTaskTrashSpan.textContent) {
     elTaskTrashText.style.cssText = `
@@ -138,6 +149,7 @@ function clearMain() {
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
       `;
+
       elTaskRightTextSpan[1].textContent = reportDone;
       elTaskRightTextSpan[0].textContent = `${reportGroups}`;
     } else {
@@ -148,7 +160,60 @@ function clearMain() {
   }
 }
 
+function levelsCheck(index) {
+  elTaskLevelsText[index].style.cssText = `
+    opacity: 1;
+  `;
+
+  switch (index) {
+    case 0: {
+      elTaskLevelWarning.textContent = `Low`;
+      tasksLevel = "low";
+      break;
+    }
+    case 1: {
+      elTaskLevelWarning.textContent = `Medium`;
+      tasksLevel = "medium";
+      break;
+    }
+    case 2: {
+      elTaskLevelWarning.textContent = `High`;
+      tasksLevel = "high";
+      break;
+    }
+  }
+
+  console.log(tasksLevel);
+}
 //code
+
+elTaskLevelsText[0].addEventListener("click", () => {
+  levelsCheck(0);
+  elTaskLevelsText[1].style.cssText = `
+    opacity: 0.4;
+  `;
+  elTaskLevelsText[2].style.cssText = `
+    opacity: 0.4;
+  `;
+});
+elTaskLevelsText[1].addEventListener("click", () => {
+  levelsCheck(1);
+  elTaskLevelsText[0].style.cssText = `
+    opacity: 0.4;
+  `;
+  elTaskLevelsText[2].style.cssText = `
+    opacity: 0.4;
+  `;
+});
+elTaskLevelsText[2].addEventListener("click", () => {
+  levelsCheck(2);
+  elTaskLevelsText[0].style.cssText = `
+    opacity: 0.4;
+  `;
+  elTaskLevelsText[1].style.cssText = `
+    opacity: 0.4;
+  `;
+});
 
 elTaskRemove.addEventListener("click", () => {
   clearMain();
@@ -257,12 +322,46 @@ elTaskButton.addEventListener("click", (e) => {
       elTaskMain.innerHTML += `
           <div class="task__items">
               <p class="task__items-text"><span class="task__items-text-span">${reportGroupsSecond}</span>  ${elTaskInputs.value.trim()}</p>
+              <p class="task__levels-text ${tasksLevel}">${tasksLevel}</p>
             </div>
         `;
       userStart = true;
       elTaskRightTextSpan[0].textContent = `${reportGroups}`;
       elTaskItem = document.querySelectorAll(".task__items");
       elTaskInputs.value = ``;
+      allTasks++;
+      switch(tasksLevel) {
+        case "low" : {
+          reportLow++;
+          elTaskRightTextSpan[3].textContent = reportLow; 
+          break;
+        }
+
+        case "medium" : {
+          reportMedium++;
+          elTaskRightTextSpan[4].textContent = reportMedium; 
+          break;
+        }
+
+        case "high" : {
+          reportHigh++;
+          elTaskRightTextSpan[5].textContent = reportHigh; 
+          break;
+        }
+      }
+
+
+      if (allTasks > 1) {
+        elTaskRightSpan.textContent = "Tasks";
+      }
+      elTaskRightTextSpan[2].textContent = allTasks;
+      for (var i = 0; i < 3; i++) {
+        elTaskLevelsText[i].style.cssText = ` 
+          opacity: 0.4;
+        `;
+      }
+      elTaskLevelWarning.textContent = `Low (Default)`;
+      tasksLevel = "low";
       for (var i = 0; i < elTaskItem.length; i++) {
         if (!colorChange) {
           elTaskItem[i].style.cssText = `
@@ -1069,7 +1168,7 @@ function whiteToBlack() {
   if (!userEntered) {
     elProfileForm.style.cssText = `
       display: flex;
-      background-color: var(--colorSecondBlack);
+      background-color: var(--colorDarkGray);
       border: 1px solid ${profileColor}
     `;
   } else {
@@ -1650,7 +1749,7 @@ elProfileInputsWork(2);
 elProfileInputsWork(3);
 elProfileInputsWork(4);
 elProfileInputsWork(5);
-function inputRepeatCheck(value) {  
+function inputRepeatCheck(value) {
   for (var i = 0; i < userNamesList.length; i++) {
     if (userNamesList[i] == value) {
       userNameRepeat = true;
@@ -1659,7 +1758,7 @@ function inputRepeatCheck(value) {
       userNameRepeat = false;
     }
   }
-  
+
   if (!userStart) {
     if (!value) {
       elTaskText.textContent = `Enter name of task`;
@@ -2228,11 +2327,11 @@ elProfileFormButton.addEventListener("click", (e) => {
     }
 
     userEntered = true;
-    start();
     // showTask();
     elTask.style.cssText = `
-      display: flex;
+    display: flex;
     `;
     // showTaskForm = true;
+    // start();
   }
 });

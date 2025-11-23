@@ -669,21 +669,43 @@
             <svg class="task__icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM11 11H7V13H11V17H13V13H17V11H13V7H11V11Z"></path></svg>
             <p class="task__title">Add New Task</p>
           </div>
+          <div class="task__level">
+            <div class="task__level-box">
+              <p class="task__levels-text ">
+                Low
+              </p>
+              <p class="task__levels-text ">
+                Medium
+              </p>
+              <p class="task__levels-text ">
+                High
+              </p>
+            </div>
+              <p class="task__level-warning">Low (Default)</p>
+          </div>
           <div class="task__boxes task__sections">
             <input placeholder="Name of task"  id="task__input" class="task__inputs" type="text">
             <label class="task__text" for="task__input">Enter name of task</label>
           </div>
-          <button class="task__button">Create</button>
+          
+          <button class="task__button">Add task</button>
         </form>
         <div class="task__right">
           <div class="task__right-top">
             <div class="task__right-top-box">
-              <div class="task__right-top-box">
+              <div class="task__box">
                 <svg class="task__right-icons" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24"><path fill="currentColor" d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/></svg>
                 <h2 class="task__right-title">Existing Tasks</h2>
               </div>
-              <p class="task__right-text"><span class="task__right-text-span">0</span> Todo</p>
-              <p class="task__right-text task__right-text-second"><span class="task__right-text-span">0</span> Done</p>
+              <div class="task__box">
+                <p class="task__right-text"><span class="task__right-text-span">0</span> Todo</p>
+                <p class="task__right-text task__right-text-second"><span class="task__right-text-span">0</span> Done</p>
+                <p class="task__right-text task__right-text-second"><span class="task__right-text-span">0</span><span class="task__right-span">Task</span></p>
+                <p class="task__right-text task__right-text-third"><span class="task__right-text-span">0</span> Low</p>
+                <p class="task__right-text task__right-text-fiveth"><span class="task__right-text-span">0</span> Medium</p>
+                <p class="task__right-text task__right-text-fourth"><span class="task__right-text-span">0</span> High</p>
+              </div>
+              
 
             </div>
             <div class="task__right-top-trash">
@@ -694,7 +716,6 @@
           </div>
           <div class="task__right-inputform">
             <input placeholder="Search plans" id="task-right-input" class="task__right-input" type="text">
-            <label class="task__right-input-label" for="task-right-input">Search</label>
           </div>
           <div class="task__main">
           </div>
