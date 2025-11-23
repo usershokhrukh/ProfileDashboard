@@ -1,128 +1,78 @@
 //profile dashboard
-const elBurger = document.querySelector(".navbar__burger");
-const elTextArea = document.querySelector(".navbar__textarea");
-const elIconPath = document.querySelector(".navbar__icons-path");
-const elProfileFormButton = document.querySelector(".profileform__button");
-const elMainLoader = document.querySelector(".main__loader");
-const elBody = document.querySelector("body");
-const elTitle = document.querySelector(".navbar__title");
-const elLink = document.querySelectorAll(".navbar__link");
-const elLeftIcons = document.querySelectorAll(".navbar__left-icons");
-const elDayBox = document.querySelectorAll(".navbar__day-box");
-const elNavbarIcon = document.querySelectorAll(".navbar__profile");
-const elNavbarBurgerItems = document.querySelectorAll(".navbar__burger-items");
-const elHeaderBoxBurger = document.querySelector(".navbar__box-phone");
-const elNavbarIconUser = document.querySelectorAll(".navbar__icon-user");
-const elIconSet = document.querySelector(".navbar__profile-choose");
-const elProfileBoxTop = document.querySelector(".navbar__profile-box-top");
-const elTextInfo = document.querySelectorAll(".navbar__text-info");
-const elProfileTextSpan = document.querySelectorAll(".navbar__profile-sub");
-const elNavbarButton = document.querySelector(".navbar__profile-button");
-const elProfileClose = document.querySelector(".navbar__profile-close");
-const elProfileForm = document.querySelector(".profileform__form");
-const elProfileText = document.querySelectorAll(".profileform__text");
-const elProfileInputs = document.querySelectorAll(".profileform__input");
-const elProfileColors = document.querySelectorAll(".navbar__profile-colors");
-const elProfileId = document.querySelectorAll(".profileform__id");
-const elProfileTextId = document.querySelectorAll(".profileform__textid");
-const elAbout = document.querySelector(".about");
-const elAboutText = document.querySelectorAll(".about__text");
-let reportGroups = 0;
-let reportGroupsSecond = 0;
-let reportDone = 0;
-let windowSize = window.innerWidth;
-let showHideReport = false;
-let showHideIconSet = false;
-let nightLight = false;
-let userEntered = false;
-var includesEmailGlobal = false;
-let elProfileINputCheck = false;
-let elEmailChecked = false;
-let color = "black";
-let burgerAnimate = false;
-let colorChange = false;
-let dayNight = false;
-let showChoose = false;
-let hasText = false;
-let profileColorsIndex = 0;
-let profileColorsBg = "var(--colorUserOpacity)";
-let profileColor = "var(--colorUser)";
-let showNavbarSections = false;
-let innerStatus = false;
+const elBurger = document.querySelector(".navbar__burger"); // for responsive burger
+const elTextArea = document.querySelector(".navbar__textarea"); // profile choose textArea
+const elProfileFormButton = document.querySelector(".profileform__button"); // save profile
+const elMainLoader = document.querySelector(".main__loader"); // save profile loader
+const elBody = document.querySelector("body"); // html body
+const elTitle = document.querySelector(".navbar__title"); // profile dashboard title
+const elLink = document.querySelectorAll(".navbar__link"); // navbar__link
+const elLeftIcons = document.querySelectorAll(".navbar__left-icons"); // navbar__left-icons night day
+const elDayBox = document.querySelectorAll(".navbar__day-box"); // night day wrapper
+const elNavbarIcon = document.querySelectorAll(".navbar__profile"); // navbar icon ~user
+const elNavbarBurgerItems = document.querySelectorAll(".navbar__burger-items"); // navbar burger items
+const elHeaderBoxBurger = document.querySelector(".navbar__box-phone"); // responsive navbar box
+const elIconSet = document.querySelector(".navbar__profile-choose"); // navbar profile dashboard choose
+const elProfileBoxTop = document.querySelector(".navbar__profile-box-top"); // choose top
+const elProfileTextSpan = document.querySelectorAll(".navbar__profile-sub"); // navbar__profile-sub
+const elNavbarButton = document.querySelector(".navbar__profile-button"); // navbar icon set button
+const elProfileClose = document.querySelector(".navbar__profile-close"); // choose close X
+const elProfileForm = document.querySelector(".profileform__form"); // profile form
+const elProfileText = document.querySelectorAll(".profileform__text"); //profile form texts
+const elProfileInputs = document.querySelectorAll(".profileform__input"); // profile inputs register
+const elProfileColors = document.querySelectorAll(".navbar__profile-colors"); // navbar variety colors
+const elProfileId = document.querySelectorAll(".profileform__id"); // profile random id
+const elProfileTextId = document.querySelectorAll(".profileform__textid"); // profile random text id
+const elAbout = document.querySelector(".about"); // navbar about box
+const elAboutText = document.querySelectorAll(".about__text"); // about box texts
+let reportGroups = 0; // report main todo
+let reportGroupsSecond = 0; // report for done
+let reportDone = 0; // report done show
+let windowSize = window.innerWidth; // window passive width
+let showHideReport = false; // for responsive box-phone burger
+let userEntered = false; // for change color profile color
+var includesEmailGlobal = false; // profile form 3 includes '@' for hoisting
+let elEmailChecked = false; // includes email checked
+let color = "black"; // color night day => black white;
+let burgerAnimate = false; // animated burger x or =
+let colorChange = false; // color black white changed
+let showChoose = false; // navbar choose showed
+let profileColorsIndex = 0; // variety color indexes
+let profileColorsBg = "var(--colorUserOpacity)"; // variety secondary color chooses
+let profileColor = "var(--colorUser)"; // variety color chooses
+let showNavbarSections = false; // showed about navbar
 elProfileId[0].textContent = Math.random().toFixed(6) * 10 ** 6;
 elProfileId[1].textContent = elProfileId[0].textContent;
 
 //-----------------------------------------------------------------
 // task profile
-let userNamesList = [];
-let userNamesIndex = [];
-let userOriginNamesIndex = [];
-// let userIndexBool = false;
-const elTaskRemove = document.querySelector(".task__remove");
-const elTask = document.querySelector(".task");
-const elTaskLeft = document.querySelector(".task__left");
-const elTaskTitle = document.querySelector(".task__title");
-const elTaskInputs = document.querySelector(".task__inputs");
-const elTaskText = document.querySelector(".task__text");
-const elTaskButton = document.querySelector(".task__button");
-const elTaskRight = document.querySelector(".task__right");
-const elTaskRightIcons = document.querySelector(".task__right-icons");
-const elTaskRightTextSpan = document.querySelectorAll(".task__right-text-span");
-const elTaskRightInput = document.querySelector(".task__right-input");
+let userNamesList = []; // check for repeated items task text
+let userNamesIndex = []; // check for entered indexes foe trash -1 | > 0 | <= 0
+let userOriginNamesIndex = []; // for not repeated userNamesIndex
+const elTaskRemove = document.querySelector(".task__remove"); // for remove tasks with indexes
+const elTask = document.querySelector(".task"); // task
+const elTaskLeft = document.querySelector(".task__left"); // task left for night day color
+const elTaskTitle = document.querySelector(".task__title"); // task title for night day color
+const elTaskInputs = document.querySelector(".task__inputs"); // task enter name input
+const elTaskText = document.querySelector(".task__text"); // check names for input & task items enter name of task
+const elTaskButton = document.querySelector(".task__button"); // push items & task left button
+const elTaskRight = document.querySelector(".task__right"); // task right night day
+const elTaskRightTextSpan = document.querySelectorAll(".task__right-text-span"); // for todo & done
+const elTaskRightInput = document.querySelector(".task__right-input"); // for search input right form
 const elTaskRightInputLabel = document.querySelector(
   ".task__right-input-label"
-);
-const elTaskRightTitle = document.querySelector(".task__right-title");
-const elTaskRightText = document.querySelector(".task__right-text");
-const elTaskMain = document.querySelector(".task__main");
-const elTaskTrashInput = document.querySelector(".task__trash-input");
-const elTaskTrashSpan = document.querySelector(".task__trash-span");
-const elTaskTrashText = document.querySelector(".task__trash-text");
-let elTaskItem = document.querySelectorAll(".task__items");
-// let showTaskForm = false;
-let userNameRepeat = false;
-let userStart = false;
+); // label for search input right form
+const elTaskRightTitle = document.querySelector(".task__right-title"); // for night day color existing tasks
+const elTaskRightText = document.querySelector(".task__right-text"); // for todo report bg color
+const elTaskMain = document.querySelector(".task__main"); // push entered items
+const elTaskTrashInput = document.querySelector(".task__trash-input"); // input for remove items with index -1 | > 0 | <= 0
+const elTaskTrashSpan = document.querySelector(".task__trash-span"); // show user entered index for remove or work with
+const elTaskTrashText = document.querySelector(".task__trash-text"); // remove trash warning
+let elTaskItem = document.querySelectorAll(".task__items"); // task items into main
+let userNameRepeat = false; // entered name repeated in items
+let userStart = false; // can user start do something with items
 // // functions
-// function showTask() {
-//   if (!colorChange) {
-//     elTaskLeft.style.cssText = `
-//     animation-name: showForm;
-//     animation-duration: 1s;
-//     animation-fill-mode: forwards;
-//     animation-delay: 3.5s;
-//     border: 1px solid ${profileColor};
-//     background-color: var(--colorGray);
-//   `;
-//     elTaskRight.style.cssText = `
-//     animation-name: showForm;
-//     animation-duration: 1s;
-//     animation-fill-mode: forwards;
-//     animation-delay: 3.5s;
-//     border: 1px solid ${profileColor};
-//     background-color: var(--colorGray);
-//   `;
-//   } else {
-//     elTaskLeft.style.cssText = `
-//     animation-name: showForm;
-//     animation-duration: 1s;
-//     animation-fill-mode: forwards;
-//     animation-delay: 3.5s;
-//     border: 1px solid ${profileColor};
-//     background-color: var(--colorDarkGray);
-//   `;
-//     elTaskRight.style.cssText = `
-//     animation-name: showForm;
-//     animation-duration: 1s;
-//     animation-fill-mode: forwards;
-//     animation-delay: 3.5s;
-//     border: 1px solid ${profileColor};
-//     background-color: var(--colorDarkGray);
-//   `;
-//   }
-// }
 
 function clearMain() {
-  // userIndexBool = false;
   elTaskTrashSpan.textContent = `${elTaskTrashInput.value.trim()}`;
   elTaskTrashInput.value = ``;
   if (!elTaskTrashSpan.textContent) {
@@ -140,29 +90,20 @@ function clearMain() {
     if (elTaskTrashSpan.textContent == "-1") {
       const elTaskItemText = document.querySelectorAll(".task__items-text");
       reportGroups = 0;
+      console.log(elTaskItemText);
+      console.log(elTaskItemText.length);
+      console.log(userNamesIndex);
+
       for (var i = 0; i < elTaskItemText.length; i++) {
         elTaskItemText[i].style.cssText = `
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
       `;
         userNamesIndex.push(i + 1);
-        const userOriginNamesCheck = false;
-        for (var i = 0; i < userOriginNamesIndex.length; i++) {
-          if (userOriginNamesIndex[i] == i + 1) {
-            userOriginNamesCheck = true;
-          }
-        }
-        if (userOriginNamesCheck) {
-          userOriginNamesIndex.push(i + 1);
-          console.log(userOriginNamesIndex);
-        }
-        inputRealIndex = true;
       }
-      console.log(userNamesIndex);
 
       reportDone = reportGroupsSecond;
       elTaskRightTextSpan[1].textContent = reportDone;
-
       elTaskRightTextSpan[0].textContent = `${reportGroups}`;
     } else if (
       Number(elTaskTrashSpan.textContent) > 0 &&
@@ -208,22 +149,6 @@ function clearMain() {
 }
 
 //code
-elTaskRightInputLabel.addEventListener("click", () => {
-  console.log("1");
-
-  const elTaskItemText = document.querySelectorAll(".task__items-text");
-  for (var i = 0; i < elTaskItemText.length; i++) {
-    console.log("2");
-
-    if (elTaskItemText[i].textContent == elTaskRightInput.value.trim()) {
-      console.log("3");
-
-      elTaskItemText[i].style.cssText = `
-        background-color: var(--colorUserYellowOpacity);
-      `;
-    }
-  }
-});
 
 elTaskRemove.addEventListener("click", () => {
   clearMain();
@@ -231,55 +156,6 @@ elTaskRemove.addEventListener("click", () => {
     elTaskTrashText.style.cssText = `
       color: var(--colorBlack);
     `;
-  }
-});
-let inputRealIndex = false;
-elTaskRightInput.addEventListener("input", (e) => {
-  console.log(userNamesIndex);
-
-  let real = e.target.value.trim();
-  if (userStart && real) {
-    const elTaskItemText = document.querySelectorAll(".task__items-text");
-    const indexesCheckTrash = false;
-    for (var i = 0; i < elTaskItemText.length; i++) {
-      for (var a = 0; a < userOriginNamesIndex.length; a++) {
-        inputRealIndex = true;
-        if (userOriginNamesIndex[a] != i + 1) {
-          console.log(a);
-
-          if (
-            elTaskItemText[i].textContent
-              .toLowerCase()
-              .includes(real.toLowerCase())
-          ) {
-            elTaskItemText[i].style.cssText = `
-            color: var(--colorUserYellowOpacity);
-         `;
-          } else {
-            elTaskItemText[i].style.cssText = `
-              color: var(--colorBlack);
-            `;
-          }
-        }
-      }
-    }
-  } else {
-    const elTaskItemText = document.querySelectorAll(".task__items-text");
-    for (var i = 0; i < elTaskItemText.length; i++) {
-      for (var a = 0; a < userOriginNamesIndex.length; a++) {
-        if (userOriginNamesIndex[a] == i + 1) {
-          elTaskItemText[i].style.cssText = `
-          color: var(--colorBlack);
-          text-decoration-line: line-through;
-          text-decoration-thickness: 2px;
-        `;
-        } else {
-          elTaskItemText[i].style.cssText = `
-          color: var(--colorBlack);
-        `;
-        }
-      }
-    }
   }
 });
 
@@ -299,108 +175,107 @@ elTaskButton.addEventListener("click", (e) => {
     userNamesList.push(`${elTaskInputs.value.trim()}`);
   }
 
-    if (!elTaskInputs.value.trim()) {
-      enterStart = false;
-      elTaskText.textContent = `Enter name of task`;
-      if (!colorChange) {
-        elTaskInputs.style.cssText = `
+  if (!elTaskInputs.value.trim()) {
+    enterStart = false;
+    elTaskText.textContent = `Enter name of task`;
+    if (!colorChange) {
+      elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-      } else {
-        elTaskInputs.style.cssText = `
+    } else {
+      elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
           border: 1px solid red;
         `;
-      }
+    }
 
-      elTaskText.style.cssText = `
+    elTaskText.style.cssText = `
         animation-name: warningTask;
         animation-duration: 0.4s;
         animation-fill-mode: forwards;
         color: red;
       `;
+  } else {
+    if (!colorChange) {
+      elTaskInputs.style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
     } else {
+      elTaskInputs.style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+    }
+
+    elTaskText.style.cssText = `
+        animation: none;
+        color: var(--colorUser);
+      `;
+    enterStart = true;
+  }
+  if (enterStart) {
+    if (userNameRepeat) {
+      elTaskText.textContent = `Name is repeating`;
       if (!colorChange) {
         elTaskInputs.style.cssText = `
           background-color: var(--white);
           color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
-        `;
+          border: 1px solid red;
+          `;
+
+        elTaskText.style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
       } else {
         elTaskInputs.style.cssText = `
           background-color: var(--colorOpacityBlack);
           color: var(--colorBlack);
-          border: 1px solid var(--colorUser);
-        `;
-      }
+          border: 1px solid red;
+          `;
 
-      elTaskText.style.cssText = `
-        animation: none;
-        color: var(--colorUser);
-      `;
-      enterStart = true;
+        elTaskText.style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
+      }
     }
-    if (enterStart) {
-      if (userNameRepeat) {
-        elTaskText.textContent = `Name is repeating`;
-        if (!colorChange) {
-          elTaskInputs.style.cssText = `
-          background-color: var(--white);
-          color: var(--colorBlack);
-          border: 1px solid red;
-          `;
 
-          elTaskText.style.cssText = `
-          animation-name: warningTask;
-          animation-duration: 0.4s;
-          animation-fill-mode: forwards;
-          color: red;
-          `;
-        } else {
-          elTaskInputs.style.cssText = `
-          background-color: var(--colorOpacityBlack);
-          color: var(--colorBlack);
-          border: 1px solid red;
-          `;
-
-          elTaskText.style.cssText = `
-          animation-name: warningTask;
-          animation-duration: 0.4s;
-          animation-fill-mode: forwards;
-          color: red;
-          `;
-        }
-      }
-
-      if (!userNameRepeat) {
-        reportGroups++;
-        reportGroupsSecond++;
-        elTaskMain.innerHTML += `
+    if (!userNameRepeat) {
+      reportGroups++;
+      reportGroupsSecond++;
+      elTaskMain.innerHTML += `
           <div class="task__items">
               <p class="task__items-text"><span class="task__items-text-span">${reportGroupsSecond}</span>  ${elTaskInputs.value.trim()}</p>
             </div>
         `;
-        userStart = true;
-        elTaskRightTextSpan[0].textContent = `${reportGroups}`;
-        elTaskItem = document.querySelectorAll(".task__items");
-        elTaskInputs.value = ``;
-        for (var i = 0; i < elTaskItem.length; i++) {
-          if (!colorChange) {
-            elTaskItem[i].style.cssText = `
+      userStart = true;
+      elTaskRightTextSpan[0].textContent = `${reportGroups}`;
+      elTaskItem = document.querySelectorAll(".task__items");
+      elTaskInputs.value = ``;
+      for (var i = 0; i < elTaskItem.length; i++) {
+        if (!colorChange) {
+          elTaskItem[i].style.cssText = `
               background-color: var(--white)
             `;
-          } else {
-            elTaskItem[i].style.cssText = `
+        } else {
+          elTaskItem[i].style.cssText = `
               background-color: var(--colorOpacityBlack);
             `;
-          }
         }
       }
     }
-
+  }
 });
 
 //-------------------------------------------------------------------
@@ -860,19 +735,18 @@ function blackToWhite() {
     }
   }
 
-    elTaskLeft.style.cssText = `
+  elTaskLeft.style.cssText = `
     animation-none;
     visibility: visible;
     border: 1px solid ${profileColor};
     background-color: var(--colorGray);
   `;
-    elTaskRight.style.cssText = `
+  elTaskRight.style.cssText = `
     animation-none;
     visibility: visible;
     border: 1px solid ${profileColor};
     background-color: var(--colorGray);
   `;
-
 
   for (var i = 0; i <= 5; i++) {
     elProfileInputs[i].style.cssText = `
@@ -1082,13 +956,13 @@ function whiteToBlack() {
     }
   }
 
-    elTaskLeft.style.cssText = `
+  elTaskLeft.style.cssText = `
     animation-none;
     visibility: visible;
     border: 1px solid ${profileColor};
     background-color: var(--colorDarkGray);
   `;
-    elTaskRight.style.cssText = `
+  elTaskRight.style.cssText = `
     animation-none;
     visibility: visible;
     border: 1px solid ${profileColor};
@@ -1300,8 +1174,8 @@ elDayBox[0].addEventListener("click", () => {
               `;
   }
 
-  if (!dayNight) {
-    dayNight = true;
+  if (!colorChange) {
+    colorChange = true;
     whiteToBlack();
     elLeftIcons[0].style.cssText = `
             visibility: visible;
@@ -1318,7 +1192,7 @@ elDayBox[0].addEventListener("click", () => {
             visibility: hidden;
           `;
   } else {
-    dayNight = false;
+    colorChange = false;
     blackToWhite();
     elLeftIcons[0].style.cssText = `
             visibility: hidden;
@@ -1371,8 +1245,8 @@ elDayBox[1].addEventListener("click", () => {
                 animation: none;
             `;
   }
-  if (!dayNight) {
-    dayNight = true;
+  if (!colorChange) {
+    colorChange = true;
     whiteToBlack();
     elLeftIcons[2].style.cssText = `
             visibility: visible;
@@ -1389,7 +1263,7 @@ elDayBox[1].addEventListener("click", () => {
             visibility: hidden;
           `;
   } else {
-    dayNight = false;
+    colorChange = false;
     blackToWhite();
     elLeftIcons[2].style.cssText = `
             visibility: hidden;
@@ -1522,11 +1396,10 @@ function start() {
               animation: none;
               display: none;
             `;
-    showHideIconSet = false;
   });
 
   elNavbarIcon[0].addEventListener("click", () => {
-    if (!showHideIconSet) {
+    if (!showChoose) {
       showChoose = true;
       if (!colorChange) {
         elIconSet.style.cssText = `
@@ -1547,20 +1420,17 @@ function start() {
               border: 1px solid ${profileColor};
             `;
       }
-
-      showHideIconSet = true;
     } else {
       showChoose = false;
       elIconSet.style.cssText = `
               animation: none;
               display: none;
             `;
-      showHideIconSet = false;
     }
   });
 
   elNavbarIcon[1].addEventListener("click", () => {
-    if (!showHideIconSet) {
+    if (!showChoose) {
       showChoose = true;
       if (!colorChange) {
         elIconSet.style.cssText = `
@@ -1586,15 +1456,12 @@ function start() {
                 
               `;
       }
-
-      showHideIconSet = true;
     } else {
       showChoose = false;
       elIconSet.style.cssText = `
               animation: none;
               display: none;
             `;
-      showHideIconSet = false;
     }
   });
 
@@ -1783,9 +1650,18 @@ elProfileInputsWork(2);
 elProfileInputsWork(3);
 elProfileInputsWork(4);
 elProfileInputsWork(5);
-
-function keyDown() {
-    if (!elTaskInputs.value.trim()) {
+function inputRepeatCheck(value) {  
+  for (var i = 0; i < userNamesList.length; i++) {
+    if (userNamesList[i] == value) {
+      userNameRepeat = true;
+      break;
+    } else {
+      userNameRepeat = false;
+    }
+  }
+  
+  if (!userStart) {
+    if (!value) {
       elTaskText.textContent = `Enter name of task`;
       if (!colorChange) {
         elTaskInputs.style.cssText = `
@@ -1808,7 +1684,7 @@ function keyDown() {
         color: red;
       `;
     } else {
-      elTaskText.textContent = `Enter name of task`;
+      elTaskText.textContent = `You can add`;
       if (!colorChange) {
         elTaskInputs.style.cssText = `
           background-color: var(--white);
@@ -1828,8 +1704,91 @@ function keyDown() {
         color: var(--colorUser);
       `;
     }
+  } else {
+    if (!value) {
+      elTaskText.textContent = `Enter name of task`;
+      if (!colorChange) {
+        elTaskInputs.style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+      } else {
+        elTaskInputs.style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+        `;
+      }
 
+      elTaskText.style.cssText = `
+        animation-name: warningTask;
+        animation-duration: 0.4s;
+        animation-fill-mode: forwards;
+        color: red;
+      `;
+    } else if (userNameRepeat) {
+      elTaskText.textContent = `Name is repeating`;
+      if (!colorChange) {
+        elTaskInputs.style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid red;
+          `;
 
+        elTaskText.style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
+      } else {
+        elTaskInputs.style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid red;
+          `;
+
+        elTaskText.style.cssText = `
+          animation-name: warningTask;
+          animation-duration: 0.4s;
+          animation-fill-mode: forwards;
+          color: red;
+          `;
+      }
+    } else {
+      elTaskText.textContent = `You can add`;
+      if (!colorChange) {
+        elTaskInputs.style.cssText = `
+          background-color: var(--white);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+      } else {
+        elTaskInputs.style.cssText = `
+          background-color: var(--colorOpacityBlack);
+          color: var(--colorBlack);
+          border: 1px solid var(--colorUser);
+        `;
+      }
+
+      elTaskText.style.cssText = `
+        animation: none;
+        color: var(--colorUser);
+      `;
+    }
+  }
+}
+elTaskInputs.addEventListener("input", (e) => {
+  const taskInputValue = e.target.value.trim();
+  inputRepeatCheck(taskInputValue);
+});
+
+function keyDown() {
+  // elTaskInputs.addEventListener("input", (e) => {
+  //   const taskInputValue = e.target.value.trim();
+  //   inputRepeatCheck(taskInputValue);
+  // });
   if (elTextArea.value.trim()) {
     if (!colorChange) {
       elTextArea.style.cssText = `
