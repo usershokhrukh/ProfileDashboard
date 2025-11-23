@@ -838,10 +838,32 @@ li {
   color: white;
   font-family: "Open Sans";
   font-size: 14px;
+  font-weight: 600;
+}
+.task__hide-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: center;
+  background-color: var(--colorUser);
+  padding: 2px 15px;
+  border-radius: 2px;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-weight: 500;
+}
+.task__hide-text:hover {
+  opacity: 0.8;
+}
+.task__hide-text:active {
+  opacity: 1;
 }
 .task__right-inputform {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   justify-content: space-between;
   gap: 20px;
   padding: 0px 35px;
@@ -849,7 +871,6 @@ li {
 .task__right-input, .task__trash-input {
   font-family: "Open Sans";
   padding: 8px 4px;
-  width: 100%;
   border-radius: 4px;
   border: none;
   outline: none;
@@ -919,6 +940,9 @@ li {
   border-radius: 3px;
   box-shadow: 0px 0px 20px -14px var(--colorOpacityBlack);
 }
+.task__search-span-text {
+  color: var(--colorUserYellow);
+}
 .task__items-text {
   font-family: "Open Sans";
   font-weight: 700;
@@ -931,6 +955,13 @@ li {
 }
 .task__high-text {
   color: var(--colorUserYellowOpacity);
+}
+.task__items-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-content: start;
+  flex-grow: 1;
 }
 
 @media (max-width: 900px) {

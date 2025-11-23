@@ -27,6 +27,7 @@ const elAboutText = document.querySelectorAll(".about__text"); // about box text
 const elTaskLevelsText = document.querySelectorAll(".task__levels-text"); // low medium high text
 const elTaskLevelWarning = document.querySelector(".task__level-warning"); // default low
 const elTaskRightSpan = document.querySelector(".task__right-span"); // task => tasks
+const elTaskHideText = document.querySelector(".task__hide-text");
 let allTasks = 0;
 let reportGroups = 0; // report main todo
 let reportGroupsSecond = 0; // report for done
@@ -75,14 +76,16 @@ const elTaskTrashText = document.querySelector(".task__trash-text"); // remove t
 let elTaskItem = document.querySelectorAll(".task__items"); // task items into main
 let userNameRepeat = false; // entered name repeated in items
 let userStart = false; // can user start do something with items
+let itemsHide = false; // hide show items done
 // // functions
 
 function clearMain() {
-  if (((elTaskTrashInput.value.trim() > 0) || (elTaskTrashInput.value.trim() == -1)) ) {
+  if (
+    elTaskTrashInput.value.trim() > 0 ||
+    elTaskTrashInput.value.trim() == -1
+  ) {
     if (elTaskTrashInput.value.trim()) {
       elTaskTrashSpan.textContent = `${elTaskTrashInput.value.trim()}`;
-      console.log("1");
-      
     }
   }
   elTaskTrashInput.value = ``;
@@ -98,19 +101,32 @@ function clearMain() {
 
   if (elTaskTrashSpan.textContent) {
     const elTaskItemText = document.querySelectorAll(".task__items-text");
+
     if (elTaskTrashSpan.textContent == "-1") {
       const elTaskItemText = document.querySelectorAll(".task__items-text");
-      reportGroups = 0;
-      console.log(elTaskItemText);
-      console.log(elTaskItemText.length);
-      console.log(userNamesIndex);
 
+      reportGroups = 0;
       for (var i = 0; i < elTaskItemText.length; i++) {
+        // itemsTextColor = "var(--colorDarkGray)";
         elTaskItemText[i].style.cssText = `
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
+          color: ${itemsTextColor};
       `;
+        itemsTextColor = "var(--colorBlack)";
         userNamesIndex.push(i + 1);
+      }
+
+      if (itemsHide) {
+        for (var i = 1; i <= elTaskItem.length; i++) {
+          for (var a = 0; a < userNamesIndex.length; a++) {
+            if (i == userNamesIndex[a]) {
+              elTaskItem[i - 1].style.cssText = `
+          display: none;
+        `;
+            }
+          }
+        }
       }
 
       reportDone = reportGroupsSecond;
@@ -132,23 +148,25 @@ function clearMain() {
       }
 
       userNamesIndex.push(elTaskTrashSpan.textContent);
-      const userOriginNamesCheck = false;
-      for (var i = 0; i < userOriginNamesIndex.length; i++) {
-        if (userOriginNamesIndex[i] == elTaskTrashSpan.textContent) {
-          userOriginNamesCheck = true;
-        }
-      }
-      if (userOriginNamesCheck) {
-        userOriginNamesIndex.push(i + 1);
-        console.log(userOriginNamesIndex);
-      }
-      console.log(userNamesIndex);
-
       const elTaskItemText = document.querySelectorAll(".task__items-text");
+      // itemsTextColor = "var(--colorDarkGray)";
       elTaskItemText[Number(elTaskTrashSpan.textContent) - 1].style.cssText = `
           text-decoration-line: line-through;
           text-decoration-thickness: 2px;
+          color: ${itemsTextColor};
       `;
+      itemsTextColor = "var(--colorBlack)";
+      if (itemsHide) {
+        for (var i = 1; i <= elTaskItem.length; i++) {
+          for (var a = 0; a < userNamesIndex.length; a++) {
+            if (i == userNamesIndex[a]) {
+              elTaskItem[i - 1].style.cssText = `
+          display: none;
+        `;
+            }
+          }
+        }
+      }
 
       elTaskRightTextSpan[1].textContent = reportDone;
       elTaskRightTextSpan[0].textContent = `${reportGroups}`;
@@ -182,10 +200,152 @@ function levelsCheck(index) {
       break;
     }
   }
+}
 
-  console.log(tasksLevel);
+function itemsToHideShow() {
+  elTaskItem = document.querySelectorAll(".task__items");
+
+  if (!itemsHide) {
+    itemsHide = true;
+    for (var i = 1; i <= elTaskItem.length; i++) {
+      for (var a = 0; a < userNamesIndex.length; a++) {
+        if (i == userNamesIndex[a]) {
+          elTaskItem[i - 1].style.cssText = `
+          display: none;
+          // visibility: hidden;
+        `;
+        }
+      }
+    }
+    elTaskHideText.textContent = `Show done`;
+  } else {
+    itemsHide = false;
+    for (var i = 1; i <= elTaskItem.length; i++) {
+      for (var a = 0; a < userNamesIndex.length; a++) {
+        if (i == userNamesIndex[a]) {
+          if (!colorChange) {
+            elTaskItem[i - 1].style.cssText = `
+          display: flex;
+          // visibility: visible;
+          background-color: var(--white);
+        `;
+          } else {
+            elTaskItem[i - 1].style.cssText = `
+          display: flex;
+          // visibility: visible;
+          background-color: var(--colorOpacityBlack);
+        `;
+          }
+        }
+      }
+    }
+    elTaskHideText.textContent = `Hide done`;
+  }
 }
 //code
+let itemsTextColor = "var(--colorBlack)";
+elTaskRightInput.addEventListener("input", (e) => {
+  let searchValue = e.target.value.trim();
+  // console.log(searchValue);
+  const elTaskItemText = document.querySelectorAll(".task__items-text-right");
+  let searchInputValue = `<span class="task__search-span-text">${searchValue}</span>`;
+
+  for (var i = 1; i <= elTaskItem.length; i++) {
+    if (userNamesIndex.length) {
+      // for (var a = 0; a < userNamesIndex.length; a++) {
+      // if (i != userNamesIndex[a]) {
+
+      if (searchValue) {
+        if (
+          elTaskItemText[i - 1].textContent
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        ) {
+          elTaskItemText[i - 1].style.cssText = `
+            color: var(--colorUserYellow);
+          `;
+        } else {
+          elTaskItemText[i - 1].style.cssText = `
+            color: ${itemsTextColor};
+          `;
+        }
+      } else {
+        elTaskItemText[i - 1].style.cssText = `
+            color: ${itemsTextColor};
+          `;
+      }
+      if (searchValue == elTaskItemText[i - 1].textContent) {
+        elTaskItem[i - 1].style.cssText = `
+              order: -1;
+              background-color: var(--colorUserOpacity);
+              transform: scale(1.02);
+            `;
+      } else {
+        if (!colorChange) {
+          elTaskItem[i - 1].style.cssText = `
+              order: 0;
+              background-color: var(--white);
+            `;
+        } else {
+          elTaskItem[i - 1].style.cssText = `
+              order: 0;
+              background-color: var(--colorOpacityBlack);
+            `;
+        }
+      }
+      itemsHide = false;
+      elTaskHideText.textContent = `Hide done`;
+      // }
+      // }
+    } else {
+      if (searchValue) {
+        if (
+          elTaskItemText[i - 1].textContent
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        ) {
+          elTaskItemText[i - 1].style.cssText = `
+            color: var(--colorUserYellow);
+          `;
+        } else {
+          elTaskItemText[i - 1].style.cssText = `
+            color: ${itemsTextColor};
+          `;
+        }
+      } else {
+        elTaskItemText[i - 1].style.cssText = `
+            color: ${itemsTextColor};
+          `;
+      }
+
+      if (searchValue == elTaskItemText[i - 1].textContent) {
+        elTaskItem[i - 1].style.cssText = `
+              order: -1;
+              background-color: var(--colorUserOpacity);
+              transform: scale(1.02);
+            `;
+      } else {
+        if (!colorChange) {
+          elTaskItem[i - 1].style.cssText = `
+              order: 0;
+              background-color: var(--white);
+            `;
+        } else {
+          elTaskItem[i - 1].style.cssText = `
+              order: 0;
+              background-color: var(--colorOpacityBlack);
+            `;
+        }
+      }
+      itemsHide = false;
+      elTaskHideText.textContent = `Hide done`;
+    }
+  }
+});
+
+elTaskHideText.addEventListener("click", () => {
+  itemsToHideShow();
+});
 
 elTaskLevelsText[0].addEventListener("click", () => {
   levelsCheck(0);
@@ -321,35 +481,40 @@ elTaskButton.addEventListener("click", (e) => {
       reportGroupsSecond++;
       elTaskMain.innerHTML += `
           <div class="task__items">
-              <p class="task__items-text"><span class="task__items-text-span">${reportGroupsSecond}</span>  ${elTaskInputs.value.trim()}</p>
+              <div class="task__items-box">
+              <span class="task__items-text-span">${reportGroupsSecond}</span>
+              <p class="task__items-text">  <span class="task__items-text-right">${elTaskInputs.value.trim()}</span></p>
+              </div>
+              
               <p class="task__levels-text ${tasksLevel}">${tasksLevel}</p>
             </div>
         `;
+      elTaskItem = document.querySelectorAll(".task__items");
+      itemsHide = false;
+      elTaskHideText.textContent = `Hide done`;
       userStart = true;
       elTaskRightTextSpan[0].textContent = `${reportGroups}`;
-      elTaskItem = document.querySelectorAll(".task__items");
       elTaskInputs.value = ``;
       allTasks++;
-      switch(tasksLevel) {
-        case "low" : {
+      switch (tasksLevel) {
+        case "low": {
           reportLow++;
-          elTaskRightTextSpan[3].textContent = reportLow; 
+          elTaskRightTextSpan[3].textContent = reportLow;
           break;
         }
 
-        case "medium" : {
+        case "medium": {
           reportMedium++;
-          elTaskRightTextSpan[4].textContent = reportMedium; 
+          elTaskRightTextSpan[4].textContent = reportMedium;
           break;
         }
 
-        case "high" : {
+        case "high": {
           reportHigh++;
-          elTaskRightTextSpan[5].textContent = reportHigh; 
+          elTaskRightTextSpan[5].textContent = reportHigh;
           break;
         }
       }
-
 
       if (allTasks > 1) {
         elTaskRightSpan.textContent = "Tasks";
@@ -414,6 +579,10 @@ function profileColors(proColor) {
   elNavbarIcon[2].style.cssText = `
       border: 1px solid ${proColor};
       background-color: ${profileColorsBg};
+    `;
+
+  elTaskHideText.style.cssText = `
+      background-color: ${profileColor}
     `;
   if (windowSize < 650) {
     if (color == "white") {
